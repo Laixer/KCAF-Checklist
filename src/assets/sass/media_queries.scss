@@ -1,0 +1,128 @@
+/* ----- Media Queries -----  */
+
+@mixin transition {
+    transition: all .3s linear;
+}
+
+/* Large */
+@media only screen and (max-width: 1300px) {
+    #home {
+        form {
+            top: 6rem; right: 16rem;
+        }
+        article {
+            padding: 0 5rem;
+        }
+    }
+   
+    main header {
+        height: 34rem;
+        @include transition;
+    }
+
+    #nieuwsbrief .contentleft .tweets { margin-top: 8rem; }
+}
+
+
+/* Medium */
+@media only screen and (max-width: 1000px) {
+    header {
+        ul {
+            padding: 0 0.2rem;
+        }
+        li {
+            padding: 0 0.4rem;
+        }
+        li:nth-child(1) {
+            padding-left: 3rem;
+        }
+        a {
+            font-size: 1.1rem;
+        }
+    }
+
+    #home {
+        form { top: 6rem; right: 2rem; }
+        article { padding: 0 3rem; }
+    }
+    #documenten {
+        padding: 4rem 3rem;
+        @include transition;
+    }
+
+    #nieuwsbrief {
+        display: block;
+        padding: 1rem 3rem;
+        @include transition;
+        .contentleft .tweets { margin-top: 4rem; }
+    }
+}
+
+
+/* Small */
+@media only screen and (max-width: 564px) {
+    header {
+        ul { padding: 0 0.2rem; }
+        li { padding: 0 0.4rem; }
+        li:nth-child(1) { padding-left: 1rem; }
+        a { font-size: .9rem; }
+    }
+
+    img[alt="logo"] {
+        width: 2rem;
+        margin: 0;
+    }
+
+    main header {
+        height: 17rem;
+        @include transition;
+    }
+
+    #home {
+        form {
+            position: inherit;
+            min-width: 0;
+            margin: .5rem;
+            @include transition;
+        }
+        article {
+            padding: 0 1rem;
+            @include transition;
+        }
+        #risicoCheck {
+            min-width: 0;
+            img {
+                width: 10rem;
+            }
+            p {
+                padding-top: 1.2rem;
+                margin-bottom: .4rem;
+                font-size: 1rem;
+            }
+            .btn {
+                width: 95%;
+                margin: .3rem 0;
+            }
+        }
+    }
+    
+    #documenten {
+        padding: 1rem 1rem;
+        @include transition;
+    }
+
+    #nieuwsbrief {
+        display: block;
+        padding: 1rem 1rem;
+        @include transition;
+
+        .contentright {
+            article div:nth-child(1) { display: none; }
+            article div:nth-child(3) { display: none; }
+            article {
+                grid-template-columns: 1fr;
+                margin: 0 1rem;
+            }
+        }
+    }
+}

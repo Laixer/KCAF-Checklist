@@ -83,4 +83,6 @@ img[alt="logo"] {
     cursor: pointer;
     &:hover { text-decoration: underline; }
 }
+
+@import 'assets/sass/media_queries.scss';
 </style>
