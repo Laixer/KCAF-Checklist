@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style lang="scss">
-    main header {
+    .banner {
         background: url('../../static/img/bg-rdam.jpg');
         background-repeat: no-repeat;
         background-size: cover;

@@ -4,6 +4,7 @@
     <Header></Header>
     <Banner></Banner>
     <Home></Home>
+    <Documenten></Documenten>
   </div>
 </template>
 
@@ -11,13 +12,15 @@
 import Header from './components/Header.vue';
 import Banner from './components/Banner.vue';
 import Home from './components/Home.vue';
+import Documenten from './components/Documenten.vue';
 
 export default {
   name: 'app',
   components: {
     Header,
     Banner,
-    Home
+    Home,
+    Documenten
   }
 }
 </script>

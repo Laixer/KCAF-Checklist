@@ -31,7 +31,7 @@
                 <a @click.prevent="backCheck">Stap terug</a>
             </fieldset>
             <fieldset v-if="!funderingCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
-                <img src="img/postcodemap.png" alt="postcodemap">
+                <img src="../../static/img/postcodemap.png" alt="postcodemap">
                 <label for="postcodegebied">Postcodegebied: {{postcode}} - {{huisnummer}}</label>
                 <p>Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.</p>
                 <button class="btn-success" @click.prevent="goRisico">Ga verder </button>
@@ -39,7 +39,7 @@
             </fieldset>
             <fieldset v-if="!zipcodeCheck && risicoCheck" v-cloak id="risicoCheck">
                 <h1>U loopt mogelijk een risico</h1>
-                <img src="img/warning.png" alt="warning">
+                <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
                 <button class="btn-white" @click.prevent="process3">Ja </button>
                 <button class="btn-grey" @click.prevent="goAlert">Nee </button>

@@ -2,7 +2,7 @@
     <header>
         <nav>
             <ul>
-                <li><img src="img/KCAFLogo.png" alt="logo"></li>
+                <li><img src="../../static/img/KCAFLogo.png" alt="logo"></li>
                 <li><a href="#" class="active">Home </a></li>
                 <li><a href="#">Klacht </a></li>
                 <li><a href="#documenten">Documenten </a></li>
