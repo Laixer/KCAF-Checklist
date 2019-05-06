@@ -1,4 +1,3 @@
-import Head from '../components/Head.vue';
 import Header from '../components/Header.vue';
 import Home from '../components/Home.vue';
 
@@ -9,11 +8,6 @@ const routes = [
         children: [
             {
                 path: '/',
-                name: 'Head',
-                component: Head
-            },
-            {
-                path: '/',
                 name: 'Header',
                 component: Header
             },
@@ -22,7 +16,6 @@ const routes = [
                 name: 'Home',
                 component: Home
             },
-
         ]
     },
     // { path: '*', component: NotFound}
