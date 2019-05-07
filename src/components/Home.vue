@@ -65,13 +65,54 @@
                     <input type="radio" name="eigenaar_huurder" id="tenant">
                     <label for="tenant"> Huurder</label>
                 </div>
-                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
+                <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
             <fieldset v-if="!risicoCheck && !klachtCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
                 <button class="btn-success" @click.prevent="documenten"> Bekijk documenten</button>
                 <a @click.prevent="backRisico">Stap terug</a>
+            </fieldset>
+            <fieldset v-if="!klachtCheck && schadeCheck" v-cloak id="schadeCheck">
+                <h1>Wat veroorzaakt de schade in uw woning?</h1>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="wrongFunding">
+                    <label for="wrongFunding"> Verkeerd gefundeerd bij bouw van de woning</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="fungiBacteria">
+                    <label for="fungiBacteria"> Aantasting van houten palen door schimmels of bacteriën</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="pushedUp">
+                    <label for="pushedUp"> Woning wordt van de funderingspalen omhoog gedrukt</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="pulledDown">
+                    <label for="pulledDown"> Funderingspalen worden naar beneden getrokken</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="subsidence">
+                    <label for="subsidence"> Bodemdaling</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="weight">
+                    <label for="weight"> Fundering niet meer berekend op huidige gewicht</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="plantRoots">
+                    <label for="plantRoots"> Beschadiging fundering door (planten)wortels</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="other">
+                    <label for="other"> Iets anders, namelijk:</label>
+                </div>
+                <div>
+                    <input type="radio" name="schadeveroorzaking" id="unknown">
+                    <label for="unknown"> Weet ik niet</label>
+                </div>
+                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
+                <a @click.prevent="backKlacht">Stap terug</a>
             </fieldset>
         </form>
         <article>
@@ -98,6 +139,7 @@ export default {
             risicoCheck: true,
             klachtCheck: true,
             alertCheck: true,
+            schadeCheck: true,
         }
     },
     methods: {
@@ -140,6 +182,13 @@ export default {
         },
         backKlacht: function() {
             this.klachtCheck = true;
+        },
+
+        goSchade: function() {
+            this.klachtCheck = false;
+        },
+        backSchade: function() {
+            this.schadeCheck = true;
         },
 
         goAlert: function() {
@@ -218,7 +267,7 @@ export default {
                 margin: .7rem 0rem;
                 input[type="radio"] {
                     width: auto;
-                    margin: 0; padding: 0;
+                    margin: 4px; padding: 0;
                     display: inherit;
                 }
                 label {
@@ -273,7 +322,7 @@ export default {
         #klachtCheck {
             max-width: 42rem;
             h1 { 
-                color: #39434E;
+                color: $black;
                 font-size: 1.8rem;
                 font-weight: 600;
                 margin: 0;
@@ -308,6 +357,35 @@ export default {
                 }
             }
             button { margin-bottom: 1rem; margin-top: 3rem; }
+        }
+        #schadeCheck {
+            min-width: 42rem;
+            h1 { 
+                color: $black;
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin: 0;
+                margin-bottom: 1rem;
+                margin-top: 0.5rem;
+            }
+            div {
+                display: flex;
+                margin: .3rem 0rem;
+                input[type="radio"] {
+                    width: auto;
+                    margin: 4px 4px 0 0; padding: 0;
+                    display: inherit;
+                    border: 2px solid $darkblue;
+                }
+                label {
+                    color: $black;
+                    font-size: 1.3rem;
+                    margin: 0; padding: 0;
+                    padding-left: .4rem;
+                    display: inherit;
+                }
+            }
+            button { margin-bottom: 1rem; margin-top: 1rem; }
         }
         #alertCheck {
             p { font-size: 1.1rem; }
