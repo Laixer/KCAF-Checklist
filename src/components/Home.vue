@@ -46,7 +46,8 @@
                 <a @click.prevent="backZipcode">Stap terug</a>
             </fieldset>
             <fieldset v-if="!risicoCheck && !alertCheck && klachtCheck" v-cloak id="klachtCheck">
-                <h1>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h1>
+                <h1>Klacht indienen over uw woning?</h1>
+                <h2>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h2>
                 <div>
                     <input type="radio" name="vrijstaand_bouwblok" id="detached">
                     <label for="detached"> Vrijstaand pand</label>
@@ -55,7 +56,7 @@
                     <input type="radio" name="vrijstaand_bouwblok" id="buildingBlock">
                     <label for="buildingBlock"> Onderdeel van een (bouw)blok</label>
                 </div>
-                <h1>Bent u de eigenaar of de huurder van uw woning?</h1>
+                <h2 class="mt-5">Bent u de eigenaar of de huurder van uw woning?</h2>
                 <div>
                     <input type="radio" name="eigenaar_huurder" id="owner">
                     <label for="owner"> Eigenaar</label>
@@ -65,7 +66,7 @@
                     <label for="tenant"> Huurder</label>
                 </div>
                 <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
-                <a @click.prevent="backCheck">Stap terug</a>
+                <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
             <fieldset v-if="!risicoCheck && !klachtCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
@@ -124,17 +125,25 @@ export default {
         },
         backRisico: function() {
             this.risicoCheck = true;
+            let checkForm = document.querySelector('#checkForm');
+            checkForm.classList.remove('center');
+            checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
 
         goKlacht: function() {
+            this.klachtCheck = true;
             this.risicoCheck = false;
             this.alertCheck = false;
+            let checkForm = document.querySelector('#checkForm');
+            checkForm.classList.add('center');
+            checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
         backKlacht: function() {
             this.klachtCheck = true;
         },
 
         goAlert: function() {
+            this.alertCheck = true;
             this.risicoCheck = false;
             this.klachtCheck = false;
         },
@@ -184,117 +193,159 @@ export default {
             padding: 1.6rem 1.5rem;
             box-shadow: 0px 0px 50px rgba(0,0,0, .35);
         }
-            fieldset { 
-                border: none; 
-                max-width: 25rem;
-                img[alt="postcodemap"] {
-                    position: relative;
-                    bottom: 2rem;
-                    right: 2.4rem;
-                    max-width: 15rem;
-                }
-            }
-            #funderingCheck {
-                h1 { 
-                    color: $darkblue;
-                    font-weight: 500;
-                    margin: 0;
-                    margin-bottom: 2rem;
-                }
-                div {
-                    display: flex;
-                    margin: .7rem 0rem;
-                    input[type="radio"] {
-                        width: auto;
-                        margin: 0; padding: 0;
-                        display: inherit;
-                    }
-                    label {
-                        color: $black;
-                        font-size: 1.3rem;
-                        margin: 0; padding: 0;
-                        padding-left: .4rem;
-                        display: inherit;
-                    }
-                }
-                button { margin-bottom: 1rem; margin-top: 3rem; }
-            }
-            #zipcodeCheck {
-                label {
-                    margin: -1rem 0 0 0;
-                }
-                p {
-                    font-size: 0.95rem;
-                    margin: 0.2rem 0 0 0;
-                }
-                button { margin-bottom: 1rem; margin-top: 1.2rem; }
-            }
-            #risicoCheck {
-                background-color: $blue;
-                color: #fff;
-                margin: -1.6rem -1.5rem;
-                min-width: 30rem;
-                min-height: 25rem;
-                text-align: center;
-                p {
-                    margin: 0.2rem 0 0 0;
-                    padding-top: 1.8rem;
-                    font-size: 1.2rem;
-                }
-                .btn-white {
-                    @extend %btn;
-                    margin: 1rem 0.6rem;
-                    color: rgb(24, 24, 24);
-                    width: 45%;
-                    box-shadow: 2px 2px 19px rgba(77, 77, 77, 0.25);
-                    font-size: 1.3rem;
-                    font-weight: 500;
-                    transition: all .1s linear;
-                    &:hover { background-color: rgb(195, 195, 195); }
-                }
-                .btn-grey {
-                    @extend .btn-white;
-                    background-color: rgb(213, 213, 213);
-                }
-                a { @extend %back-button; color: #dadada; }
-            }
-            #alertCheck {
-                p { font-size: 1.1rem; }
-                button { margin-bottom: 1rem; margin-top: 0rem; }
-                .newline { margin-bottom: 3rem; margin-top: 2rem;}
-            }
-            legend {
+        .center {
+            top: 15rem; right: 30rem;
+        }
+        fieldset { 
+            border: none; 
+            max-width: 25rem;
+            img[alt="postcodemap"] {
                 position: relative;
-                font-size: 1.8rem;
+                bottom: 2rem;
+                right: 2.4rem;
+                max-width: 15rem;
+            }
+        }
+        #funderingCheck {
+            h1 { 
                 color: $darkblue;
-                font-weight: 400;
-                padding-left: 1.3rem;
-                margin-bottom: 1.5rem;
-            
-                span {
-                    position: absolute; 
-                    left: 0rem; top: 7px;
-                    background-color: #129DDD;
-                    height: 1.4rem;  width: 0.4rem; 
+                font-weight: 500;
+                margin: 0;
+                margin-bottom: 2rem;
+            }
+            div {
+                display: flex;
+                margin: .7rem 0rem;
+                input[type="radio"] {
+                    width: auto;
+                    margin: 0; padding: 0;
+                    display: inherit;
+                }
+                label {
+                    color: $black;
+                    font-size: 1.3rem;
+                    margin: 0; padding: 0;
+                    padding-left: .4rem;
+                    display: inherit;
                 }
             }
+            button { margin-bottom: 1rem; margin-top: 3rem; }
+        }
+        #zipcodeCheck {
             label {
-                color: $darkblue;
-                font-size: 1.2rem; font-weight: 400;
-                margin-bottom: 1.1rem;
-                display: block;
+                margin: -1rem 0 0 0;
             }
-            input {
-                display: block;
-                background: none;
-                border: none; border-bottom: 1px solid $darkblue;
-                width: 100%;
-                font-size: 1rem;
-                margin-bottom: 2rem; padding-bottom: 0.4rem;
-                &:focus {
-                    border-bottom: 1px solid $blue;
+            p {
+                font-size: 0.95rem;
+                margin: 0.2rem 0 0 0;
+            }
+            button { margin-bottom: 1rem; margin-top: 1.2rem; }
+        }
+        #risicoCheck {
+            background-color: $blue;
+            color: #fff;
+            margin: -1.6rem -1.5rem;
+            min-width: 30rem;
+            min-height: 25rem;
+            text-align: center;
+            p {
+                margin: 0.2rem 0 0 0;
+                padding-top: 1.8rem;
+                font-size: 1.2rem;
+            }
+            .btn-white {
+                @extend %btn;
+                margin: 1rem 0.6rem;
+                color: rgb(24, 24, 24);
+                width: 45%;
+                box-shadow: 2px 2px 19px rgba(77, 77, 77, 0.25);
+                font-size: 1.3rem;
+                font-weight: 500;
+                transition: all .1s linear;
+                &:hover { background-color: rgb(195, 195, 195); }
+            }
+            .btn-grey {
+                @extend .btn-white;
+                background-color: rgb(213, 213, 213);
+            }
+            a { @extend %back-button; color: #dadada; }
+        }
+        #klachtCheck {
+            max-width: 42rem;
+            h1 { 
+                color: #39434E;
+                font-size: 1.8rem;
+                font-weight: 600;
+                margin: 0;
+                margin-bottom: 3rem;
+                margin-top: 0.5rem;
+                text-align: center;
+            }
+            h2 { 
+                color: $black;
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin: 0;
+                margin-bottom: 1rem;
+            }
+            .mt-5 {
+                margin-top: 2rem;
+            }
+            div {
+                display: flex;
+                margin: .7rem 0rem;
+                input[type="radio"] {
+                    width: auto;
+                    margin: 4px; padding: 0;
+                    display: inherit;
+                }
+                label {
+                    color: $black;
+                    font-size: 1.3rem;
+                    margin: 0; padding: 0;
+                    padding-left: .4rem;
+                    display: inherit;
                 }
             }
+            button { margin-bottom: 1rem; margin-top: 3rem; }
+        }
+        #alertCheck {
+            p { font-size: 1.1rem; }
+            button { margin-bottom: 1rem; margin-top: 0rem; }
+            .newline { margin-bottom: 3rem; margin-top: 2rem;}
+        }
+        legend {
+            position: relative;
+            font-size: 1.8rem;
+            color: $darkblue;
+            font-weight: 400;
+            padding-left: 1.3rem;
+            margin-bottom: 1.5rem;
+        
+            span {
+                position: absolute; 
+                left: 0rem; top: 7px;
+                background-color: #129DDD;
+                height: 1.4rem;  width: 0.4rem; 
+            }
+        }
+        label {
+            color: $darkblue;
+            font-size: 1.2rem; font-weight: 400;
+            margin-bottom: 1.1rem;
+            display: block;
+        }
+        input {
+            display: block;
+            background: none;
+            border: none; border-bottom: 1px solid $darkblue;
+            width: 100%;
+            font-size: 1rem;
+            margin-bottom: 2rem; padding-bottom: 0.4rem;
+            &:focus {
+                border-bottom: 1px solid $blue;
+            }
+        }
         .btn-success {
             @extend %btn;
             background-color: $blue;
