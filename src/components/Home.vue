@@ -68,48 +68,19 @@
                 <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!risicoCheck && !klachtCheck && alertCheck" v-cloak id="alertCheck">
+            <fieldset v-if="!risicoCheck && !klachtCheck && !schadeCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
                 <button class="btn-success" @click.prevent="documenten"> Bekijk documenten</button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
             <fieldset v-if="!klachtCheck && schadeCheck" v-cloak id="schadeCheck">
                 <h1>Wat veroorzaakt de schade in uw woning?</h1>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="wrongFunding">
-                    <label for="wrongFunding"> Verkeerd gefundeerd bij bouw van de woning</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="fungiBacteria">
-                    <label for="fungiBacteria"> Aantasting van houten palen door schimmels of bacteriën</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="pushedUp">
-                    <label for="pushedUp"> Woning wordt van de funderingspalen omhoog gedrukt</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="pulledDown">
-                    <label for="pulledDown"> Funderingspalen worden naar beneden getrokken</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="subsidence">
-                    <label for="subsidence"> Bodemdaling</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="weight">
-                    <label for="weight"> Fundering niet meer berekend op huidige gewicht</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="plantRoots">
-                    <label for="plantRoots"> Beschadiging fundering door (planten)wortels</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="other">
-                    <label for="other"> Iets anders, namelijk:</label>
-                </div>
-                <div>
-                    <input type="radio" name="schadeveroorzaking" id="unknown">
-                    <label for="unknown"> Weet ik niet</label>
+                <div v-for="schade in schades" :key="schade.id">
+                    <div>
+                        <input type="radio" name="schadeveroorzaking" :id="schade.id" @change = "enableText">
+                        <label :for="schade.id"> {{ schade.labelText }}</label>
+                        <input type="text" id="inputDamage" v-if="schade.inputField">
+                    </div>
                 </div>
                 <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
                 <a @click.prevent="backKlacht">Stap terug</a>
@@ -140,10 +111,58 @@ export default {
             klachtCheck: true,
             alertCheck: true,
             schadeCheck: true,
+            schades: [
+                {
+                    'id': 'wrongFunding',
+                    'labelText': 'Verkeerd gefundeerd bij bouw van de woning'
+                },
+                {
+                    'id': 'fungiBacteria',
+                    'labelText': 'Aantasting van houten palen door schimmels of bacteriën'
+                },
+                {
+                    'id': 'pushedUp',
+                    'labelText': 'Woning wordt van de funderingspalen omhoog gedrukt'
+                },
+                {
+                    'id': 'pulledDown',
+                    'labelText': 'Funderingspalen worden naar beneden getrokken'
+                },
+                {
+                    'id': 'subsidence',
+                    'labelText': 'Bodemdaling'
+                },
+                {
+                    'id': 'weight',
+                    'labelText': 'Fundering niet meer berekend op huidige gewicht'
+                },
+                {
+                    'id': 'plantRoots',
+                    'labelText': 'Beschadiging fundering door (planten)wortels '
+                },
+                {
+                    'id': 'other',
+                    'labelText': 'Iets anders, namelijk:',
+                    'inputField': true,
+                    'value': "Voer hier de reden in"
+                },
+                {
+                    'id': 'unknown',
+                    'labelText': 'Weet ik niet'
+                },
+            ],
         }
     },
     methods: {
-
+        enableText: function(e) {
+            let inputDamage = document.querySelector('#inputDamage');
+            if (e.target.id === "other") {
+                inputDamage.style.display = "block";
+                inputDamage.focus({preventScroll:false});
+            } else {
+                inputDamage.style.display = "none";
+            }
+        },
         backCheck: function() {
             this.check = true;
         },
@@ -195,6 +214,7 @@ export default {
             this.alertCheck = true;
             this.risicoCheck = false;
             this.klachtCheck = false;
+            this.schadeCheck = false;
         },
 
         documenten: function() {
@@ -376,6 +396,11 @@ export default {
                     margin: 4px 4px 0 0; padding: 0;
                     display: inherit;
                     border: 2px solid $darkblue;
+                }
+                input[type="text"] {
+                    width: auto;
+                    margin: 0 0 0 1rem;
+                    display: none;
                 }
                 label {
                     color: $black;
