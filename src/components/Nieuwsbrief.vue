@@ -25,15 +25,62 @@
                 </div>
                 <div></div>
             </article>
-            <div v-for="article in articles" :key="article.id">
-                <article class="article2">
-                    <div v-if="article.textLeft == true">
-                        <p> {{ article.amount }} </p><span></span>
-                    </div>
-                    <div><a href="#"> {{ article.date }}</a></div>
-                    <div></div>
-                </article>
-            </div>
+            <article class="article2">
+                <div>
+                    <p> 1 nieuwsartikel </p><span></span>
+                </div>
+                <div><a href="#"> April 2019</a></div>
+                <div></div>
+            </article>
+            <article class="article3">
+                <div></div>
+                <div><a href="#"> Januari 2019</a></div>
+                <div>
+                    <p> 2 nieuwsartikel </p><span></span>
+                </div>
+            </article>
+            <article  class="article4">
+                <div>
+                    <p> 5 nieuwsartikel </p><span></span>
+                </div>
+                <div><a href="#"> Juli 2018</a></div>
+                <div></div>
+            </article>
+            <article class="article5">
+                <div></div>
+                <div><a href="#"> Juni 2018</a></div>
+                <div>
+                    <p> 8 nieuwsartikel </p><span></span>
+                </div>
+            </article>
+            <article class="article6">
+                <div>
+                    <p> 1 nieuwsartikel </p><span></span>
+                </div>
+                <div><a href="#"> Mei 2018</a></div>
+                <div></div>
+            </article>
+            <article class="article7">
+                <div></div>
+                <div><a href="#"> April 2018</a></div>
+                <div>
+                    <p> 3 nieuwsartikel </p><span></span>
+                </div>
+            </article>
+            <article class="article8">
+                <div>
+                    <p> 1 nieuwsartikel </p><span></span>
+                </div>
+                <div><a href="#"> November 2017</a></div>
+                <div></div>
+            </article>
+            <article class="article9">
+                <div></div>
+                <div><a href="#"> Oktober 2017</a></div>
+                <div>
+                    <p> 1 nieuwsartikel </p><span></span>
+                </div>
+            </article>
         </div>
     </section>
 </template>
@@ -70,7 +117,7 @@ export default {
                 {
                     'id': 2,
                     'date': 'Januari 2019',
-                    'textLeft': true,
+                    'textLeft': false,
                     'amount': '2 nieuwsartikelen',
                 },
             ]

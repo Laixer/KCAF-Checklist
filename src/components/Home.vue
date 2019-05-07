@@ -41,11 +41,33 @@
                 <h1>U loopt mogelijk een risico</h1>
                 <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
-                <button class="btn-white" @click.prevent="process3">Ja </button>
+                <button class="btn-white" @click.prevent="goKlacht">Ja </button>
                 <button class="btn-grey" @click.prevent="goAlert">Nee </button>
                 <a @click.prevent="backZipcode">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!risicoCheck && alertCheck" v-cloak id="alertCheck">
+            <fieldset v-if="!risicoCheck && !alertCheck && klachtCheck" v-cloak id="klachtCheck">
+                <h1>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h1>
+                <div>
+                    <input type="radio" name="vrijstaand_bouwblok" id="detached">
+                    <label for="detached"> Vrijstaand pand</label>
+                </div>
+                <div>
+                    <input type="radio" name="vrijstaand_bouwblok" id="buildingBlock">
+                    <label for="buildingBlock"> Onderdeel van een (bouw)blok</label>
+                </div>
+                <h1>Bent u de eigenaar of de huurder van uw woning?</h1>
+                <div>
+                    <input type="radio" name="eigenaar_huurder" id="owner">
+                    <label for="owner"> Eigenaar</label>
+                </div>
+                <div>
+                    <input type="radio" name="eigenaar_huurder" id="tenant">
+                    <label for="tenant"> Huurder</label>
+                </div>
+                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
+                <a @click.prevent="backCheck">Stap terug</a>
+            </fieldset>
+            <fieldset v-if="!risicoCheck && !klachtCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
                 <button class="btn-success" @click.prevent="documenten"> Bekijk documenten</button>
                 <a @click.prevent="backRisico">Stap terug</a>
@@ -73,6 +95,7 @@ export default {
             funderingCheck: true,
             zipcodeCheck: true,
             risicoCheck: true,
+            klachtCheck: true,
             alertCheck: true,
         }
     },
@@ -103,8 +126,17 @@ export default {
             this.risicoCheck = true;
         },
 
+        goKlacht: function() {
+            this.risicoCheck = false;
+            this.alertCheck = false;
+        },
+        backKlacht: function() {
+            this.klachtCheck = true;
+        },
+
         goAlert: function() {
             this.risicoCheck = false;
+            this.klachtCheck = false;
         },
 
         documenten: function() {
