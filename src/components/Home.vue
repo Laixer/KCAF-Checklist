@@ -296,13 +296,7 @@ export default {
 </script>
 
 <style lang="scss">
-    $lightblue: #82C2E8;
-    $blue: #28ABE3;
-    $darkblue: #004265;
-    $lightblack: #3B4552;
-    $black: #39434E;
-    $grey: #DEDEDE;
-    $main-font: 'Helvetica Neue';
+    @import '../assets/sass/mixins.scss';
 
     #home {
         form {
@@ -393,10 +387,8 @@ export default {
         #klachtCheck {
             max-width: 42rem;
             h1 { 
-                color: $black;
+                @extend %h1;
                 font-size: 1.8rem;
-                font-weight: 600;
-                margin: 0;
                 margin-bottom: 3rem;
                 margin-top: 0.5rem;
                 text-align: center;
@@ -408,25 +400,8 @@ export default {
                 margin: 0;
                 margin-bottom: 1rem;
             }
-            .mt-5 {
-                margin-top: 2rem;
-            }
-            div {
-                display: flex;
-                margin: .7rem 0rem;
-                input[type="radio"] {
-                    width: auto;
-                    margin: 4px; padding: 0;
-                    display: inherit;
-                }
-                label {
-                    color: $black;
-                    font-size: 1.3rem;
-                    margin: 0; padding: 0;
-                    padding-left: .4rem;
-                    display: inherit;
-                }
-            }
+            .mt-5 { margin-top: 2rem; }
+            div { @extend %checkDiv; margin: .7rem 0rem; }
             button { margin-bottom: 1rem; margin-top: 3rem; }
         }
         #schadeCheck {
@@ -439,28 +414,7 @@ export default {
                 margin-bottom: 1rem;
                 margin-top: 0.5rem;
             }
-            div {
-                display: flex;
-                margin: .3rem 0rem;
-                input[type="radio"] {
-                    width: auto;
-                    margin: 4px 4px 0 0; padding: 0;
-                    display: inherit;
-                    border: 2px solid $darkblue;
-                }
-                input[type="text"] {
-                    width: auto;
-                    margin: 0 0 0 1rem;
-                    display: none;
-                }
-                label {
-                    color: $black;
-                    font-size: 1.3rem;
-                    margin: 0; padding: 0;
-                    padding-left: .4rem;
-                    display: inherit;
-                }
-            }
+            div { @extend %checkDiv; }
             button { margin-bottom: 1rem; margin-top: 1rem; }
         }
         #herkenCheck {
@@ -474,28 +428,7 @@ export default {
                 margin-top: 0.2rem;
             }
             p { margin: 0; font-size: .8rem;}
-            div {
-                display: flex;
-                margin: .3rem 0rem;
-                input[type="checkbox"] {
-                    width: auto;
-                    margin: 4px 4px 0 0; padding: 0;
-                    display: inherit;
-                    border: 2px solid $darkblue;
-                }
-                input[type="text"] {
-                    width: auto;
-                    margin: 0 0 0 1rem;
-                    display: none;
-                }
-                label {
-                    color: $black;
-                    font-size: 1.3rem;
-                    margin: 0; padding: 0;
-                    padding-left: .4rem;
-                    display: inherit;
-                }
-            }
+            div { @extend %checkDiv; input[type='checkbox'] { @extend %inputselect;}}
             button { margin-bottom: 1rem; margin-top: 1rem; }
             .block { display: block !important; }
         }

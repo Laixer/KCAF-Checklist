@@ -61,13 +61,6 @@ export default {
 </script>
 
 <style lang="scss">
-    $lightblue: #82C2E8;
-    $blue: #28ABE3;
-    $darkblue: #004265;
-    $lightblack: #3B4552;
-    $black: #39434E;
-    $grey: #DEDEDE;
-    $main-font: 'Helvetica Neue';
     
     #documenten {
         padding: 4rem 5rem;
