@@ -90,7 +90,7 @@
                 <p>Meerdere opties mogelijk</p>
                 <div v-for="last in lasten" :key="last.id">
                     <div>
-                        <input type="checkbox" name="lasten" :id="last.id" @change = "enableText">
+                        <input type="checkbox" name="lasten" :id="last.id" @change = "enableTextCheckbox">
                         <label :for="last.id"> {{ last.labelText }}</label>
                         <input type="text" id="inputLast" v-if="last.inputField">
                     </div>
@@ -264,6 +264,14 @@ export default {
             }
         },
 
+        enableTextCheckbox: function(e) {
+            let inputLast = document.querySelector('#inputLast');
+            if (e.target.id === "otherCheckbox") {
+                console.log('dd')
+                inputLast.classList.toggle("block");
+            }
+        },
+
         goHerken: function() {
             this.schadeCheck = false;
             this.herkenCheck = true;
@@ -295,26 +303,6 @@ export default {
     $black: #39434E;
     $grey: #DEDEDE;
     $main-font: 'Helvetica Neue';
-
-    %btn {
-        width: 100%; height: 2.8rem;
-        border: none;
-        font-size: 1.2rem;
-        color: #fff;
-        margin-top: 1.5rem;
-        box-shadow: 2px 2px 8px #b1b1b1;
-        cursor: pointer;
-    }
-
-    %back-button {
-        color: rgb(170, 170, 170);
-        text-decoration: none;
-        font-weight: 300;
-        text-shadow: none;
-        font-size: 1rem;
-        cursor: pointer;
-        &:hover { text-decoration: underline; }
-    }
 
     #home {
         form {
