@@ -82,8 +82,21 @@
                         <input type="text" id="inputDamage" v-if="schade.inputField">
                     </div>
                 </div>
-                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
+                <button class="btn-success" @click.prevent="goHerken">Ga verder </button>
                 <a @click.prevent="backKlacht">Stap terug</a>
+            </fieldset>
+            <fieldset v-if="!schadeCheck && herkenCheck" v-cloak id="herkenCheck">
+                <h1>Herken je éen van de volgende punten in uw woning?</h1>
+                <p>Meerdere opties mogelijk</p>
+                <div v-for="last in lasten" :key="last.id">
+                    <div>
+                        <input type="checkbox" name="lasten" :id="last.id" @change = "enableText">
+                        <label :for="last.id"> {{ last.labelText }}</label>
+                        <input type="text" id="inputLast" v-if="last.inputField">
+                    </div>
+                </div>
+                <button class="btn-success" @click.prevent="">Ga verder </button>
+                <a @click.prevent="backSchade">Stap terug</a>
             </fieldset>
         </form>
         <article>
@@ -111,6 +124,7 @@ export default {
             klachtCheck: true,
             alertCheck: true,
             schadeCheck: true,
+            herkenCheck: true,
             schades: [
                 {
                     'id': 'wrongFunding',
@@ -143,26 +157,55 @@ export default {
                 {
                     'id': 'other',
                     'labelText': 'Iets anders, namelijk:',
-                    'inputField': true,
-                    'value': "Voer hier de reden in"
+                    'inputField': true
                 },
                 {
                     'id': 'unknown',
                     'labelText': 'Weet ik niet'
                 },
             ],
+            lasten: [
+                {
+                    'id': 'clamping',
+                    'labelText': 'Ik heb last van klemmende deuren en/of ramen'
+                },
+                {
+                    'id': 'rip',
+                    'labelText': 'Er zit een scheur in mijn muur/gevel'
+                },
+                {
+                    'id': 'crooked',
+                    'labelText': 'Mijn woning staat wat scheef'
+                },
+                {
+                    'id': 'highWater',
+                    'labelText': 'Er is sprake van hoog water in de kruipruimte'
+                },
+                {
+                    'id': 'entrance',
+                    'labelText': 'De drempel van de entree ligt hoger dan het trottoir/weg'
+                },
+                {
+                    'id': 'home',
+                    'labelText': 'De drempel van mijn woning ligt lager dan het trottoir/weg'
+                },
+                {
+                    'id': 'floorsWalls',
+                    'labelText': 'Er is sprake van scheve vloeren/muren in mijn woning'
+                },
+                {
+                    'id': 'otherCheckbox',
+                    'labelText': 'Iets anders, namelijk:',
+                    'inputField': true
+                },
+                {
+                    'id': 'nothing',
+                    'labelText': 'Ik herken niets'
+                }
+            ],
         }
     },
     methods: {
-        enableText: function(e) {
-            let inputDamage = document.querySelector('#inputDamage');
-            if (e.target.id === "other") {
-                inputDamage.style.display = "block";
-                inputDamage.focus({preventScroll:false});
-            } else {
-                inputDamage.style.display = "none";
-            }
-        },
         backCheck: function() {
             this.check = true;
         },
@@ -204,15 +247,35 @@ export default {
         },
 
         goSchade: function() {
+            this.schadeCheck = true;
             this.klachtCheck = false;
         },
         backSchade: function() {
             this.schadeCheck = true;
         },
 
+        enableText: function(e) {
+            let inputDamage = document.querySelector('#inputDamage');
+            if (e.target.id === "other") {
+                inputDamage.style.display = "block";
+                inputDamage.focus({preventScroll:false});
+            } else {
+                inputDamage.style.display = "none";
+            }
+        },
+
+        goHerken: function() {
+            this.schadeCheck = false;
+            this.herkenCheck = true;
+        },
+        backHerken: function() {
+            this.herkenCheck = true;
+        },
+
         goAlert: function() {
             this.alertCheck = true;
             this.risicoCheck = false;
+            this.herkenCheck = false;
             this.klachtCheck = false;
             this.schadeCheck = false;
         },
@@ -411,6 +474,42 @@ export default {
                 }
             }
             button { margin-bottom: 1rem; margin-top: 1rem; }
+        }
+        #herkenCheck {
+            min-width: 42rem;
+            h1 { 
+                color: $black;
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin: 0;
+                margin-bottom: 0.4rem;
+                margin-top: 0.2rem;
+            }
+            p { margin: 0; font-size: .8rem;}
+            div {
+                display: flex;
+                margin: .3rem 0rem;
+                input[type="checkbox"] {
+                    width: auto;
+                    margin: 4px 4px 0 0; padding: 0;
+                    display: inherit;
+                    border: 2px solid $darkblue;
+                }
+                input[type="text"] {
+                    width: auto;
+                    margin: 0 0 0 1rem;
+                    display: none;
+                }
+                label {
+                    color: $black;
+                    font-size: 1.3rem;
+                    margin: 0; padding: 0;
+                    padding-left: .4rem;
+                    display: inherit;
+                }
+            }
+            button { margin-bottom: 1rem; margin-top: 1rem; }
+            .block { display: block !important; }
         }
         #alertCheck {
             p { font-size: 1.1rem; }
