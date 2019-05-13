@@ -98,14 +98,17 @@
                 <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
                 <a @click.prevent="backSchade">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!herkenCheck && uploadCheck" v-cloak id="uploadCheck">
+            <fieldset v-if="!herkenCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h1>Heeft u een onderzoeksrapport beschikbaar?</h1>
                 <div>
                     <input type="radio" name="onderzoeksrapport" id="researchYes">
                     <label for="researchYes"> Ja</label>
                 </div>
-                <div class="upload-container">
-
+                <div class="upload-container" @drop.prevent="dropHandler" @dragover.prevent="dragOverHandler">
+                    <input type="file" name="uploadrapport" id="uploadReport" disabled>
+                    <p class="filetext">Sleep het bestand hier</p>
+                    <img src="../../static/img/upload-button.png" alt="upload-button">
+                    <label class="btn-darkblue btn-disabled" for="uploadReport">Of selecteer een bestand</label>
                 </div>
                 <div class="mt-5">
                     <input type="radio" name="onderzoeksrapport" id="researchNo">
@@ -303,6 +306,42 @@ export default {
         },
         backUpload: function() {
             this.uploadCheck = true;
+        },
+        enableFileUpload: function(e) {
+            let uploadContainer = document.querySelector('.upload-container');
+            let uploadReport = document.querySelector('#uploadReport');
+            let fileButton = document.querySelector('.btn-disabled');
+            let dragText = document.querySelector('.filetext');
+            if (e.target.id === "researchYes") {
+                uploadContainer.style.border = "2px dashed #39434E";
+                uploadReport.disabled = false;
+                fileButton.classList.add("button-enabled");
+                dragText.style.color = '#39434E';
+            } else {
+                uploadContainer.style.border = "2px dashed #bfbdbd";
+                uploadReport.disabled = true;
+                fileButton.classList.remove("button-enabled");
+                dragText.style.color = '#bfbdbd';
+            }
+        },
+        dropHandler: function(e) {
+            if (e.dataTransfer.items) {
+                for (let i = 0; i < e.dataTransfer.items.length; i++) {
+                    if (e.dataTransfer.items[i].kind === 'file') {
+                        let file = e.dataTransfer.items[i].getAsFile();
+                        // eslint-disable-next-line
+                        document.querySelector('.filetext').innerHTML = file.name;
+                        document.querySelector('.filetext').style.color = "#28ABE3";
+                        document.querySelector('.upload-container').classList.remove('file-adding');
+                    }
+                }
+            }
+        },
+        dragOverHandler: function(e) {
+            if (e) {
+                document.querySelector('.filetext').innerHTML = "Afbeelding uploaden...";
+                document.querySelector('.upload-container').classList.add('file-adding');
+            }
         },
 
         goAlert: function() {
