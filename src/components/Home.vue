@@ -95,8 +95,24 @@
                         <input type="text" id="inputLast" v-if="last.inputField">
                     </div>
                 </div>
-                <button class="btn-success" @click.prevent="">Ga verder </button>
+                <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
                 <a @click.prevent="backSchade">Stap terug</a>
+            </fieldset>
+            <fieldset v-if="!herkenCheck && uploadCheck" v-cloak id="uploadCheck">
+                <h1>Heeft u een onderzoeksrapport beschikbaar?</h1>
+                <div>
+                    <input type="radio" name="onderzoeksrapport" id="researchYes">
+                    <label for="researchYes"> Ja</label>
+                </div>
+                <div class="upload-container">
+
+                </div>
+                <div class="mt-5">
+                    <input type="radio" name="onderzoeksrapport" id="researchNo">
+                    <label for="researchNo"> Nee</label>
+                </div>
+                <button class="btn-success" @click.prevent="">Ga verder </button>
+                <a @click.prevent="backHerken">Stap terug</a>
             </fieldset>
         </form>
         <article>
@@ -125,6 +141,7 @@ export default {
             alertCheck: true,
             schadeCheck: true,
             herkenCheck: true,
+            uploadCheck: true,
             schades: [
                 {
                     'id': 'wrongFunding',
@@ -267,8 +284,8 @@ export default {
         enableTextCheckbox: function(e) {
             let inputLast = document.querySelector('#inputLast');
             if (e.target.id === "otherCheckbox") {
-                console.log('dd')
                 inputLast.classList.toggle("block");
+                inputLast.focus({preventScroll:false});
             }
         },
 
@@ -280,12 +297,21 @@ export default {
             this.herkenCheck = true;
         },
 
+        goUpload: function() {
+            this.herkenCheck = false;
+            this.uploadCheck = true;
+        },
+        backUpload: function() {
+            this.uploadCheck = true;
+        },
+
         goAlert: function() {
             this.alertCheck = true;
             this.risicoCheck = false;
             this.herkenCheck = false;
             this.klachtCheck = false;
             this.schadeCheck = false;
+            this.uploadCheck = false;
         },
 
         documenten: function() {
@@ -297,192 +323,5 @@ export default {
 
 <style lang="scss">
     @import '../assets/sass/mixins.scss';
-
-    #home {
-        form {
-            position: absolute;
-            top: 25rem; right: 13rem;
-            min-width: 29rem; min-height: 22rem;
-            background-color: #F2F2F2;
-            padding: 1.6rem 1.5rem;
-            box-shadow: 0px 0px 50px rgba(0,0,0, .35);
-        }
-        .center {
-            top: 15rem; right: 30rem;
-        }
-        fieldset { 
-            border: none; 
-            max-width: 25rem;
-            img[alt="postcodemap"] {
-                position: relative;
-                bottom: 2rem;
-                right: 2.4rem;
-                max-width: 15rem;
-            }
-        }
-        #funderingCheck {
-            h1 { 
-                color: $darkblue;
-                font-weight: 500;
-                margin: 0;
-                margin-bottom: 2rem;
-            }
-            div {
-                display: flex;
-                margin: .7rem 0rem;
-                input[type="radio"] {
-                    width: auto;
-                    margin: 4px; padding: 0;
-                    display: inherit;
-                }
-                label {
-                    color: $black;
-                    font-size: 1.3rem;
-                    margin: 0; padding: 0;
-                    padding-left: .4rem;
-                    display: inherit;
-                }
-            }
-            button { margin-bottom: 1rem; margin-top: 3rem; }
-        }
-        #zipcodeCheck {
-            label {
-                margin: -1rem 0 0 0;
-            }
-            p {
-                font-size: 0.95rem;
-                margin: 0.2rem 0 0 0;
-            }
-            button { margin-bottom: 1rem; margin-top: 1.2rem; }
-        }
-        #risicoCheck {
-            background-color: $blue;
-            color: #fff;
-            margin: -1.6rem -1.5rem;
-            min-width: 30rem;
-            min-height: 25rem;
-            text-align: center;
-            p {
-                margin: 0.2rem 0 0 0;
-                padding-top: 1.8rem;
-                font-size: 1.2rem;
-            }
-            .btn-white {
-                @extend %btn;
-                margin: 1rem 0.6rem;
-                color: rgb(24, 24, 24);
-                width: 45%;
-                box-shadow: 2px 2px 19px rgba(77, 77, 77, 0.25);
-                font-size: 1.3rem;
-                font-weight: 500;
-                transition: all .1s linear;
-                &:hover { background-color: rgb(195, 195, 195); }
-            }
-            .btn-grey {
-                @extend .btn-white;
-                background-color: rgb(213, 213, 213);
-            }
-            a { @extend %back-button; color: #dadada; }
-        }
-        #klachtCheck {
-            max-width: 42rem;
-            h1 { 
-                @extend %h1;
-                font-size: 1.8rem;
-                margin-bottom: 3rem;
-                margin-top: 0.5rem;
-                text-align: center;
-            }
-            h2 { 
-                color: $black;
-                font-size: 1.3rem;
-                font-weight: 600;
-                margin: 0;
-                margin-bottom: 1rem;
-            }
-            .mt-5 { margin-top: 2rem; }
-            div { @extend %checkDiv; margin: .7rem 0rem; }
-            button { margin-bottom: 1rem; margin-top: 3rem; }
-        }
-        #schadeCheck {
-            min-width: 42rem;
-            h1 { 
-                color: $black;
-                font-size: 1.3rem;
-                font-weight: 600;
-                margin: 0;
-                margin-bottom: 1rem;
-                margin-top: 0.5rem;
-            }
-            div { @extend %checkDiv; }
-            button { margin-bottom: 1rem; margin-top: 1rem; }
-        }
-        #herkenCheck {
-            min-width: 42rem;
-            h1 { 
-                color: $black;
-                font-size: 1.3rem;
-                font-weight: 600;
-                margin: 0;
-                margin-bottom: 0.4rem;
-                margin-top: 0.2rem;
-            }
-            p { margin: 0; font-size: .8rem;}
-            div { @extend %checkDiv; input[type='checkbox'] { @extend %inputselect;}}
-            button { margin-bottom: 1rem; margin-top: 1rem; }
-            .block { display: block !important; }
-        }
-        #alertCheck {
-            p { font-size: 1.1rem; }
-            button { margin-bottom: 1rem; margin-top: 0rem; }
-            .newline { margin-bottom: 3rem; margin-top: 2rem;}
-        }
-        legend {
-            position: relative;
-            font-size: 1.8rem;
-            color: $darkblue;
-            font-weight: 400;
-            padding-left: 1.3rem;
-            margin-bottom: 1.5rem;
-        
-            span {
-                position: absolute; 
-                left: 0rem; top: 7px;
-                background-color: #129DDD;
-                height: 1.4rem;  width: 0.4rem; 
-            }
-        }
-        label {
-            color: $darkblue;
-            font-size: 1.2rem; font-weight: 400;
-            margin-bottom: 1.1rem;
-            display: block;
-        }
-        input {
-            display: block;
-            background: none;
-            border: none; border-bottom: 1px solid $darkblue;
-            width: 100%;
-            font-size: 1rem;
-            margin-bottom: 2rem; padding-bottom: 0.4rem;
-            &:focus {
-                border-bottom: 1px solid $blue;
-            }
-        }
-        .btn-success {
-            @extend %btn;
-            background-color: $blue;
-            &:hover {
-                transition: all .08s linear;
-                background-color: $darkblue;
-            }
-        }
-        a { @extend %back-button; }
-        article {
-            padding: 1rem 48rem 1rem 5rem;
-            max-width: 100%;
-            p { font-size: 1.2rem; }
-        }
-    }
-
+    @import '../assets/sass/home.scss';
 </style>
