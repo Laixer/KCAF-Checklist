@@ -1,5 +1,5 @@
 <template>
-    <header class="banner"></header>
+    <header class="banner" id="pageTop"></header>
 </template>
 
 <script>

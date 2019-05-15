@@ -130,6 +130,36 @@
 </template>
 
 <script>
+/* eslint-disable */
+const $ = require("jquery");
+
+$( document ).ready(function() { 
+		$(window).scroll(function() { 
+		    var Scroll = $(window).scrollTop() + 1,
+                SectionOneOffset = $('#pageTop').offset().top,
+                SectionTwoOffset = $('#documenten').offset().top,
+                SectionThreeOffset = $('#nieuwsbrief').offset().top;
+
+		    if (Scroll >= SectionOneOffset) {
+		        $(".menu-item-1").addClass("active");
+		    } else {
+		        $(".menu-item-1").removeClass("active");
+		    }
+			if (Scroll >= SectionTwoOffset) {
+		        $(".menu-item-2").addClass("active");
+				$(".menu-item-1").removeClass("active");
+		    } else {
+		        $(".menu-item-2").removeClass("active");
+		    }
+			if (Scroll >= SectionThreeOffset) {
+		        $(".menu-item-3").addClass("active");
+				$(".menu-item-2").removeClass("active");
+		    } else {
+		        $(".menu-item-3").removeClass("active");
+		    }
+		});
+});
+
 export default {
     name: 'Home',
     data () {

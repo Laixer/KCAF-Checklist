@@ -1,12 +1,11 @@
 <template>
     <header>
-        <nav>
+        <nav id="menu-center">
             <ul>
                 <li><img src="../../static/img/KCAFLogo.png" alt="logo"></li>
-                <li><a href="#" class="active">Home </a></li>
-                <li><a href="#">Klacht </a></li>
-                <li><a href="#documenten">Documenten </a></li>
-                <li><a href="#nieuwsbrief">Nieuwsbrief </a></li>
+                <li><a href="#" class="active menu-item-1">Home </a></li>
+                <li><a href="#documenten" class="menu-item-2">Documenten </a></li>
+                <li><a href="#nieuwsbrief" class="menu-item-3">Nieuwsbrief </a></li>
             </ul>
         </nav>
     </header>
@@ -36,12 +35,12 @@ export default {
         }
             ul {
                 display: grid;
-                grid-template-columns: 5fr repeat(4, 1fr);
+                grid-template-columns: 5fr repeat(3, 1fr);
                 align-items: center;
                 list-style-type: none;
             }
                 li {
-                    padding: 0 3rem;
+                    padding: 0 4rem;
                     max-height: 2.5rem;
                 }
                     a {
