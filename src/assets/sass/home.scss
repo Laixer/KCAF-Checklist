@@ -30,20 +30,12 @@
         div {
             display: flex;
             margin: .7rem 0rem;
-            input[type="radio"] {
-                width: auto;
-                margin: 4px; padding: 0;
-                display: inherit;
-            }
-            label {
-                color: $black;
-                font-size: 1.3rem;
-                margin: 0; padding: 0;
-                padding-left: .4rem;
-                display: inherit;
-            }
+            input[type="radio"] { display: none; }
+            @extend %radiobutton;
+            .radiolabel .radiomark:after { @extend %inputtype };
+            .radiomark { @extend %inputmark };
         }
-        button { margin-bottom: 1rem; margin-top: 3rem; }
+        button { margin-bottom: 1rem; margin-top: 0.72rem; }
     }
     #zipcodeCheck {
         label {
@@ -53,7 +45,7 @@
             font-size: 0.95rem;
             margin: 0.2rem 0 0 0;
         }
-        button { margin-bottom: 1rem; margin-top: 1.2rem; }
+        button { margin-bottom: 1rem; margin-top: 1.7rem; }
     }
     #risicoCheck {
         background-color: $blue;
@@ -62,9 +54,10 @@
         min-width: 30rem;
         min-height: 25rem;
         text-align: center;
+        img { width: 10.7rem; }
         p {
             margin: 0.2rem 0 0 0;
-            padding-top: 1.8rem;
+            padding-top: .8rem;
             font-size: 1.2rem;
         }
         .btn-white {
@@ -89,7 +82,7 @@
         h1 { 
             @extend %h1;
             font-size: 1.8rem;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             margin-top: 0.5rem;
             text-align: center;
         }
@@ -100,9 +93,16 @@
             margin: 0;
             margin-bottom: 1rem;
         }
-        .mt-5 { margin-top: 2rem; }
-        div { @extend %checkDiv; margin: .7rem 0rem; }
-        button { margin-bottom: 1rem; margin-top: 3rem; }
+        .mt-5 { margin-top: 4.7rem; }
+        div { 
+            @extend %checkDiv; 
+            margin: .7rem 0rem; 
+            input[type="radio"] { display: none; }
+            @extend %radiobutton;
+            .radiolabel .radiomark:after { @extend %inputtype };
+            .radiomark { @extend %inputmark };
+        }
+        button { margin-bottom: 1rem; margin-top: 3.1rem; }
     }
     #schadeCheck {
         min-width: 42rem;
@@ -114,9 +114,15 @@
             margin-bottom: 1rem;
             margin-top: 0.5rem;
         }
-        div { @extend %checkDiv; }
-        button { margin-bottom: 1rem; margin-top: 1rem; }
-        #inputDamage { display:none; width: auto; margin: 0 .5rem; }
+        div { 
+            @extend %checkDiv; 
+            input[type="radio"] { display: none; }
+            @extend %radiobutton;
+            .radiolabel .radiomark:after { @extend %inputtype };
+            .radiomark { @extend %inputmark };
+        }
+        button { margin-bottom: 1rem; margin-top: 1.3rem; }
+        #inputDamage { width: auto; margin: 0 .5rem; }
     }
     #herkenCheck {
         min-width: 42rem;
@@ -129,10 +135,15 @@
             margin-top: 0.2rem;
         }
         p { margin: 0; font-size: .8rem;}
-        div { @extend %checkDiv; input[type='checkbox'] { @extend %inputselect;}}
+        div { 
+            @extend %checkDiv; 
+            @extend %radiobutton;
+            input[type="checkbox"] { display: none; }
+            .radiolabel .radiomark:after { @extend %inputtype; border-radius: 0; };
+            .radiomark { @extend %inputmark; border-radius: 0; };
+        }
         button { margin-bottom: 1rem; margin-top: 1rem; }
-        .block { display: block !important; }
-        #inputLast { display:none; width: auto; margin: 0 .5rem; }
+        #inputLast { width: auto; margin: 0 .5rem; }
     }
     #uploadCheck {
         min-width: 42rem;
@@ -144,11 +155,18 @@
             margin-bottom: 0.4rem;
             margin-top: 0.2rem;
         }
-        div { @extend %checkDiv; }
-        .mt-5 { margin-top: 1rem; }
-        button { margin-bottom: 1rem; margin-top: 1rem; }
+        div { 
+            @extend %checkDiv; 
+            input[type="radio"] { display: none; }
+            @extend %radiobutton;
+            .radiolabel .radiomark:after { @extend %inputtype };
+            .radiomark { @extend %inputmark };
+        }
+        .mt-3 { margin-top: 1rem; }
+        .mt-5 { margin-top: 2rem; }
+        button { margin-bottom: 1rem; margin-top: 2rem; }
         .upload-container {
-            height: 18.6rem;
+            height: 19.5rem;
             border: 2px dashed #bfbdbd;
             display: grid;
             align-items: flex-start;

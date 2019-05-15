@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'assets/sass/mixins.scss';
+  @import 'assets/sass/extends.scss';
 
   html {
       box-sizing: border-box;

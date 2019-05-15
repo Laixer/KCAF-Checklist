@@ -12,8 +12,10 @@
             <fieldset v-if="!check && funderingCheck" v-cloak id="funderingCheck">
                 <h1>Op welke type fundering staat uw woning gebouwt?</h1>
                 <div v-for="found in foundation" :key="found.id">
-                    <input type="radio" name="funderingoptie" :id="found.id">
-                    <label :for="found.id"> {{ found.labelText }}</label>
+                    <label :for="found.id" class="radiolabel"> {{ found.labelText }}
+                        <input type="radio" name="funderingoptie" :id="found.id">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
                 <a @click.prevent="backCheck">Stap terug</a>
@@ -37,21 +39,29 @@
                 <h1>Klacht indienen over uw woning?</h1>
                 <h2>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h2>
                 <div>
-                    <input type="radio" name="vrijstaand_bouwblok" id="detached">
-                    <label for="detached"> Vrijstaand pand</label>
+                    <label for="detached" class="radiolabel"> Vrijstaand pand
+                        <input type="radio" name="vrijstaand_bouwblok" id="detached">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <div>
-                    <input type="radio" name="vrijstaand_bouwblok" id="buildingBlock">
-                    <label for="buildingBlock"> Onderdeel van een (bouw)blok</label>
+                    <label for="buildingBlock" class="radiolabel"> Onderdeel van een (bouw)blok
+                        <input type="radio" name="vrijstaand_bouwblok" id="buildingBlock">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <h2 class="mt-5">Bent u de eigenaar of de huurder van uw woning?</h2>
                 <div>
-                    <input type="radio" name="eigenaar_huurder" id="owner">
-                    <label for="owner"> Eigenaar</label>
+                    <label for="owner" class="radiolabel"> Eigenaar
+                        <input type="radio" name="eigenaar_huurder" id="owner">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <div>
-                    <input type="radio" name="eigenaar_huurder" id="tenant">
-                    <label for="tenant"> Huurder</label>
+                    <label for="tenant" class="radiolabel"> Huurder
+                        <input type="radio" name="eigenaar_huurder" id="tenant">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
                 <a @click.prevent="backRisico">Stap terug</a>
@@ -65,9 +75,11 @@
                 <h1>Wat veroorzaakt de schade in uw woning?</h1>
                 <div v-for="damage in damages" :key="damage.id">
                     <div>
-                        <input type="radio" name="schadeveroorzaking" :id="damage.id" @change = "enableText">
-                        <label :for="damage.id"> {{ damage.labelText }}</label>
-                        <input type="text" id="inputDamage" v-if="damage.inputField">
+                        <label :for="damage.id" class="radiolabel"> {{ damage.labelText }}
+                            <input type="radio" name="schadeveroorzaking" :id="damage.id" @change="enableText">
+                            <input type="text" id="inputDamage" v-if="damage.inputField" disabled>
+                            <span class="radiomark"></span>
+                        </label>
                     </div>
                 </div>
                 <button class="btn-success" @click.prevent="goHerken">Ga verder </button>
@@ -76,11 +88,13 @@
             <fieldset v-if="!schadeCheck && herkenCheck" v-cloak id="herkenCheck">
                 <h1>Herken je éen van de volgende punten in uw woning?</h1>
                 <p>Meerdere opties mogelijk</p>
-                <div v-for="last in lasten" :key="last.id">
+                <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
                     <div>
-                        <input type="checkbox" name="lasten" :id="last.id" @change = "enableTextCheckbox">
-                        <label :for="last.id"> {{ last.labelText }}</label>
-                        <input type="text" id="inputLast" v-if="last.inputField">
+                        <label :for="last.id" class="radiolabel"> {{ last.labelText }}
+                            <input type="checkbox" name="lasten" :id="last.id">
+                            <input type="text" id="inputLast" v-if="last.inputField" disabled>
+                            <span class="radiomark"></span>
+                        </label>
                     </div>
                 </div>
                 <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
@@ -88,9 +102,11 @@
             </fieldset>
             <fieldset v-if="!herkenCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h1>Heeft u een onderzoeksrapport beschikbaar?</h1>
-                <div>
-                    <input type="radio" name="onderzoeksrapport" id="researchYes">
-                    <label for="researchYes"> Ja</label>
+                <div class="mt-3">
+                    <label for="researchYes" class="radiolabel"> Ja
+                        <input type="radio" name="onderzoeksrapport" id="researchYes">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <div class="upload-container" @drop.prevent="dropHandler" @dragover.prevent="dragOverHandler">
                     <input type="file" name="uploadrapport" id="uploadReport" disabled>
@@ -99,22 +115,17 @@
                     <label class="btn-darkblue btn-disabled" for="uploadReport">Of selecteer een bestand</label>
                 </div>
                 <div class="mt-5">
-                    <input type="radio" name="onderzoeksrapport" id="researchNo">
-                    <label for="researchNo"> Nee</label>
+                    <label for="researchNo" class="radiolabel"> Nee
+                        <input type="radio" name="onderzoeksrapport" id="researchNo">
+                        <span class="radiomark"></span>
+                    </label>
                 </div>
                 <button class="btn-success" @click.prevent="goAdvise">Ga verder </button>
                 <a @click.prevent="backHerken">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!uploadCheck && Advise" v-cloak id="Advise">
+            <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h1>Herken je éen van de volgende punten in uw woning?</h1>
                 <p>Meerdere opties mogelijk</p>
-                <div v-for="last in lasten" :key="last.id">
-                    <div>
-                        <input type="checkbox" name="lasten" :id="last.id" @change = "enableTextCheckbox">
-                        <label :for="last.id"> {{ last.labelText }}</label>
-                        <input type="text" id="inputLast" v-if="last.inputField">
-                    </div>
-                </div>
                 <button class="btn-success" @click.prevent="">Terug naar het begin </button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
@@ -172,6 +183,7 @@ export default {
             schadeCheck: true,
             herkenCheck: true,
             uploadCheck: true,
+            advise: true,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
             foundation: [
                 {
@@ -252,7 +264,7 @@ export default {
                     'labelText': 'De drempel van de entree ligt hoger dan het trottoir/weg'
                 },
                 {
-                    'id': 'home',
+                    'id': 'myHome',
                     'labelText': 'De drempel van mijn woning ligt lager dan het trottoir/weg'
                 },
                 {
@@ -323,18 +335,24 @@ export default {
         enableText: function(e) {
             let inputDamage = document.querySelector('#inputDamage');
             if (e.target.id === "other") {
-                inputDamage.style.display = "block";
+                inputDamage.disabled = false;
                 inputDamage.focus({preventScroll:false});
             } else {
-                inputDamage.style.display = "none";
+                inputDamage.disabled = true;
             }
         },
 
         enableTextCheckbox: function(e) {
             let inputLast = document.querySelector('#inputLast');
+            let otherCheckbox = document.querySelector('#otherCheckbox');
             if (e.target.id === "otherCheckbox") {
-                inputLast.classList.toggle("block");
-                inputLast.focus({preventScroll:false});
+                if (otherCheckbox.checked) {
+                    inputLast.disabled = false;
+                    inputLast.focus({preventScroll:false});
+                }
+                else {
+                    inputLast.disabled = true;
+                }
             }
         },
 
@@ -390,6 +408,11 @@ export default {
             }
         },
 
+        goAdvise: function() {
+            this.uploadCheck = false;
+            this.advise = true;
+        },
+
         goAlert: function() {
             this.alertCheck = true;
             this.risicoCheck = false;
@@ -397,6 +420,7 @@ export default {
             this.klachtCheck = false;
             this.schadeCheck = false;
             this.uploadCheck = false;
+            this.advise = false;
         },
 
         documenten: function() {
@@ -407,6 +431,6 @@ export default {
 </script>
 
 <style lang="scss">
-    @import '../assets/sass/mixins.scss';
+    @import '../assets/sass/extends.scss';
     @import '../assets/sass/home.scss';
 </style>
