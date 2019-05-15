@@ -11,21 +11,9 @@
             </fieldset>
             <fieldset v-if="!check && funderingCheck" v-cloak id="funderingCheck">
                 <h1>Op welke type fundering staat uw woning gebouwt?</h1>
-                <div>
-                    <input type="radio" name="funderingoptie" id="wood">
-                    <label for="wood"> Houten palen</label>
-                </div>
-                <div>
-                    <input type="radio" name="funderingoptie" id="shallow">
-                    <label for="shallow"> Ondiepe fundering</label>
-                </div>
-                <div>
-                    <input type="radio" name="funderingoptie" id="concrete">
-                    <label for="concrete"> Betonnen palen</label>
-                </div>
-                <div>
-                    <input type="radio" name="funderingoptie" id="unknown">
-                    <label for="unknown"> Weet ik niet</label>
+                <div v-for="found in foundation" :key="found.id">
+                    <input type="radio" name="funderingoptie" :id="found.id">
+                    <label :for="found.id"> {{ found.labelText }}</label>
                 </div>
                 <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
                 <a @click.prevent="backCheck">Stap terug</a>
@@ -75,11 +63,11 @@
             </fieldset>
             <fieldset v-if="!klachtCheck && schadeCheck" v-cloak id="schadeCheck">
                 <h1>Wat veroorzaakt de schade in uw woning?</h1>
-                <div v-for="schade in schades" :key="schade.id">
+                <div v-for="damage in damages" :key="damage.id">
                     <div>
-                        <input type="radio" name="schadeveroorzaking" :id="schade.id" @change = "enableText">
-                        <label :for="schade.id"> {{ schade.labelText }}</label>
-                        <input type="text" id="inputDamage" v-if="schade.inputField">
+                        <input type="radio" name="schadeveroorzaking" :id="damage.id" @change = "enableText">
+                        <label :for="damage.id"> {{ damage.labelText }}</label>
+                        <input type="text" id="inputDamage" v-if="damage.inputField">
                     </div>
                 </div>
                 <button class="btn-success" @click.prevent="goHerken">Ga verder </button>
@@ -114,17 +102,26 @@
                     <input type="radio" name="onderzoeksrapport" id="researchNo">
                     <label for="researchNo"> Nee</label>
                 </div>
-                <button class="btn-success" @click.prevent="">Ga verder </button>
+                <button class="btn-success" @click.prevent="goAdvise">Ga verder </button>
                 <a @click.prevent="backHerken">Stap terug</a>
+            </fieldset>
+            <fieldset v-if="!uploadCheck && Advise" v-cloak id="Advise">
+                <h1>Herken je éen van de volgende punten in uw woning?</h1>
+                <p>Meerdere opties mogelijk</p>
+                <div v-for="last in lasten" :key="last.id">
+                    <div>
+                        <input type="checkbox" name="lasten" :id="last.id" @change = "enableTextCheckbox">
+                        <label :for="last.id"> {{ last.labelText }}</label>
+                        <input type="text" id="inputLast" v-if="last.inputField">
+                    </div>
+                </div>
+                <button class="btn-success" @click.prevent="">Terug naar het begin </button>
+                <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
         </form>
         <article>
             <h1>Wie zijn wij?</h1>
-            <p>
-                Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van
-                preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken.
-                KCAF is een stichting zonder winstoogmerk.
-            </p>
+            <p v-cloak> {{ introduction }} </p>
         </article>
     </section>
 </template>
@@ -175,7 +172,26 @@ export default {
             schadeCheck: true,
             herkenCheck: true,
             uploadCheck: true,
-            schades: [
+            introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
+            foundation: [
+                {
+                    'id': 'wood',
+                    'labelText': 'Houten palen'
+                },
+                {
+                    'id': 'shallow',
+                    'labelText': 'Ondiepe fundering'
+                },
+                {
+                    'id': 'concrete',
+                    'labelText': 'Betonnen palen'
+                },
+                {
+                    'id': 'unknown',
+                    'labelText': 'Weet ik niet'
+                },
+            ],
+            damages: [
                 {
                     'id': 'wrongFunding',
                     'labelText': 'Verkeerd gefundeerd bij bouw van de woning'
