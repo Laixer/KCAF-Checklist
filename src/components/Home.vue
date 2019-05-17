@@ -124,8 +124,15 @@
                 <a @click.prevent="backHerken">Stap terug</a>
             </fieldset>
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
-                <h1>Herken je éen van de volgende punten in uw woning?</h1>
-                <p>Meerdere opties mogelijk</p>
+                <h1>Advies</h1>
+                <h2>Funderingsonderzoek</h2>
+                <div class="advies-container">
+                    <div v-for="adv in adviseText" :key="adv.id">
+                        <h3>{{ adv.title }}</h3>
+                        <p>{{ adv.text }}</p>
+                    </div>
+                </div>
+                <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
                 <button class="btn-success" @click.prevent="">Terug naar het begin </button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
@@ -281,6 +288,24 @@ export default {
                     'labelText': 'Ik herken niets'
                 }
             ],
+            adviseText: [
+                {
+                    'title': '4.1 Soms is funderingsonderzoek overbodig.',
+                    'text': 'Als scheefstand en/of forse scheurvorming aanwezig is zal funderingsonderzoek niet altijd nodig zijn of beperkt kunnen blijven tot een zogeheten quickscan, waarbij alleen bovengrondse zaken worden ingemeten. Dit beperkte onderzoek kan noodzakelijk zijn om mede eigenaren van de bouwkundige eenheid te overtuigen. Ga verder naar stap 6',
+                },
+                {
+                    'title': '4.2 Funderingsonderzoek',
+                    'text': 'Het loont de moeite om bij meerdere funderingsonderzoeksbedrijven een offerte op te vragen voor de hele bouwkundige eenheid. Het uitgangspunt hierbij is dat het onderzoek wordt uitgevoerd volgens de laatst vastgestelde F3O-richtlijn voor funderingsonderzoek. Samen met de andere eigenaren (en eventueel een deskundige) kan vervolgens een keuze worden gemaakt uit de ontvangen offertes. Het is verstandig om vooraf met de andere eigenaren een verdeelsleutel af te spreken over de te maken kosten. Dat kan bijvoorbeeld op basis van het woningoppervlak of volgens de splitsingsakte van de VVE. Enkele gemeenten geven subsidie of laten funderingsonderzoek voor hun rekening uitvoeren. Dit is op te vragen bij de eigen gemeente. Als de betreffende gemeente geen regeling voor funderingsonderzoek heeft, dan kan een van de eigenaren een rekening openen zodat iedereen daarop zijn/haar bijdrage kan storten voor het funderingsonderzoek. De mede-eigenaren geven schriftelijk toestemming voor het onderzoek en vervolgens kan daarna opdracht worden verstrekt voor het funderingsonderzoek.',
+                },
+                {
+                    'title': '4.3 Uitvoering funderingsonderzoek',
+                    'text': 'Zowel de lintvoeg in het metselwerk als enkele vloervelden zullen worden nagemeten met behulp van een waterpas. Dit om zettingen en verzakkingen sinds de oorspronkelijke bouw in beeld te krijgen. Op een aantal plaatsen wordt daarna de fundering ontgraven, ingemeten en in kaart gebracht. Bij houten funderingen worden volgens de richtlijn zo nodig houtmonsters genomen. Zie de vigerende F3O-richtlijn.',
+                },
+                {
+                    'title': '4.4 Het rapport beschikbaar',
+                    'text': 'Na het onderzoek stuurt het onderzoeksbureau een rapport per post of digitaal. Het is belangrijk om, ook bij een gunstige uitkomst, het rapport goed te bewaren. Indien gewenst kunnen de eigenaren het funderingsonderzoeks-bureau vragen om een toelichting te komen geven op haar bevindingen, waarbij zo mogelijk alle mede-eigenaren van de bouwkundige eenheid aanwezig zijn. Bij twijfel over de rapportage kan eventueel een externe onafhankelijke deskundige in de arm worden genomen. Als het rapport niet voldoet aan de vigerende F3O-richtlijn dan hoeven de eigenaren het niet te accepteren. Het onderzoeksbureau zal het funderingsonderzoek dan alsnog volgens de richtlijn dienen uit te voeren. De conclusie van het onderzoeksrapport kan zijn: De fundering is goed Verdere actie is niet nodig. Het is aan te raden om wel het rapport te bewaren. Overwogen kan worden om, indien niet in de nabijheid aanwezig, enkele peilbuizen bij de voorgevel aan te brengen en de grondwaterstand te meten en te registreren. In ieder geval in de zomerperiode. De fundering is goed mits de grondwaterstand minstens 20 cm boven het hoogste funderingshout blijft staan. Om de voortgang te monitoren kunnen peilbuizen worden aangebracht, indien deze niet in de nabijheid aanwezig zijn. Dit gebeurt zo dicht mogelijk bij de voor- en achtergevel om de andere woning. De peilbuizen worden iedere maand gemeten. Hierbij is het belangrijk dat de gegevens worden genoteerd. De fundering is nog goed maar het grondwater staat periodiek te laag.',
+                },
+            ]
         }
     },
     methods: {

@@ -107,10 +107,7 @@
     #schadeCheck {
         min-width: 42rem;
         h1 { 
-            color: $black;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0;
+            @extend %h1;
             margin-bottom: 1rem;
             margin-top: 0.5rem;
         }
@@ -126,14 +123,7 @@
     }
     #herkenCheck {
         min-width: 42rem;
-        h1 { 
-            color: $black;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0;
-            margin-bottom: 0.4rem;
-            margin-top: 0.2rem;
-        }
+        h1 {  @extend %h1; }
         p { margin: 0; font-size: .8rem;}
         div { 
             @extend %checkDiv; 
@@ -147,14 +137,7 @@
     }
     #uploadCheck {
         min-width: 42rem;
-        h1 { 
-            color: $black;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0;
-            margin-bottom: 0.4rem;
-            margin-top: 0.2rem;
-        }
+        h1 { @extend %h1; }
         div { 
             @extend %checkDiv; 
             input[type="radio"] { display: none; }
@@ -198,6 +181,27 @@
             background-color: #fff;
             border-color: #28ABE3 !important;
         }
+    }
+    #advise {
+        min-width: 42rem;
+        h1 { @extend %h1; font-size: 1.6rem; }
+        h2 { margin: 0.8rem 0; font-size: 1rem; }
+        .advies-container {
+            background-color: #fff;
+            max-height: 23rem;
+            overflow-x: hidden;
+            border: 1px solid #dadada;
+            margin-bottom: 1rem;
+            padding: .2rem 1rem;
+            font-size: .9rem;
+            h3 { margin: 1rem 0 0 0; font-size: .9rem; }
+            p { margin: .2rem 0; }
+        }
+        .stappenplan {
+            font-weight: 800;
+            color: $blue;
+        }
+        button { margin-bottom: 1rem; margin-top: .75rem; }
     }
     #alertCheck {
         p { font-size: 1.1rem; }
