@@ -2,17 +2,17 @@
     form {
         position: absolute;
         top: 25rem; right: 13rem;
-        min-width: 29rem; min-height: 22rem;
-        background-color: #F2F2F2;
+        width: 29rem; height: 25.5rem;
+        background-color: #FFF;
         padding: 1.6rem 1.5rem;
         box-shadow: 0px 0px 50px rgba(0,0,0, .35);
     }
     .center {
-        top: 15rem; right: 30rem;
+        width: 45.5rem; height: 40rem;
+        top: 15rem; right: 29rem;
     }
     fieldset { 
         border: none; 
-        max-width: 25rem;
         img[alt="postcodemap"] {
             position: relative;
             bottom: 2rem;
@@ -25,7 +25,7 @@
             color: $darkblue;
             font-weight: 500;
             margin: 0;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         div {
             display: flex;
@@ -35,7 +35,7 @@
             .radiolabel .radiomark:after { @extend %inputtype };
             .radiomark { @extend %inputmark };
         }
-        button { margin-bottom: 1rem; margin-top: 0.72rem; }
+        button { margin-bottom: 0.8rem; margin-top: 1.1rem; }
     }
     #zipcodeCheck {
         label {
@@ -45,19 +45,20 @@
             font-size: 0.95rem;
             margin: 0.2rem 0 0 0;
         }
-        button { margin-bottom: 1rem; margin-top: 1.7rem; }
+        button { margin-bottom: 0.8rem; margin-top: 1.9rem; }
     }
     #risicoCheck {
         background-color: $blue;
         color: #fff;
         margin: -1.6rem -1.5rem;
-        min-width: 30rem;
-        min-height: 25rem;
+        min-width: 29rem;
+        height: inherit;
         text-align: center;
-        img { width: 10.7rem; }
+        h1 { margin-bottom: 1rem; }
+        img { width: 10rem; }
         p {
             margin: 0.2rem 0 0 0;
-            padding-top: .8rem;
+            padding-top: 2rem;
             font-size: 1.2rem;
         }
         .btn-white {
@@ -75,10 +76,9 @@
             @extend .btn-white;
             background-color: rgb(213, 213, 213);
         }
-        a { @extend %back-button; color: #dadada; }
+        a { @extend %back-button; color: #dadada; margin-bottom: 1rem;}
     }
     #klachtCheck {
-        max-width: 42rem;
         h1 { 
             @extend %h1;
             font-size: 1.8rem;
@@ -102,7 +102,7 @@
             .radiolabel .radiomark:after { @extend %inputtype };
             .radiomark { @extend %inputmark };
         }
-        button { margin-bottom: 1rem; margin-top: 3.1rem; }
+        button { margin-bottom: 1rem; margin-top: 2.95rem; }
     }
     #schadeCheck {
         min-width: 42rem;
@@ -118,7 +118,7 @@
             .radiolabel .radiomark:after { @extend %inputtype };
             .radiomark { @extend %inputmark };
         }
-        button { margin-bottom: 1rem; margin-top: 1.3rem; }
+        button { margin-bottom: 1rem; margin-top: 1.35rem; }
         #inputDamage { width: auto; margin: 0 .5rem; }
     }
     #herkenCheck {
@@ -147,7 +147,7 @@
         }
         .mt-3 { margin-top: 1rem; }
         .mt-5 { margin-top: 2rem; }
-        button { margin-bottom: 1rem; margin-top: 2rem; }
+        button { margin-bottom: 1rem; margin-top: 1.95rem; }
         .upload-container {
             height: 19.5rem;
             border: 2px dashed #bfbdbd;
@@ -201,12 +201,12 @@
             font-weight: 800;
             color: $blue;
         }
-        button { margin-bottom: 1rem; margin-top: .75rem; }
+        button { margin-bottom: 1rem; margin-top: .8rem; }
     }
     #alertCheck {
         p { font-size: 1.1rem; }
         button { margin-bottom: 1rem; margin-top: 0rem; }
-        .newline { margin-bottom: 3rem; margin-top: 2rem;}
+        .newline { margin-bottom: 5.2rem; margin-top: 2rem;}
     }
     legend {
         position: relative;

@@ -7,12 +7,9 @@
 /* Large */
 @media only screen and (max-width: 1300px) {
     #home {
-        form {
-            top: 6rem; right: 16rem;
-        }
-        article {
-            padding: 0 5rem;
-        }
+        form { top: 6rem; right: 16rem; height: 26.5rem; }
+        article { padding: 0 5rem; }
+        .center { top: 6rem; right: 6rem; }
     }
    
     main header {
@@ -27,23 +24,23 @@
 /* Medium */
 @media only screen and (max-width: 1000px) {
     header {
-        ul {
-            padding: 0 0.2rem;
-        }
-        li {
-            padding: 0 0.4rem;
-        }
-        li:nth-child(1) {
-            padding-left: 3rem;
-        }
-        a {
-            font-size: 1.1rem;
-        }
+        ul { padding: 0 0.2rem; }
+        li { padding: 0 0.4rem; }
+        li:nth-child(1) { padding-left: 3rem; }
+        a { font-size: 1.1rem; }
     }
 
     #home {
-        form { top: 6rem; right: 2rem; }
+        form { top: 6rem; right: 2rem; height: 26.5rem; }
         article { padding: 0 3rem; }
+        .center { 
+            position: inherit; 
+            margin: 2rem 3rem;
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+            border: .1px solid #e0e0e0;
+            width: auto;
+            height: auto;
+        }
     }
     #documenten {
         padding: 4rem 3rem;
@@ -80,6 +77,8 @@
 
     #home {
         form {
+            width: auto;
+            height: auto;
             position: inherit;
             min-width: 0;
             margin: .5rem;
@@ -89,11 +88,13 @@
             padding: 0 1rem;
             @include transition;
         }
+        .center { 
+            margin: 2rem 0.7rem; 
+            padding: 0.6rem 0.5rem;
+        }
         #risicoCheck {
             min-width: 0;
-            img {
-                width: 10rem;
-            }
+            img { width: 10rem; }
             p {
                 padding-top: 1.2rem;
                 margin-bottom: .4rem;
@@ -119,10 +120,7 @@
         .contentright {
             article div:nth-child(1) { display: none; }
             article div:nth-child(3) { display: none; }
-            article {
-                grid-template-columns: 1fr;
-                margin: 0 1rem;
-            }
+            article { grid-template-columns: 1fr; margin: 0 1rem; }
         }
     }
 }

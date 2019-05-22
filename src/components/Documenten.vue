@@ -67,14 +67,14 @@ export default {
         div.figures {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(295px, auto));
-            grid-gap: 2rem;
+            grid-gap: 5rem;
         }
         figure {
             margin: 0 0 1rem 0;
             position: relative;
             cursor: pointer;
             max-width: 20rem; max-height: 20rem;
-            img { width: 20rem; }
+            img { width: 23rem; }
             figcaption{
                 background-color: rgba(29, 29, 29, 0.8);
                 color: #fff;
@@ -82,8 +82,8 @@ export default {
                 justify-content: center; align-items: center;
                 text-align: center;
                 position: absolute;
-                bottom: -0.1rem;
-                width: 20rem; height: 4rem;
+                bottom: -3rem;
+                width: 23rem; height: 4rem;
                 padding: 1rem;
             }
             &:hover {

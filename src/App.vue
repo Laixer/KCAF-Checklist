@@ -33,7 +33,7 @@ export default {
 
   html {
       box-sizing: border-box;
-      font-family: $main-font, 'Myriad', 'Verdana', 'sans-serif';
+      font-family: $main-font, 'Helvetica Neue', 'Arial', 'Lato';
       text-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
       scroll-behavior: smooth;
   }
