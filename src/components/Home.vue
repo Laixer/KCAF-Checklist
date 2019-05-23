@@ -4,15 +4,25 @@
             <fieldset v-if="check" id="check">
                 <legend><span></span> Doe de check</legend>
                 <label for="postcode">Postcode </label>
-                <input type="text" id="postcode" v-model="postcode" placeholder="1000XX">
+                <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
                 <label for="huisnummer">Huisnummer </label>
-                <input type="text" v-model="huisnummer" id="huisnummer" placeholder="1A">
+                <input type="text" v-model="housenumber" id="huisnummer" placeholder="1A">
                 <button class="btn-success" @click.prevent="goFundering">Ga verder </button>
             </fieldset>
-            <Foundation></Foundation>
+            <fieldset v-if="!check && funderingCheck" v-cloak id="funderingCheck">
+                <h1>Op welke type fundering staat uw woning gebouwt?</h1>
+                <div v-for="found in foundationOption" :key="found.id">
+                    <label :for="found.id" class="radiolabel"> {{ found.labelText }}
+                        <input type="radio" name="funderingoptie" :id="found.id">
+                        <span class="radiomark"></span>
+                    </label>
+                </div>
+                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
+                <a @click.prevent="backCheck">Stap terug</a>
+            </fieldset>
             <fieldset v-if="!funderingCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
                 <img src="../../static/img/postcodemap.png" alt="postcodemap">
-                <label for="postcodegebied">Postcodegebied: {{postcode}} - {{huisnummer}}</label>
+                <label for="postcodegebied">Postcodegebied: {{zipcode}} - {{housenumber}}</label>
                 <p>Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.</p>
                 <button class="btn-success" @click.prevent="goRisico">Ga verder </button>
                 <a @click.prevent="backFundering">Stap terug</a>
@@ -136,6 +146,7 @@
 
 <script>
 /* eslint-disable */
+import Location from './form/Location.vue';
 import Foundation from './form/Foundation.vue';
 
 
@@ -171,12 +182,13 @@ $( document ).ready(function() {
 export default {
     name: 'Home',
     components: {
-        Foundation
+        Location,
+        Foundation,
     },
     data () {
         return {
-            postcode: "",
-            huisnummer: "",
+            zipcode: "",
+            housenumber: "",
             check: true,
             funderingCheck: true,
             zipcodeCheck: true,
@@ -188,7 +200,7 @@ export default {
             uploadCheck: true,
             advise: true,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
-            foundation: [
+            foundationOption: [
                 {
                     'id': 'wood',
                     'labelText': 'Houten palen'
@@ -307,7 +319,6 @@ export default {
     methods: {
         backCheck: function() {
             this.check = true;
-            this.funderingCheck = false;
         },
 
         goFundering: function() {
