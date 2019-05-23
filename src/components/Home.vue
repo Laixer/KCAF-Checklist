@@ -319,6 +319,7 @@ export default {
     methods: {
         backCheck: function() {
             this.check = true;
+            this.funderingCheck = false;
         },
 
         goFundering: function() {
