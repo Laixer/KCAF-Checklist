@@ -9,17 +9,7 @@
                 <input type="text" v-model="huisnummer" id="huisnummer" placeholder="1A">
                 <button class="btn-success" @click.prevent="goFundering">Ga verder </button>
             </fieldset>
-            <fieldset v-if="!check && funderingCheck" v-cloak id="funderingCheck">
-                <h1>Op welke type fundering staat uw woning gebouwt?</h1>
-                <div v-for="found in foundation" :key="found.id">
-                    <label :for="found.id" class="radiolabel"> {{ found.labelText }}
-                        <input type="radio" name="funderingoptie" :id="found.id">
-                        <span class="radiomark"></span>
-                    </label>
-                </div>
-                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
-                <a @click.prevent="backCheck">Stap terug</a>
-            </fieldset>
+            <Foundation></Foundation>
             <fieldset v-if="!funderingCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
                 <img src="../../static/img/postcodemap.png" alt="postcodemap">
                 <label for="postcodegebied">Postcodegebied: {{postcode}} - {{huisnummer}}</label>
@@ -146,6 +136,9 @@
 
 <script>
 /* eslint-disable */
+import Foundation from './form/Foundation.vue';
+
+
 const $ = require("jquery");
 
 $( document ).ready(function() { 
@@ -177,6 +170,9 @@ $( document ).ready(function() {
 
 export default {
     name: 'Home',
+    components: {
+        Foundation
+    },
     data () {
         return {
             postcode: "",
@@ -311,10 +307,12 @@ export default {
     methods: {
         backCheck: function() {
             this.check = true;
+            this.funderingCheck = false;
         },
 
         goFundering: function() {
             this.check = false;
+            this.funderingCheck = true;
         },
         backFundering: function() {
             this.funderingCheck = true;
