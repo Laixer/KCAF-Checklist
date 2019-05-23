@@ -13,12 +13,6 @@
     }
     fieldset { 
         border: none; 
-        img[alt="postcodemap"] {
-            position: relative;
-            bottom: 2rem;
-            right: 2.4rem;
-            max-width: 15rem;
-        }
     }
     #funderingCheck {
         h1 { 
@@ -38,6 +32,37 @@
         button { margin-bottom: 0.8rem; margin-top: 1.1rem; }
     }
     #zipcodeCheck {
+        div {
+            position: relative;
+            .btn-expand {
+                position: absolute;
+                left: 11.2rem;
+                top: 1.5rem;
+                background: rgba(255,255,255,0.6);
+                border: none;
+                cursor: pointer;
+                transition: all .3s linear;
+            }
+            .map-resize {
+                max-width: 0;
+                min-width: 29rem !important;
+                transition: all .3s linear;
+            }
+            .btn-position {
+                left: 25.1rem;
+                top: 7.4rem;
+                transition: all .3s linear;
+            }
+            img[alt="postcodemap"] {
+                position: relative;
+                bottom: 2rem;
+                right: 2.4rem;
+                width: 15rem;
+                min-width: 15rem;
+                transition: all .3s linear;
+            }
+        }
+
         label {
             margin: -1rem 0 0 0;
         }

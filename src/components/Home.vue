@@ -21,9 +21,12 @@
                 <a @click.prevent="backCheck">Stap terug</a>
             </fieldset>
             <fieldset v-if="!funderingCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
-                <img src="../../static/img/postcodemap.png" alt="postcodemap">
+                <div>
+                    <img src="../../static/img/postcodemap.png" id="mapImage" alt="postcodemap">
+                    <button class="btn-expand" @click.prevent="resizeMap"><i class="fas fa-expand"></i></button>
+                </div>
                 <label for="postcodegebied">Postcodegebied: {{zipcode}} - {{housenumber}}</label>
-                <p>Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.</p>
+                <p class="img-description">Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.</p>
                 <button class="btn-success" @click.prevent="goRisico">Ga verder </button>
                 <a @click.prevent="backFundering">Stap terug</a>
             </fieldset>
@@ -334,6 +337,18 @@ export default {
         },
         backZipcode: function() {
             this.zipcodeCheck = true;
+        },
+        resizeMap: function(e) {
+            let mapImg = document.querySelector('#mapImage');
+            let imgDescription = document.querySelector('.img-description');
+            let resizeBtn = document.querySelector('.btn-expand');
+            mapImg.classList.toggle('map-resize');
+            imgDescription.innerHTML = '<b>41</b> panden waarvan <b>100%</b> gebouwd voor 1970';
+            resizeBtn.innerHTML = '<i class="fas fa-compress"></i>'
+            resizeBtn.classList.toggle('btn-position');
+            // imgDescription.innerHTML = 'Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.';
+            // resizeBtn.innerHTML = '<i class="fas fa-expand"></i>'
+
         },
 
         goRisico: function() {
