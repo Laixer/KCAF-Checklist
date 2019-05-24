@@ -347,9 +347,6 @@ export default {
             imgDescription.innerHTML = '<b>41</b> panden waarvan <b>100%</b> gebouwd voor 1970';
             resizeBtn.innerHTML = '<i class="fas fa-compress"></i>'
             resizeBtn.classList.toggle('btn-position');
-            // imgDescription.innerHTML = 'Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.';
-            // resizeBtn.innerHTML = '<i class="fas fa-expand"></i>'
-
         },
 
         goRisico: function() {
