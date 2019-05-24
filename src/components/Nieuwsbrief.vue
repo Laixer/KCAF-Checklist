@@ -29,12 +29,16 @@
                 <div>
                     <p> 1 nieuwsartikel </p><span></span>
                 </div>
-                <div><a href="#"> April 2019</a></div>
+                <div><button class="btn-collapse" @click.prevent="collapse"> April 2019</button></div>
                 <div></div>
+                <div class="content"> 
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div class="line-height"></div>
             </article>
             <article class="article3">
                 <div></div>
-                <div><a href="#"> Januari 2019</a></div>
+                <div><button class="btn-collapse" @click.prevent="collapse"> Januari 2019</button></div>
                 <div>
                     <p> 2 nieuwsartikel </p><span></span>
                 </div>
@@ -43,12 +47,12 @@
                 <div>
                     <p> 5 nieuwsartikel </p><span></span>
                 </div>
-                <div><a href="#"> Juli 2018</a></div>
+                <div><button class="btn-collapse"> Juli 2018</button></div>
                 <div></div>
             </article>
             <article class="article5">
                 <div></div>
-                <div><a href="#"> Juni 2018</a></div>
+                <div><button class="btn-collapse"> Juni 2018</button></div>
                 <div>
                     <p> 8 nieuwsartikel </p><span></span>
                 </div>
@@ -57,12 +61,12 @@
                 <div>
                     <p> 1 nieuwsartikel </p><span></span>
                 </div>
-                <div><a href="#"> Mei 2018</a></div>
+                <div><button class="btn-collapse"> Mei 2018</button></div>
                 <div></div>
             </article>
             <article class="article7">
                 <div></div>
-                <div><a href="#"> April 2018</a></div>
+                <div><button class="btn-collapse"> April 2018</button></div>
                 <div>
                     <p> 3 nieuwsartikel </p><span></span>
                 </div>
@@ -71,12 +75,12 @@
                 <div>
                     <p> 1 nieuwsartikel </p><span></span>
                 </div>
-                <div><a href="#"> November 2017</a></div>
+                <div><button class="btn-collapse"> November 2017</button></div>
                 <div></div>
             </article>
             <article class="article9">
                 <div></div>
-                <div><a href="#"> Oktober 2017</a></div>
+                <div><button class="btn-collapse"> Oktober 2017</button></div>
                 <div>
                     <p> 1 nieuwsartikel </p><span></span>
                 </div>
@@ -86,6 +90,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
     name: 'Nieuwsbrief',
     data() {
@@ -121,6 +126,24 @@ export default {
                     'amount': '2 nieuwsartikelen',
                 },
             ]
+        }
+    },
+    methods: {
+        collapse: function(e) {
+            let btnCollapse = document.querySelector('.btn-collapse');
+            let content = document.querySelector('.content');
+            let yLine = document.querySelector('.line-height');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                yLine.style.maxHeight = null;
+                yLine.style.marginTop = null;
+                content.style.marginTop = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.style.marginTop = '1rem';
+                yLine.style.maxHeight = content.scrollHeight + "px";
+                yLine.style.marginTop = '1rem';
+            }
         }
     }
 }
@@ -216,15 +239,32 @@ export default {
                     letter-spacing: .5px;
                     cursor: default;
                 }
-                a {
-                    margin: 0;
-                    color: #004265;
-                    text-decoration: none;
-                    font-weight: 500;
+                button {
+                        border: none;
+                        background: none;
+                        width: inherit; height: inherit;
+                        font-size: 0.9rem;
+                        font-weight: 700;
+                        color: $darkblue;
+                        cursor: pointer;
                 }
                 span {
                     @extend %span;
                     left: 7.6rem;
+                }
+                .content {
+                    padding: 0 18px;
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.15s ease-out;
+                    background-color: #f1f1f1;
+                }
+                .item-active { background-color: red;}
+                .line-height {
+                    width: 0.15rem;
+                    background-color: #c5c5c5;
+                    max-height: 0;
+                    justify-self: center;
                 }
             }
             article div:nth-child(1) { justify-self: start; align-self: center; }
