@@ -378,7 +378,6 @@ export default {
         backSchade: function() {
             this.schadeCheck = true;
         },
-
         enableText: function(e) {
             let inputDamage = document.querySelector('#inputDamage');
             if (e.target.id === "other") {
@@ -389,6 +388,13 @@ export default {
             }
         },
 
+        goHerken: function() {
+            this.schadeCheck = false;
+            this.herkenCheck = true;
+        },
+        backHerken: function() {
+            this.herkenCheck = true;
+        },
         enableTextCheckbox: function(e) {
             let inputLast = document.querySelector('#inputLast');
             let otherCheckbox = document.querySelector('#otherCheckbox');
@@ -401,14 +407,6 @@ export default {
                     inputLast.disabled = true;
                 }
             }
-        },
-
-        goHerken: function() {
-            this.schadeCheck = false;
-            this.herkenCheck = true;
-        },
-        backHerken: function() {
-            this.herkenCheck = true;
         },
 
         goUpload: function() {
