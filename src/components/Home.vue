@@ -129,14 +129,14 @@
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h1>Advies</h1>
                 <h2>Funderingsonderzoek</h2>
-                <div class="advies-container">
+                <article class="advies-container">
                     <div v-for="adv in adviseText" :key="adv.id">
                         <h3>{{ adv.title }}</h3>
                         <p>{{ adv.text }}</p>
                     </div>
-                </div>
+                </article>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
-                <button class="btn-success" @click.prevent="">Terug naar het begin </button>
+                <button class="btn-success" @click.prevent="goCheck">Terug naar het begin </button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
         </form>
@@ -320,6 +320,10 @@ export default {
         }
     },
     methods: {
+        goCheck: function() {
+            this.check = true;
+            this.advise = false;
+        },
         backCheck: function() {
             this.check = true;
             this.funderingCheck = false;
@@ -344,8 +348,13 @@ export default {
             let imgDescription = document.querySelector('.img-description');
             let resizeBtn = document.querySelector('.btn-expand');
             mapImg.classList.toggle('map-resize');
-            imgDescription.innerHTML = '<b>41</b> panden waarvan <b>100%</b> gebouwd voor 1970';
-            resizeBtn.innerHTML = '<i class="fas fa-compress"></i>'
+            if (mapImg.className == 'map-resize') {
+                imgDescription.innerHTML = '<b>41</b> panden waarvan <b>100%</b> gebouwd voor 1970';   
+                resizeBtn.innerHTML = '<i class="fas fa-compress"></i>'
+            } else {
+                imgDescription.innerHTML = 'Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.'
+                resizeBtn.innerHTML = '<i class="fas fa-expand"></i>'
+            }
             resizeBtn.classList.toggle('btn-position');
         },
 
@@ -438,7 +447,6 @@ export default {
                 for (let i = 0; i < e.dataTransfer.items.length; i++) {
                     if (e.dataTransfer.items[i].kind === 'file') {
                         let file = e.dataTransfer.items[i].getAsFile();
-                        // eslint-disable-next-line
                         document.querySelector('.filetext').innerHTML = file.name;
                         document.querySelector('.filetext').style.color = "#28ABE3";
                         document.querySelector('.upload-container').classList.remove('file-adding');

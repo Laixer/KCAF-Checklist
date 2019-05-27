@@ -211,16 +211,15 @@
         min-width: 42rem;
         h1 { @extend %h1; font-size: 1.6rem; }
         h2 { margin: 0.8rem 0; font-size: 1rem; }
-        .advies-container {
-            background-color: #fff;
+        article {
+            background-color: #f5f5f5;
             max-height: 23rem;
             overflow-x: hidden;
             border: 1px solid #dadada;
             margin-bottom: 1rem;
             padding: .2rem 1rem;
-            font-size: .9rem;
             h3 { margin: 1rem 0 0 0; font-size: .9rem; }
-            p { margin: .2rem 0; }
+            p { margin: .2rem 0; font-size: .9rem; }
         }
         .stappenplan {
             font-weight: 800;

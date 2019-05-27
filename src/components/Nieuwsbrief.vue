@@ -19,71 +19,24 @@
             </div>
         </div>
         <div class="contentright">
-            <article class="article1">
+            <article>
                 <div></div>
                 <div class="article-header"><img src="../../static/img/nieuwsbrief-textbubble.png" alt="nieuwsbrief-textbubble">
                 </div>
                 <div></div>
             </article>
-            <article class="article2">
+            <article v-for="article in articles" :key="article.id">
                 <div>
-                    <p> 1 nieuwsartikel </p><span></span>
+                    <p v-if="article.textLeft">{{article.amount}} nieuwsartikel <span></span></p>
                 </div>
-                <div><button class="btn-collapse" @click.prevent="collapse"> April 2019</button></div>
-                <div></div>
-                <div class="content"> 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div class="line-height"></div>
-            </article>
-            <article class="article3">
-                <div></div>
-                <div><button class="btn-collapse" @click.prevent="collapse"> Januari 2019</button></div>
+                <div><button class="btn-collapse" @click="article.show = !article.show"> {{article.date}}</button></div>
                 <div>
-                    <p> 2 nieuwsartikel </p><span></span>
+                    <p v-if="article.textLeft == false">{{article.amount}} nieuwsartikel<span></span></p>
                 </div>
-            </article>
-            <article  class="article4">
-                <div>
-                    <p> 5 nieuwsartikel </p><span></span>
+                <div class="content" v-show="article.show"> 
+                    <p>{{ article.content }}</p>
                 </div>
-                <div><button class="btn-collapse"> Juli 2018</button></div>
-                <div></div>
-            </article>
-            <article class="article5">
-                <div></div>
-                <div><button class="btn-collapse"> Juni 2018</button></div>
-                <div>
-                    <p> 8 nieuwsartikel </p><span></span>
-                </div>
-            </article>
-            <article class="article6">
-                <div>
-                    <p> 1 nieuwsartikel </p><span></span>
-                </div>
-                <div><button class="btn-collapse"> Mei 2018</button></div>
-                <div></div>
-            </article>
-            <article class="article7">
-                <div></div>
-                <div><button class="btn-collapse"> April 2018</button></div>
-                <div>
-                    <p> 3 nieuwsartikel </p><span></span>
-                </div>
-            </article>
-            <article class="article8">
-                <div>
-                    <p> 1 nieuwsartikel </p><span></span>
-                </div>
-                <div><button class="btn-collapse"> November 2017</button></div>
-                <div></div>
-            </article>
-            <article class="article9">
-                <div></div>
-                <div><button class="btn-collapse"> Oktober 2017</button></div>
-                <div>
-                    <p> 1 nieuwsartikel </p><span></span>
-                </div>
+                <div class="line-height" v-show="article.show"></div>
             </article>
         </div>
     </section>
@@ -117,33 +70,59 @@ export default {
                     'id': 1,
                     'date': 'April 2019',
                     'textLeft': true,
-                    'amount': '1 nieuwsartikel',
+                    'amount': 1,
+                    'content': 'Content 1',
+                    'show': false,
                 },
                 {
                     'id': 2,
                     'date': 'Januari 2019',
                     'textLeft': false,
-                    'amount': '2 nieuwsartikelen',
+                    'amount': 2,
+                    'content': 'Content 2',
+                    'show': false,
+                },
+                {
+                    'id': 3,
+                    'date': 'Juli 2018',
+                    'textLeft': true,
+                    'amount': 5,
+                    'content': 'Content 3',
+                    'show': false,
+                },
+                {
+                    'id': 4,
+                    'date': 'Juni 2018',
+                    'textLeft': false,
+                    'amount': 8,
+                    'content': 'Content 4',
+                    'show': false,
+                },
+                {
+                    'id': 5,
+                    'date': 'Mei 2018',
+                    'textLeft': true,
+                    'amount': 1,
+                    'content': 'Content 5',
+                    'show': false,
+                },
+                {
+                    'id': 6,
+                    'date': 'April 2018',
+                    'textLeft': false,
+                    'amount': 3,
+                    'content': 'Content 6',
+                    'show': false,
+                },
+                {
+                    'id': 7,
+                    'date': 'November 2017',
+                    'textLeft': true,
+                    'amount': 1,
+                    'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                    'show': false,
                 },
             ]
-        }
-    },
-    methods: {
-        collapse: function(e) {
-            let btnCollapse = document.querySelector('.btn-collapse');
-            let content = document.querySelector('.content');
-            let yLine = document.querySelector('.line-height');
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                yLine.style.maxHeight = null;
-                yLine.style.marginTop = null;
-                content.style.marginTop = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                content.style.marginTop = '1rem';
-                yLine.style.maxHeight = content.scrollHeight + "px";
-                yLine.style.marginTop = '1rem';
-            }
         }
     }
 }
@@ -172,7 +151,7 @@ export default {
         background-color: #c5c5c5;
         position: absolute; 
         top: 2.2rem; left: 0; right: 0;
-        width: 7rem; height: .1rem;
+        width: 7rem; height: 1px;
         z-index: -1;
     }
     
@@ -252,18 +231,10 @@ export default {
                     @extend %span;
                     left: 7.6rem;
                 }
-                .content {
-                    padding: 0 18px;
-                    max-height: 0;
-                    overflow: hidden;
-                    transition: max-height 0.15s ease-out;
-                    background-color: #f1f1f1;
-                }
                 .item-active { background-color: red;}
                 .line-height {
                     width: 0.15rem;
                     background-color: #c5c5c5;
-                    max-height: 0;
                     justify-self: center;
                 }
             }
