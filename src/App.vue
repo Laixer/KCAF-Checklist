@@ -6,6 +6,7 @@
     <Home></Home>
     <Documenten></Documenten>
     <Nieuwsbrief></Nieuwsbrief>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import Banner from './components/Banner.vue';
 import Home from './components/Home.vue';
 import Documenten from './components/Documenten.vue';
 import Nieuwsbrief from './components/Nieuwsbrief.vue';
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'app',
@@ -24,6 +26,7 @@ export default {
     Home,
     Documenten,
     Nieuwsbrief,
+    Footer,
   }
 }
 </script>

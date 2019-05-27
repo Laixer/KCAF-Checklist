@@ -122,6 +122,14 @@ export default {
                     'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
                     'show': false,
                 },
+                {
+                    'id': 8,
+                    'date': 'Oktober 2017',
+                    'textLeft': false,
+                    'amount': 1,
+                    'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                    'show': false,
+                },
             ]
         }
     }
