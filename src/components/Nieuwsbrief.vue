@@ -152,7 +152,7 @@ export default {
         position: absolute; 
         top: 2.2rem; left: 0; right: 0;
         width: 7rem; height: 1px;
-        z-index: -1;
+        z-index: -1; 
     }
     
     #nieuwsbrief {
