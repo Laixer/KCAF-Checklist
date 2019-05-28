@@ -1,12 +1,18 @@
 <template>
     <footer>
-        <p>ⓒ Gemaakt door <a href="https://zanhos.com/" target="_blank">ZanHos</a>. Versie {{BRANCH}}</p>
+        <p>ⓒ Gemaakt door <a href="https://zanhos.com/" target="_blank">ZanHos</a>. Versie {{version}}</p>
     </footer>
 </template>
 
 <script>
+console.log(VERSION)
 export default {
     name: 'Footer',
+    data () {
+        return {
+            version: VERSION,
+        }
+    }
 }
 </script>
 
