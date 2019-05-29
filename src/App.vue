@@ -42,12 +42,8 @@ export default {
   }
 
   [v-cloak] { display: none; }
-
-  *,
-  *:before,
-  *:after {
-      box-sizing: inherit;
-  }
+  
+  *, *:before, *:after { box-sizing: inherit; }
 
   h1 { font-size: 1.6rem; }
   h2 { font-size: 1.4rem; }
