@@ -5,9 +5,12 @@
 </template>
 
 <script>
-console.log(VERSION)
+/* eslint-disable */
 export default {
     name: 'Footer',
+    components: {
+        VERSION
+    },
     data () {
         return {
             version: VERSION,

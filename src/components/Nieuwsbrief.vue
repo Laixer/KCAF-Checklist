@@ -34,7 +34,8 @@
                     <p v-if="article.textLeft == false">{{article.amount}} nieuwsartikel<span></span></p>
                 </div>
                 <div class="content" v-show="article.show"> 
-                    <p>{{ article.content }}</p>
+                    <h1><a :href="article.href">{{ article.contentTitle }}</a></h1>
+                    <p>{{ article.contentText }}</p>
                 </div>
                 <div class="line-height" v-show="article.show"></div>
             </article>
@@ -71,7 +72,9 @@ export default {
                     'date': 'April 2019',
                     'textLeft': true,
                     'amount': 1,
-                    'content': 'Content 1',
+                    'contentTitle': 'Kaart meldingen funderingsschade bij KCAF – April 2019',
+                    'contentText': 'Sinds de droge zomer van 2018 is het aantal meldingen van funderingsschade bij het funderingsloket van het KCAF, sterk toegenomen...',
+                    'href': 'https://www.kcaf.nl/kaart-meldingen-funderingsschade-bij-kcaf-april-2019/',
                     'show': false,
                 },
                 {
@@ -79,7 +82,9 @@ export default {
                     'date': 'Januari 2019',
                     'textLeft': false,
                     'amount': 2,
-                    'content': 'Content 2',
+                    'contentTitle': 'dd',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
                 {
@@ -87,7 +92,9 @@ export default {
                     'date': 'Juli 2018',
                     'textLeft': true,
                     'amount': 5,
-                    'content': 'Content 3',
+                    'contentTitle': 'Content 3',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
                 {
@@ -95,7 +102,9 @@ export default {
                     'date': 'Juni 2018',
                     'textLeft': false,
                     'amount': 8,
-                    'content': 'Content 4',
+                    'contentTitle': 'Content 4',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
                 {
@@ -103,7 +112,9 @@ export default {
                     'date': 'Mei 2018',
                     'textLeft': true,
                     'amount': 1,
-                    'content': 'Content 5',
+                    'contentTitle': 'Content 5',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
                 {
@@ -111,7 +122,9 @@ export default {
                     'date': 'April 2018',
                     'textLeft': false,
                     'amount': 3,
-                    'content': 'Content 6',
+                    'contentTitle': 'Content 6',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
                 {
@@ -119,7 +132,9 @@ export default {
                     'date': 'November 2017',
                     'textLeft': true,
                     'amount': 1,
-                    'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                    'contentTitle': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
                 {
@@ -127,7 +142,9 @@ export default {
                     'date': 'Oktober 2017',
                     'textLeft': false,
                     'amount': 1,
-                    'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                    'contentTitle': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                    'contentText': 'Lorem ipsum',
+                    'href': '#',
                     'show': false,
                 },
             ]
@@ -229,7 +246,7 @@ export default {
                 button {
                         border: none;
                         background: none;
-                        width: inherit; height: inherit;
+                        min-width: 15rem; height: inherit;
                         font-size: 0.9rem;
                         font-weight: 700;
                         color: $darkblue;
@@ -239,9 +256,29 @@ export default {
                     @extend %span;
                     left: 7.6rem;
                 }
-                .item-active { background-color: red;}
+                .content {
+                    padding: 1rem 1.6rem 1.7rem 1.5rem;;
+                    max-width: 15rem;
+                    background-color: #fff;
+                    margin: 3rem 0;
+                    border: 1px solid #e8e8e8;
+                    &:hover {
+                        box-shadow: 0px 0px 28px -4px #c5c5c5;
+                        transition: all .2s linear;
+                    }
+                    h1 {
+                        font-size: 0.9rem;
+                        a { 
+                            color: $darkblue; 
+                            text-decoration: none;
+                            &:hover { color: $blue; }
+                        }
+                    }
+                    p { font-size: 0.8rem; color: rgb(43, 43, 43); }
+                }
                 .line-height {
-                    width: 0.15rem;
+                    width: 2px;
+                    margin-top: 1rem;
                     background-color: #c5c5c5;
                     justify-self: center;
                 }
