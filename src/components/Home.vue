@@ -7,6 +7,11 @@
                 <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
                 <label for="huisnummer">Huisnummer </label>
                 <input type="text" v-model="housenumber" id="huisnummer" placeholder="1A">
+                <p v-if="errors.length"><b>Vereiste veld(en):</b>
+                    <ul>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
+                    </ul>
+                </p>
                 <button class="btn-success" @click.prevent="goFundering">Ga verder </button>
             </fieldset>
             <fieldset v-if="!check && funderingCheck" v-cloak id="funderingCheck">
@@ -190,8 +195,9 @@ export default {
     },
     data () {
         return {
-            zipcode: "",
-            housenumber: "",
+            errors: [],
+            zipcode: null,
+            housenumber: null,
             check: true,
             funderingCheck: true,
             zipcodeCheck: true,
@@ -326,19 +332,37 @@ export default {
         },
         backCheck: function() {
             this.check = true;
-            this.funderingCheck = false;
         },
 
         goFundering: function() {
-            this.check = false;
-            this.funderingCheck = true;
+            
+            if (this.zipcode && this.housenumber) {
+                this.check = false;
+                this.funderingCheck = true;
+            }
+
+            this.errors = [];
+
+            if (!this.zipcode) {
+                this.errors.push('Postcode.');
+                document.querySelector('#postcode').style.borderBottom = '1px solid #ff2222';
+                document.querySelector('.btn-success').style.marginTop = '0';
+            }
+            if (!this.housenumber) {
+                this.errors.push('Huisnummer.');
+                document.querySelector('#huisnummer').style.borderBottom = '1px solid #ff2222';
+            }
         },
         backFundering: function() {
             this.funderingCheck = true;
         },
 
         goZipcode: function() {
-            this.funderingCheck = false;
+            
+            if (this.foundationOption.checked) {
+                this.funderingCheck = false;
+            }
+
         },
         backZipcode: function() {
             this.zipcodeCheck = true;
