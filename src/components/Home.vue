@@ -7,7 +7,7 @@
                 <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
                 <label for="huisnummer">Huisnummer </label>
                 <input type="text" v-model="housenumber" id="huisnummer" placeholder="1A">
-                <p v-if="errors.length"><b>Vereiste veld(en):</b>
+                <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
                     <ul>
                         <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
@@ -335,23 +335,56 @@ export default {
         },
 
         goFundering: function() {
-            
-            if (this.zipcode && this.housenumber) {
-                this.check = false;
-                this.funderingCheck = true;
-            }
-
+            let zipField = document.querySelector('#postcode');
+            let hnrField = document.querySelector('#huisnummer')
             this.errors = [];
 
             if (!this.zipcode) {
-                this.errors.push('Postcode.');
-                document.querySelector('#postcode').style.borderBottom = '1px solid #ff2222';
+                this.errors.push('Postcode is verplicht.');
+                zipField.style.borderBottom = '1px solid #ff2222';
+                hnrField.style.borderBottom = '1px solid #004265';
                 document.querySelector('.btn-success').style.marginTop = '0';
+            } else if (!this.validZipcode(this.zipcode)) {
+                this.errors.push('Geen geldige Postcode');
+                zipField.style.borderBottom = '1px solid #ff2222';
+                if (hnrField.value == '' || !this.validHousenumber(this.housenumber)) {
+                    hnrField.style.borderBottom = '1px solid #ff2222';
+                } else {
+                    hnrField.style.borderBottom = '1px solid #004265';
+                }
             }
             if (!this.housenumber) {
-                this.errors.push('Huisnummer.');
-                document.querySelector('#huisnummer').style.borderBottom = '1px solid #ff2222';
+                this.errors.push('Huisnummer is verplicht.');
+                hnrField.style.borderBottom = '1px solid #ff2222';
+                if (zipField.value == '' || !this.validZipcode(this.zipcode)) {
+                    zipField.style.borderBottom = '1px solid #ff2222';
+                } else {
+                    zipField.style.borderBottom = '1px solid #004265';
+                }
+            } else if (!this.validHousenumber(this.housenumber)) {
+                this.errors.push('Geen geldige Huisnummer');
+                hnrField.style.borderBottom = '1px solid #ff2222';
+                if (zipField.value == '' || !this.validZipcode(this.zipcode)) {
+                    zipField.style.borderBottom = '1px solid #ff2222';
+                } else {
+                    zipField.style.borderBottom = '1px solid #004265';
+                }
             }
+
+            if (this.errors.length) {
+                document.querySelector('form').style.height = 'auto';
+            } else {
+                this.check = false;
+                this.funderingCheck = true;
+            }
+        },
+        validZipcode: function(zipcode) {
+            let regex = /^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i;
+            return regex.test(zipcode);
+        },
+        validHousenumber: function(housenumber) {
+            let regex = /^([0-9]){1,}([A-Za-z]){0,3}$/;
+            return regex.test(housenumber);
         },
         backFundering: function() {
             this.funderingCheck = true;
@@ -359,9 +392,7 @@ export default {
 
         goZipcode: function() {
             
-            if (this.foundationOption.checked) {
                 this.funderingCheck = false;
-            }
 
         },
         backZipcode: function() {
