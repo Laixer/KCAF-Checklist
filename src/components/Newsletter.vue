@@ -1,5 +1,5 @@
 <template>
-    <section id="nieuwsbrief">
+    <section id="newsletter">
         <h1>Digitale Nieuwsbrief</h1>
         <div class="contentleft">
             <p>
@@ -46,7 +46,7 @@
 <script>
 /* eslint-disable */
 export default {
-    name: 'Nieuwsbrief',
+    name: 'Newsletter',
     data() {
         return {
             tweets: [

@@ -4,8 +4,8 @@
     <Header></Header>
     <Banner></Banner>
     <Home></Home>
-    <Documenten></Documenten>
-    <Nieuwsbrief></Nieuwsbrief>
+    <Documents></Documents>
+    <Newsletter></Newsletter>
     <Footer></Footer>
   </div>
 </template>
@@ -14,8 +14,8 @@
 import Header from './components/Header.vue';
 import Banner from './components/Banner.vue';
 import Home from './components/Home.vue';
-import Documenten from './components/Documenten.vue';
-import Nieuwsbrief from './components/Nieuwsbrief.vue';
+import Documents from './components/Documents.vue';
+import Newsletter from './components/Newsletter.vue';
 import Footer from './components/Footer.vue'
 
 export default {
@@ -24,8 +24,8 @@ export default {
     Header,
     Banner,
     Home,
-    Documenten,
-    Nieuwsbrief,
+    Documents,
+    Newsletter,
     Footer,
   }
 }

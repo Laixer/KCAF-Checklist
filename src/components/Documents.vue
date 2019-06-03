@@ -1,5 +1,5 @@
 <template>
-    <section id="documenten">
+    <section id="documents">
         <h1>Neem een kijk aan onze documenten</h1>
         <div class="figures">
             <figure>
@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  name: 'Documenten'
+  name: 'Documents'
 }
 </script>
 
