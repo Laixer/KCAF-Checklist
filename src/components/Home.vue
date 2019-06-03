@@ -14,7 +14,7 @@
                 </p>
                 <button class="btn-success" @click.prevent="goFundering">Ga verder </button>
             </fieldset>
-            <fieldset v-if="!check && funderingCheck" v-cloak id="funderingCheck">
+            <fieldset v-if="!check && foundationCheck" v-cloak id="foundationCheck">
                 <h1>Op welke type fundering staat uw woning gebouwt?</h1>
                 <div v-for="found in foundationOption" :key="found.id">
                     <label :for="found.id" class="radiolabel"> {{ found.labelText }}
@@ -30,7 +30,7 @@
                 <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
                 <a @click.prevent="backCheck">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!funderingCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
+            <fieldset v-if="!foundationCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
                 <div>
                     <img src="../../static/img/postcodemap.png" id="mapImage" alt="postcodemap">
                     <button class="btn-expand" @click.prevent="resizeMap"><i class="fas fa-expand"></i></button>
@@ -40,7 +40,7 @@
                 <button class="btn-success" @click.prevent="goRisico">Ga verder </button>
                 <a @click.prevent="backFundering">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!zipcodeCheck && risicoCheck" v-cloak id="risicoCheck">
+            <fieldset v-if="!zipcodeCheck && riscCheck" v-cloak id="riscCheck">
                 <h1>U loopt mogelijk een risico</h1>
                 <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
@@ -48,7 +48,7 @@
                 <button class="btn-grey" @click.prevent="goAlert">Nee </button>
                 <a @click.prevent="backZipcode">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!risicoCheck && !alertCheck && klachtCheck" v-cloak id="klachtCheck">
+            <fieldset v-if="!riscCheck && !alertCheck && complaintCheck" v-cloak id="complaintCheck">
                 <h1>Klacht indienen over uw woning?</h1>
                 <h2>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h2>
                 <div>
@@ -84,12 +84,12 @@
                 <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!risicoCheck && !klachtCheck && !schadeCheck && alertCheck" v-cloak id="alertCheck">
+            <fieldset v-if="!riscCheck && !complaintCheck && !damageCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
                 <button class="btn-success" @click.prevent="documenten"> Bekijk documenten</button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!klachtCheck && schadeCheck" v-cloak id="schadeCheck">
+            <fieldset v-if="!complaintCheck && damageCheck" v-cloak id="damageCheck">
                 <h1>Wat veroorzaakt de schade in uw woning?</h1>
                 <div v-for="damage in damages" :key="damage.id">
                     <div>
@@ -103,7 +103,7 @@
                 <button class="btn-success" @click.prevent="goHerken">Ga verder </button>
                 <a @click.prevent="backKlacht">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!schadeCheck && herkenCheck" v-cloak id="herkenCheck">
+            <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck">
                 <h1>Herken je éen van de volgende punten in uw woning?</h1>
                 <p>Meerdere opties mogelijk</p>
                 <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
@@ -118,7 +118,7 @@
                 <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
                 <a @click.prevent="backSchade">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!herkenCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
+            <fieldset v-if="!recogCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h1>Heeft u een onderzoeksrapport beschikbaar?</h1>
                 <div class="mt-3">
                     <label for="researchYes" class="radiolabel"> Ja
@@ -209,13 +209,13 @@ export default {
             zipcode: null,
             housenumber: null,
             check: true,
-            funderingCheck: true,
+            foundationCheck: true,
             zipcodeCheck: true,
-            risicoCheck: true,
-            klachtCheck: true,
+            riscCheck: true,
+            complaintCheck: true,
             alertCheck: true,
-            schadeCheck: true,
-            herkenCheck: true,
+            damageCheck: true,
+            recogCheck: true,
             uploadCheck: true,
             advise: true,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
@@ -386,7 +386,7 @@ export default {
                 document.querySelector('form').style.height = 'auto';
             } else {
                 this.check = false;
-                this.funderingCheck = true;
+                this.foundationCheck = true;
             }
         },
         validZipcode: function(zipcode) {
@@ -398,11 +398,11 @@ export default {
             return regex.test(housenumber);
         },
         backFundering: function() {
-            this.funderingCheck = true;
+            this.foundationCheck = true;
         },
 
         goZipcode: function() {
-            let form = document.querySelector('#funderingCheck');
+            let form = document.querySelector('#foundationCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
 
@@ -411,7 +411,7 @@ export default {
                 document.querySelector('form').style.height = 'auto';
             } else {
                 document.querySelector('form').style.height = '25.5rem';
-                this.funderingCheck = false;
+                this.foundationCheck = false;
             }
         },
         backZipcode: function() {
@@ -437,26 +437,26 @@ export default {
             this.zipcodeCheck = false;
         },
         backRisico: function() {
-            this.risicoCheck = true;
+            this.riscCheck = true;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.remove('center');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
 
         goKlacht: function() {
-            this.klachtCheck = true;
-            this.risicoCheck = false;
+            this.complaintCheck = true;
+            this.riscCheck = false;
             this.alertCheck = false;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.add('center');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
         backKlacht: function() {
-            this.klachtCheck = true;
+            this.complaintCheck = true;
         },
 
         goSchade: function() {
-            let form = document.querySelector('#klachtCheck');
+            let form = document.querySelector('#complaintCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
 
@@ -465,13 +465,13 @@ export default {
                 document.querySelector('form').style.height = 'auto';
             } else {
                 document.querySelector('form').style.height = '25.5rem';
-                this.schadeCheck = true;
-                this.klachtCheck = false;
+                this.damageCheck = true;
+                this.complaintCheck = false;
             }
             
         },
         backSchade: function() {
-            this.schadeCheck = true;
+            this.damageCheck = true;
             this.errors = [];
         },
         enableText: function(e) {
@@ -485,11 +485,11 @@ export default {
         },
 
         goHerken: function() {
-            this.schadeCheck = false;
-            this.herkenCheck = true;
+            this.damageCheck = false;
+            this.recogCheck = true;
         },
         backHerken: function() {
-            this.herkenCheck = true;
+            this.recogCheck = true;
         },
         enableTextCheckbox: function(e) {
             let inputLast = document.querySelector('#inputLast');
@@ -506,7 +506,7 @@ export default {
         },
 
         goUpload: function() {
-            this.herkenCheck = false;
+            this.recogCheck = false;
             this.uploadCheck = true;
         },
         backUpload: function() {
@@ -555,10 +555,10 @@ export default {
 
         goAlert: function() {
             this.alertCheck = true;
-            this.risicoCheck = false;
-            this.herkenCheck = false;
-            this.klachtCheck = false;
-            this.schadeCheck = false;
+            this.riscCheck = false;
+            this.recogCheck = false;
+            this.complaintCheck = false;
+            this.damageCheck = false;
             this.uploadCheck = false;
             this.advise = false;
         },
