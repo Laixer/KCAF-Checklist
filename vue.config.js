@@ -1,3 +1,6 @@
+const path = require('path');
+const whitelabelConfig = require('./whitelabel.config');
+const brandVariablesPath = whitelabelConfig[process.env.VUE_APP_BRAND].scssVariables
 const webpack = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 
@@ -6,6 +9,19 @@ const gitRevisionPlugin = new GitRevisionPlugin();
 // vue.config.js
 module.exports = {
 	configureWebpack: {
+		module: {
+			rules: [{
+				test: /\.scss$/,
+				use: [
+					"sass-loader" // compiles Sass to CSS, using Node Sass by default
+				]
+			}]
+		},
+		resolve: {
+			alias: {
+				'brandVariables': path.resolve(__dirname, brandVariablesPath),
+			}
+		},
 		devtool: 'source-map',
 
 		plugins: [

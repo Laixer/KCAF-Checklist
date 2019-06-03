@@ -1,12 +1,12 @@
 const whitelabelConfig = {
-    'kcaf': {
+    'light': {
         'brand': 'Light Theme',
         'scssVariables': 'src/assets/sass/whitelabel-variables/light',
         'homeURL': 'https://www.example.com/light',
         'logoURL': '/img/logo.82b9c7a5.png',
         'contactEmail':  'light@example.co.uk',
     },
-    'Kaan': {
+    'dark': {
         'brand': 'Dark Theme',
         'scssVariables': 'src/assets/sass/whitelabel-variables/dark',
         'homeURL': 'https://www.example.com/dark',
@@ -15,4 +15,4 @@ const whitelabelConfig = {
     }
 }
 
-module.exports = whitelabelConfig
+module.exports = whitelabelConfig;

@@ -40,7 +40,7 @@
                 <button class="btn-success" @click.prevent="goRisico">Ga verder </button>
                 <a @click.prevent="backFundering">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!zipcodeCheck && riscCheck" v-cloak id="riscCheck">
+            <fieldset v-if="!zipcodeCheck && riskCheck" v-cloak id="riskCheck">
                 <h1>U loopt mogelijk een risico</h1>
                 <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
@@ -48,7 +48,7 @@
                 <button class="btn-grey" @click.prevent="goAlert">Nee </button>
                 <a @click.prevent="backZipcode">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!riscCheck && !alertCheck && complaintCheck" v-cloak id="complaintCheck">
+            <fieldset v-if="!riskCheck && !alertCheck && complaintCheck" v-cloak id="complaintCheck">
                 <h1>Klacht indienen over uw woning?</h1>
                 <h2>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h2>
                 <div>
@@ -84,7 +84,7 @@
                 <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!riscCheck && !complaintCheck && !damageCheck && alertCheck" v-cloak id="alertCheck">
+            <fieldset v-if="!riskCheck && !complaintCheck && !damageCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
                 <button class="btn-success" @click.prevent="documenten"> Bekijk documenten</button>
                 <a @click.prevent="backRisico">Stap terug</a>
@@ -211,7 +211,7 @@ export default {
             check: true,
             foundationCheck: true,
             zipcodeCheck: true,
-            riscCheck: true,
+            riskCheck: true,
             complaintCheck: true,
             alertCheck: true,
             damageCheck: true,
@@ -437,7 +437,7 @@ export default {
             this.zipcodeCheck = false;
         },
         backRisico: function() {
-            this.riscCheck = true;
+            this.riskCheck = true;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.remove('center');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
@@ -445,7 +445,7 @@ export default {
 
         goKlacht: function() {
             this.complaintCheck = true;
-            this.riscCheck = false;
+            this.riskCheck = false;
             this.alertCheck = false;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.add('center');
@@ -555,7 +555,7 @@ export default {
 
         goAlert: function() {
             this.alertCheck = true;
-            this.riscCheck = false;
+            this.riskCheck = false;
             this.recogCheck = false;
             this.complaintCheck = false;
             this.damageCheck = false;
