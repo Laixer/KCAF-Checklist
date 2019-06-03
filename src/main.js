@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './routes/routes'
 
+import './styles/core.scss';
+
 Vue.config.productionTip = false
 
 Vue

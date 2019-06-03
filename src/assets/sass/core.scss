@@ -1,0 +1,10 @@
+@import '~brandVariables/variables';
+
+body {
+    background: $page-bg;
+    color: $text-color;
+}
+
+a {
+    color: $link-color;
+}

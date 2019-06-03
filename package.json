@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "app": "vue-cli-service serve",
+    "serve": "npm run serve-light",
+    "serve-light": "cross-env process.env.VUE_APP_BRAND='light' vue-cli-service serve",
+    "serve-dark": "cross-env process.env.VUE_APP_BRAND='dark' vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -13,6 +15,7 @@
     "jquery": "^3.4.1",
     "module": "^1.2.5",
     "node-sass": "^4.12.0",
+    "path": "^0.12.7",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
