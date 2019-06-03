@@ -22,6 +22,11 @@
                         <span class="radiomark"></span>
                     </label>
                 </div>
+                <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
+                    <ul>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
+                    </ul>
+                </p>
                 <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
                 <a @click.prevent="backCheck">Stap terug</a>
             </fieldset>
@@ -71,6 +76,11 @@
                         <span class="radiomark"></span>
                     </label>
                 </div>
+                <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
+                    <ul>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
+                    </ul>
+                </p>
                 <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
@@ -332,6 +342,7 @@ export default {
         },
         backCheck: function() {
             this.check = true;
+            this.errors = [];
         },
 
         goFundering: function() {
@@ -391,12 +402,21 @@ export default {
         },
 
         goZipcode: function() {
-            
-                this.funderingCheck = false;
+            let form = document.querySelector('#funderingCheck');
+            let radios = form.querySelectorAll('input');
+            this.errors = [];
 
+            if (!this.validateRadio(radios)) {
+                this.errors.push('Geen optie geselecteerd.');
+                document.querySelector('form').style.height = 'auto';
+            } else {
+                document.querySelector('form').style.height = '25.5rem';
+                this.funderingCheck = false;
+            }
         },
         backZipcode: function() {
             this.zipcodeCheck = true;
+            this.errors = [];
         },
         resizeMap: function(e) {
             let mapImg = document.querySelector('#mapImage');
@@ -436,11 +456,23 @@ export default {
         },
 
         goSchade: function() {
-            this.schadeCheck = true;
-            this.klachtCheck = false;
+            let form = document.querySelector('#klachtCheck');
+            let radios = form.querySelectorAll('input');
+            this.errors = [];
+
+            if (!this.validateRadio(radios)) {
+                this.errors.push('Geen optie geselecteerd.');
+                document.querySelector('form').style.height = 'auto';
+            } else {
+                document.querySelector('form').style.height = '25.5rem';
+                this.schadeCheck = true;
+                this.klachtCheck = false;
+            }
+            
         },
         backSchade: function() {
             this.schadeCheck = true;
+            this.errors = [];
         },
         enableText: function(e) {
             let inputDamage = document.querySelector('#inputDamage');
@@ -529,6 +561,15 @@ export default {
             this.schadeCheck = false;
             this.uploadCheck = false;
             this.advise = false;
+        },
+
+        validateRadio: function(radio) {
+            for (let i = 0; i < radio.length; i++) {
+                if (radio[i].checked) {
+                    return true;
+                }
+            }
+            return false;
         },
 
         documenten: function() {

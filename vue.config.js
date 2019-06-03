@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin')
 
 const gitRevisionPlugin = new GitRevisionPlugin();
-
+console.log('dd');
 // vue.config.js
 module.exports = {
 	configureWebpack: {
