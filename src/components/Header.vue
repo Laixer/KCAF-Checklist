@@ -12,8 +12,14 @@
 </template>
 
 <script>
+const whitelabel = require('../../whitelabel.config')[process.env.VUE_APP_BRAND]
 export default {
-  name: 'Header'
+  name: 'Header',
+  data() {
+      return {
+        logoURL: whitelabel.logoURL
+      }
+  }
 }
 </script>
 

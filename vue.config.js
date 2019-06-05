@@ -9,14 +9,6 @@ const gitRevisionPlugin = new GitRevisionPlugin();
 // vue.config.js
 module.exports = {
 	configureWebpack: {
-		module: {
-			rules: [{
-				test: /\.scss$/,
-				use: [
-					"sass-loader" // compiles Sass to CSS, using Node Sass by default
-				]
-			}]
-		},
 		resolve: {
 			alias: {
 				'brandVariables': path.resolve(__dirname, brandVariablesPath),

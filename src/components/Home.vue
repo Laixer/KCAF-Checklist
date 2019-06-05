@@ -157,7 +157,7 @@
         </form>
         <article>
             <h1>Wie zijn wij?</h1>
-            <p v-cloak> {{ introduction }} </p>
+            <p v-cloak> {{ introText }} </p>
         </article>
     </section>
 </template>
@@ -167,15 +167,15 @@
 import Location from './form/Location.vue';
 import Foundation from './form/Foundation.vue';
 
-
+const whitelabel = require('../../whitelabel.config')[process.env.VUE_APP_BRAND];
 const $ = require("jquery");
 
 $( document ).ready(function() { 
 		$(window).scroll(function() { 
-		    var Scroll = $(window).scrollTop() + 1,
+		    let Scroll = $(window).scrollTop() + 1,
                 SectionOneOffset = $('#pageTop').offset().top,
-                SectionTwoOffset = $('#documenten').offset().top,
-                SectionThreeOffset = $('#nieuwsbrief').offset().top;
+                SectionTwoOffset = $('#documents').offset().top,
+                SectionThreeOffset = $('#newsletter').offset().top;
 
 		    if (Scroll >= SectionOneOffset) {
 		        $(".menu-item-1").addClass("active");
@@ -205,6 +205,11 @@ export default {
     },
     data () {
         return {
+            brand: whitelabel.brand,
+            homeURL: whitelabel.homeURL,
+            logoURL: whitelabel.logoURL,
+            email: whitelabel.contactEmail,
+            introText: whitelabel.introText,
             errors: [],
             zipcode: null,
             housenumber: null,
