@@ -205,10 +205,6 @@ export default {
     },
     data () {
         return {
-            brand: whitelabel.brand,
-            homeURL: whitelabel.homeURL,
-            logoURL: whitelabel.logoURL,
-            email: whitelabel.contactEmail,
             introText: whitelabel.introText,
             errors: [],
             zipcode: null,
@@ -355,7 +351,7 @@ export default {
             let hnrField = document.querySelector('#huisnummer')
             this.errors = [];
 
-            if (!this.zipcode) {
+            /* if (!this.zipcode) {
                 this.errors.push('Postcode is verplicht.');
                 zipField.style.borderBottom = '1px solid #ff2222';
                 hnrField.style.borderBottom = '1px solid #004265';
@@ -385,7 +381,7 @@ export default {
                 } else {
                     zipField.style.borderBottom = '1px solid #004265';
                 }
-            }
+            } */
 
             if (this.errors.length) {
                 document.querySelector('form').style.height = 'auto';

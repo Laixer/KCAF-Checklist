@@ -1,10 +1,16 @@
 <template>
-    <header class="banner" id="pageTop"></header>
+    <header class="banner" :style="{'background-image': 'url(' + backgroundImage + ')' }" id="pageTop"></header>
 </template>
 
 <script>
+const whitelabel = require('../../whitelabel.config')[process.env.VUE_APP_BRAND];
 export default {
-  name: 'Banner'
+  name: 'Banner',
+  data() {
+      return {
+          backgroundImage: whitelabel.bannerImage,
+      }
+  }
 }
 </script>
 
@@ -15,6 +21,5 @@ export default {
         background-size: cover;
         background-position: center;
         height: 37rem;
-        border-bottom: 1.3rem solid rgba(0, 66, 92, 0.84);
     }
 </style>

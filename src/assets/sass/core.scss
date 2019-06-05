@@ -5,6 +5,36 @@ body {
     color: $text-color;
 }
 
-a {
-    color: $link-color;
+header .active {
+    color: $primary-color;
+}
+
+.banner {
+    border-bottom: 1.3rem solid $secondary-color-opacity;
+}
+
+button {
+    background: $primary-color;
+    &:hover { background: $secondary-color; }
+}
+
+#home legend {
+    color: $secondary-color;
+}
+
+#home legend span {
+    background-color: $primary-color;
+}
+
+#home input {
+    border-bottom: 1px solid $secondary-color;
+    &:focus { border-bottom: 1px solid $primary-color; }
+}
+
+#home #foundationCheck h1 {
+    color: $secondary-color;
+}
+
+#home #foundationCheck div .radiomark {
+    border: 2px solid $secondary-color;
 }

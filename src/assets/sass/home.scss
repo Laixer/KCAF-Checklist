@@ -14,7 +14,7 @@
     fieldset { 
         border: none; 
     }
-    #funderingCheck {
+    #foundationCheck {
         h1 { 
             color: $darkblue;
             font-weight: 500;
@@ -72,7 +72,7 @@
         }
         button { margin-bottom: 0.8rem; margin-top: 1.9rem; }
     }
-    #risicoCheck {
+    #riskCheck {
         background-color: $blue;
         color: #fff;
         margin: -1.6rem -1.5rem;
@@ -103,7 +103,7 @@
         }
         a { @extend %back-button; color: #dadada; margin-bottom: 1rem;}
     }
-    #klachtCheck {
+    #complaintCheck {
         h1 { 
             @extend %h1;
             font-size: 1.8rem;
@@ -129,7 +129,7 @@
         }
         button { margin-bottom: 1rem; margin-top: 2.95rem; }
     }
-    #schadeCheck {
+    #damageCheck {
         min-width: 42rem;
         h1 { 
             @extend %h1;
@@ -146,7 +146,7 @@
         button { margin-bottom: 1rem; margin-top: 1.35rem; }
         #inputDamage { width: auto; margin: 0 .5rem; }
     }
-    #herkenCheck {
+    #recogCheck {
         min-width: 42rem;
         h1 {  @extend %h1; }
         p { margin: 0; font-size: .8rem;}
@@ -256,19 +256,16 @@
     input {
         display: block;
         background: none;
-        border: none; border-bottom: 1px solid $darkblue;
+        border: none;
         width: 100%;
         font-size: 1rem;
         margin-bottom: 2rem;
         padding: 0.4rem 0.2rem;
-        &:focus { border-bottom: 1px solid $blue; }
     }
     .btn-success {
         @extend %btn;
-        background-color: $blue;
         &:hover {
             transition: all .08s linear;
-            background-color: $darkblue;
         }
     }
     a { @extend %back-button; }
