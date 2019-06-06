@@ -411,7 +411,7 @@ export default {
                 this.errors.push('Geen optie geselecteerd.');
                 document.querySelector('form').style.height = 'auto';
             } else {
-                document.querySelector('form').style.height = '25.5rem';
+                
                 this.foundationCheck = false;
             }
         },
@@ -465,7 +465,6 @@ export default {
                 this.errors.push('Geen optie geselecteerd.');
                 document.querySelector('form').style.height = 'auto';
             } else {
-                document.querySelector('form').style.height = '25.5rem';
                 this.damageCheck = true;
                 this.complaintCheck = false;
             }

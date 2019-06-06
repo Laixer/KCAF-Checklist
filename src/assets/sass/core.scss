@@ -2,7 +2,6 @@
 
 body {
     background: $page-bg;
-    color: $text-color;
 }
 
 header .active {
@@ -13,7 +12,7 @@ header .active {
     border-bottom: 1.3rem solid $secondary-color-opacity;
 }
 
-button {
+button:not(.btn-white) {
     background: $primary-color;
     &:hover { background: $secondary-color; }
 }
@@ -31,10 +30,14 @@ button {
     &:focus { border-bottom: 1px solid $primary-color; }
 }
 
-#home #foundationCheck h1 {
+#home h1:not(#riskCheck h1) {
     color: $secondary-color;
 }
 
-#home #foundationCheck div .radiomark {
+#home div .radiomark {
     border: 2px solid $secondary-color;
+}
+
+.radiolabel .radiomark:after {
+    background: $primary-color;
 }

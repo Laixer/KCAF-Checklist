@@ -52,7 +52,6 @@ export default {
 
   body {
       margin: 0;
-      background: #F8F8F8;
   }
 
   img[alt="logo"] {

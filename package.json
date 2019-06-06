@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "app": "npm run app-light",
-    "app-light": "cross-env process.env.VUE_APP_BRAND='light' vue-cli-service serve",
-    "app-dark": "cross-env process.env.VUE_APP_BRAND='dark' vue-cli-service serve",
-    "build": "npm run build-light && npm run build-dark",
-    "build-light": "cross-env process.env.VUE_APP_BRAND='light' vue-cli-service build --dest dist/light",
-    "build-dark": "cross-env process.env.VUE_APP_BRAND='dark' vue-cli-service build --dest dist/dark",
+    "app": "npm run app-kcaf",
+    "app-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service serve",
+    "app-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service serve",
+    "build": "npm run build-kcaf && npm run build-kaan",
+    "build-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service build --dest dist/light",
+    "build-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service build --dest dist/dark",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

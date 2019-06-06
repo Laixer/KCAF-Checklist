@@ -35,10 +35,8 @@ $main-font: 'Helvetica Neue';
         button {
             @extend %btn;
             width: 10rem;
-            background-color: $blue;
             &:hover {
                 transition: all .08s linear;
-                background-color: $darkblue;
             }
         }
         .tweets {
