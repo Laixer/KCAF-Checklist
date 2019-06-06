@@ -15,7 +15,7 @@
                 <button class="btn-success" @click.prevent="goFundering">Ga verder </button>
             </fieldset>
             <fieldset v-if="!check && foundationCheck" v-cloak id="foundationCheck">
-                <h1>Op welke type fundering staat uw woning gebouwt?</h1>
+                <h2>Op welke type fundering staat uw woning gebouwt?</h2>
                 <div v-for="found in foundationOption" :key="found.id">
                     <label :for="found.id" class="radiolabel"> {{ found.labelText }}
                         <input type="radio" name="funderingoptie" :id="found.id">
@@ -41,7 +41,7 @@
                 <a @click.prevent="backFundering">Stap terug</a>
             </fieldset>
             <fieldset v-if="!zipcodeCheck && riskCheck" v-cloak id="riskCheck">
-                <h1>U loopt mogelijk een risico</h1>
+                <h2>U loopt mogelijk een risico</h2>
                 <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
                 <button class="btn-white" @click.prevent="goKlacht">Ja </button>
@@ -49,8 +49,8 @@
                 <a @click.prevent="backZipcode">Stap terug</a>
             </fieldset>
             <fieldset v-if="!riskCheck && !alertCheck && complaintCheck" v-cloak id="complaintCheck">
-                <h1>Klacht indienen over uw woning?</h1>
-                <h2>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h2>
+                <h2>Klacht indienen over uw woning?</h2>
+                <h3>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h3>
                 <div>
                     <label for="detached" class="radiolabel"> Vrijstaand pand
                         <input type="radio" name="vrijstaand_bouwblok" id="detached">
@@ -63,7 +63,7 @@
                         <span class="radiomark"></span>
                     </label>
                 </div>
-                <h2 class="mt-5">Bent u de eigenaar of de huurder van uw woning?</h2>
+                <h3 class="mt-5">Bent u de eigenaar of de huurder van uw woning?</h3>
                 <div>
                     <label for="owner" class="radiolabel"> Eigenaar
                         <input type="radio" name="eigenaar_huurder" id="owner">
@@ -90,7 +90,7 @@
                 <a @click.prevent="backRisico">Stap terug</a>
             </fieldset>
             <fieldset v-if="!complaintCheck && damageCheck" v-cloak id="damageCheck">
-                <h1>Wat veroorzaakt de schade in uw woning?</h1>
+                <h2>Wat veroorzaakt de schade in uw woning?</h2>
                 <div v-for="damage in damages" :key="damage.id">
                     <div>
                         <label :for="damage.id" class="radiolabel"> {{ damage.labelText }}
@@ -104,7 +104,7 @@
                 <a @click.prevent="backKlacht">Stap terug</a>
             </fieldset>
             <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck">
-                <h1>Herken je éen van de volgende punten in uw woning?</h1>
+                <h2>Herken je éen van de volgende punten in uw woning?</h2>
                 <p>Meerdere opties mogelijk</p>
                 <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
                     <div>
@@ -119,7 +119,7 @@
                 <a @click.prevent="backSchade">Stap terug</a>
             </fieldset>
             <fieldset v-if="!recogCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
-                <h1>Heeft u een onderzoeksrapport beschikbaar?</h1>
+                <h2>Heeft u een onderzoeksrapport beschikbaar?</h2>
                 <div class="mt-3">
                     <label for="researchYes" class="radiolabel"> Ja
                         <input type="radio" name="onderzoeksrapport" id="researchYes">
@@ -130,7 +130,7 @@
                     <input type="file" name="uploadrapport" id="uploadReport" disabled>
                     <p class="filetext">Sleep het bestand hier</p>
                     <img src="../../static/img/upload-button.png" alt="upload-button">
-                    <label class="btn-darkblue btn-disabled" for="uploadReport">Of selecteer een bestand</label>
+                    <label class="btn-secondary btn-disabled" for="uploadReport">Of selecteer een bestand</label>
                 </div>
                 <div class="mt-5">
                     <label for="researchNo" class="radiolabel"> Nee
@@ -142,8 +142,8 @@
                 <a @click.prevent="backHerken">Stap terug</a>
             </fieldset>
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
-                <h1>Advies</h1>
-                <h2>Funderingsonderzoek</h2>
+                <h2>Advies</h2>
+                <h3>Funderingsonderzoek</h3>
                 <article class="advies-container">
                     <div v-for="adv in adviseText" :key="adv.id">
                         <h3>{{ adv.title }}</h3>

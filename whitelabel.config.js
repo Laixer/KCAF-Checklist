@@ -12,8 +12,8 @@ const whitelabelConfig = {
         'brand': 'Kaan Cenik',
         'scssVariables': 'src/assets/sass/whitelabel-variables/kaan',
         'homeURL': '#',
-        'logoURL': '/img/logo.82b9c7a5.png',
-        'bannerImage': '/img/house.jpg',
+        'logoURL': '/img/KCAFLogo.png',
+        'bannerImage': '/img/house.075873a7.jpg',
         'contactEmail':  'kaan@example.co.uk',
         'introText': 'Welkom op mijn website.'
     }

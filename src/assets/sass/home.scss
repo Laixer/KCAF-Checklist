@@ -15,7 +15,7 @@
         border: none; 
     }
     #foundationCheck {
-        h1 { 
+        h2 { 
             color: $darkblue;
             font-weight: 500;
             margin: 0;
@@ -73,13 +73,12 @@
         button { margin-bottom: 0.8rem; margin-top: 1.9rem; }
     }
     #riskCheck {
-        background-color: $blue;
         color: #fff;
         margin: -1.6rem -1.5rem;
         min-width: 29rem;
         height: inherit;
         text-align: center;
-        h1 { margin-bottom: 1rem; }
+        h2 { margin-bottom: 1rem; }
         img { width: 10rem; }
         p {
             margin: 0.2rem 0 0 0;
@@ -104,14 +103,14 @@
         a { @extend %back-button; color: #dadada; margin-bottom: 1rem;}
     }
     #complaintCheck {
-        h1 { 
-            @extend %h1;
+        h2 { 
+            @extend %h2;
             font-size: 1.8rem;
             margin-bottom: 3.5rem;
             margin-top: 0.5rem;
             text-align: center;
         }
-        h2 { 
+        h3 { 
             color: $black;
             font-size: 1.3rem;
             font-weight: 600;
@@ -131,8 +130,8 @@
     }
     #damageCheck {
         min-width: 42rem;
-        h1 { 
-            @extend %h1;
+        h2 { 
+            @extend %h2;
             margin-bottom: 1rem;
             margin-top: 0.5rem;
         }
@@ -148,7 +147,7 @@
     }
     #recogCheck {
         min-width: 42rem;
-        h1 {  @extend %h1; }
+        h2 {  @extend %h2; }
         p { margin: 0; font-size: .8rem;}
         div { 
             @extend %checkDiv; 
@@ -162,7 +161,7 @@
     }
     #uploadCheck {
         min-width: 42rem;
-        h1 { @extend %h1; }
+        h2 { @extend %h2; }
         div { 
             @extend %checkDiv; 
             input[type="radio"] { display: none; }
@@ -189,7 +188,6 @@
             img { width: 5rem; }
             .btn-darkblue { 
                 @extend %btn; 
-                background-color: $darkblue;
                 width: 80%;
                 opacity: 0.53;
                 cursor: default;
@@ -199,7 +197,6 @@
             .button-enabled {
                 opacity: 1.0;
                 cursor: pointer;
-                &:hover { background-color: #01293e;}
             }
         }
         .file-adding {
@@ -209,8 +206,8 @@
     }
     #advise {
         min-width: 42rem;
-        h1 { @extend %h1; font-size: 1.6rem; }
-        h2 { margin: 0.8rem 0; font-size: 1rem; }
+        h2 { @extend %h2; font-size: 1.6rem; }
+        h3 { margin: 0.8rem 0; font-size: 1rem; }
         article {
             background-color: #fbfbfb;
             max-height: 23rem;
@@ -223,7 +220,6 @@
         }
         .stappenplan {
             font-weight: 800;
-            color: $blue;
         }
         button { margin-bottom: 1rem; margin-top: .8rem; }
     }
@@ -235,7 +231,6 @@
     legend {
         position: relative;
         font-size: 1.8rem;
-        color: $darkblue;
         font-weight: 400;
         padding-left: 1.3rem;
         margin-bottom: 1.5rem;
@@ -243,12 +238,10 @@
         span {
             position: absolute; 
             left: 0rem; top: 7px;
-            background-color: #129DDD;
             height: 1.4rem;  width: 0.4rem; 
         }
     }
     label {
-        color: $darkblue;
         font-size: 1.2rem; font-weight: 400;
         margin-bottom: 1.1rem;
         display: block;

@@ -1,43 +1,50 @@
 @import '~brandVariables/variables';
 
-body {
-    background: $page-bg;
-}
+body { background: $page-bg; }
 
-header .active {
-    color: $primary-color;
-}
+header .active { color: $primary-color; }
 
-.banner {
-    border-bottom: 1.3rem solid $secondary-color-opacity;
-}
+.banner { border-bottom: 1.3rem solid $secondary-color-opacity; }
+
+h1 { color: $h1; }
 
 button:not(.btn-white) {
-    background: $primary-color;
-    &:hover { background: $secondary-color; }
+    background: $button-color;
+    &:hover { background: $button-color-hover; }
 }
 
-#home legend {
-    color: $secondary-color;
+.btn-secondary {
+    background-color: $secondary-color;
+    &:hover { background-color: $secondary-color-hover;}
 }
 
-#home legend span {
-    background-color: $primary-color;
+#home {
+    legend {
+        color: $secondary-color;
+        span { background-color: $primary-color; }
+    }
+    input {
+        border-bottom: 1px solid $secondary-color;
+        &:focus { border-bottom: 1px solid $primary-color; }
+    }
+    h2:not(#riskCheck h2) { color: $h2; }
+    #riskCheck  { background-color: $primary-color; }
+    div .radiomark { border: 2px solid $secondary-color; }
+    label { color: $secondary-color; }
+    #advise .stappenplan { color: $link-color; }
 }
 
-#home input {
-    border-bottom: 1px solid $secondary-color;
-    &:focus { border-bottom: 1px solid $primary-color; }
-}
+.radiolabel .radiomark:after { background: $primary-color; }
 
-#home h1:not(#riskCheck h1) {
-    color: $secondary-color;
-}
-
-#home div .radiomark {
-    border: 2px solid $secondary-color;
-}
-
-.radiolabel .radiomark:after {
-    background: $primary-color;
+#newsletter {
+    a { color: $link-color; }
+    .contentright {
+        article { 
+            button { color: $secondary-color; }
+            a {
+                color: $secondary-color;
+                &:hover { color: $primary-color; }
+            }
+        }
+    }
 }
