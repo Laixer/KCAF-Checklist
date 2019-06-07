@@ -1,10 +1,10 @@
 @import '~brandVariables/variables';
 
-body { background: $page-bg; }
+body { background: $page-bg; color: $text-color }
 
 header .active { color: $primary-color; }
 
-.banner { border-bottom: 1.3rem solid $secondary-color-opacity; }
+.banner { border-bottom: 1.3rem solid $banner-border-color; }
 
 h1 { color: $h1; }
 
@@ -27,12 +27,13 @@ button:not(.btn-white) {
         border-bottom: 1px solid $secondary-color;
         &:focus { border-bottom: 1px solid $primary-color; }
     }
-    h2:not(#riskCheck h2) { color: $h2; }
     #riskCheck  { background-color: $primary-color; }
     div .radiomark { border: 2px solid $secondary-color; }
     label { color: $secondary-color; }
     #advise .stappenplan { color: $link-color; }
 }
+
+h2 { color: $h2; }
 
 .radiolabel .radiomark:after { background: $primary-color; }
 

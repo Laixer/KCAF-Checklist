@@ -4,6 +4,7 @@ const brandVariablesPath = whitelabelConfig[process.env.VUE_APP_BRAND].scssVaria
 const webpack = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 
+console.log(brandVariablesPath)
 const gitRevisionPlugin = new GitRevisionPlugin();
 
 // vue.config.js

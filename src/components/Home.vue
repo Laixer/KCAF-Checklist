@@ -12,7 +12,7 @@
                         <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </p>
-                <button class="btn-success" @click.prevent="goFundering">Ga verder </button>
+                <button class="btn-success" @click.prevent="goFoundation">Ga verder </button>
             </fieldset>
             <fieldset v-if="!check && foundationCheck" v-cloak id="foundationCheck">
                 <h2>Op welke type fundering staat uw woning gebouwt?</h2>
@@ -37,14 +37,14 @@
                 </div>
                 <label for="postcodegebied">Postcodegebied: {{zipcode}} - {{housenumber}}</label>
                 <p class="img-description">Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.</p>
-                <button class="btn-success" @click.prevent="goRisico">Ga verder </button>
-                <a @click.prevent="backFundering">Stap terug</a>
+                <button class="btn-success" @click.prevent="goRisk">Ga verder </button>
+                <a @click.prevent="backFoundation">Stap terug</a>
             </fieldset>
             <fieldset v-if="!zipcodeCheck && riskCheck" v-cloak id="riskCheck">
                 <h2>U loopt mogelijk een risico</h2>
                 <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
-                <button class="btn-white" @click.prevent="goKlacht">Ja </button>
+                <button class="btn-white" @click.prevent="goComplaint">Ja </button>
                 <button class="btn-grey" @click.prevent="goAlert">Nee </button>
                 <a @click.prevent="backZipcode">Stap terug</a>
             </fieldset>
@@ -81,13 +81,13 @@
                         <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </p>
-                <button class="btn-success" @click.prevent="goSchade">Ga verder </button>
-                <a @click.prevent="backRisico">Stap terug</a>
+                <button class="btn-success" @click.prevent="goDamage">Ga verder </button>
+                <a @click.prevent="backRist">Stap terug</a>
             </fieldset>
             <fieldset v-if="!riskCheck && !complaintCheck && !damageCheck && alertCheck" v-cloak id="alertCheck">
-                <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documenten om verdere funderingsproblemen te voorkomen.</p>
-                <button class="btn-success" @click.prevent="documenten"> Bekijk documenten</button>
-                <a @click.prevent="backRisico">Stap terug</a>
+                <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documents om verdere funderingsproblemen te voorkomen.</p>
+                <button class="btn-success" @click.prevent="documents"> Bekijk documents</button>
+                <a @click.prevent="backRist">Stap terug</a>
             </fieldset>
             <fieldset v-if="!complaintCheck && damageCheck" v-cloak id="damageCheck">
                 <h2>Wat veroorzaakt de schade in uw woning?</h2>
@@ -100,8 +100,8 @@
                         </label>
                     </div>
                 </div>
-                <button class="btn-success" @click.prevent="goHerken">Ga verder </button>
-                <a @click.prevent="backKlacht">Stap terug</a>
+                <button class="btn-success" @click.prevent="goRecog">Ga verder </button>
+                <a @click.prevent="backComplaint">Stap terug</a>
             </fieldset>
             <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck">
                 <h2>Herken je éen van de volgende punten in uw woning?</h2>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
-                <a @click.prevent="backSchade">Stap terug</a>
+                <a @click.prevent="backDamage">Stap terug</a>
             </fieldset>
             <fieldset v-if="!recogCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h2>Heeft u een onderzoeksrapport beschikbaar?</h2>
@@ -139,7 +139,7 @@
                     </label>
                 </div>
                 <button class="btn-success" @click.prevent="goAdvise">Ga verder </button>
-                <a @click.prevent="backHerken">Stap terug</a>
+                <a @click.prevent="backRecog">Stap terug</a>
             </fieldset>
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h2>Advies</h2>
@@ -167,7 +167,8 @@
 import Location from './form/Location.vue';
 import Foundation from './form/Foundation.vue';
 
-const whitelabel = require('../../whitelabel.config')[process.env.VUE_APP_BRAND];
+const text = require('../../vendor/'+[process.env.VUE_APP_BRAND]+'/text.json');
+
 const $ = require("jquery");
 
 $( document ).ready(function() { 
@@ -205,7 +206,7 @@ export default {
     },
     data () {
         return {
-            introText: whitelabel.introText,
+            introText: text.introText,
             errors: [],
             zipcode: null,
             housenumber: null,
@@ -346,16 +347,15 @@ export default {
             this.errors = [];
         },
 
-        goFundering: function() {
+        goFoundation: function() {
             let zipField = document.querySelector('#postcode');
             let hnrField = document.querySelector('#huisnummer')
             this.errors = [];
 
-            /* if (!this.zipcode) {
+            if (!this.zipcode) {
                 this.errors.push('Postcode is verplicht.');
                 zipField.style.borderBottom = '1px solid #ff2222';
                 hnrField.style.borderBottom = '1px solid #004265';
-                document.querySelector('.btn-success').style.marginTop = '0';
             } else if (!this.validZipcode(this.zipcode)) {
                 this.errors.push('Geen geldige Postcode');
                 zipField.style.borderBottom = '1px solid #ff2222';
@@ -381,7 +381,7 @@ export default {
                 } else {
                     zipField.style.borderBottom = '1px solid #004265';
                 }
-            } */
+            } 
 
             if (this.errors.length) {
                 document.querySelector('form').style.height = 'auto';
@@ -398,7 +398,7 @@ export default {
             let regex = /^([0-9]){1,}([A-Za-z]){0,3}$/;
             return regex.test(housenumber);
         },
-        backFundering: function() {
+        backFoundation: function() {
             this.foundationCheck = true;
         },
 
@@ -434,17 +434,17 @@ export default {
             resizeBtn.classList.toggle('btn-position');
         },
 
-        goRisico: function() {
+        goRisk: function() {
             this.zipcodeCheck = false;
         },
-        backRisico: function() {
+        backRist: function() {
             this.riskCheck = true;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.remove('center');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
 
-        goKlacht: function() {
+        goComplaint: function() {
             this.complaintCheck = true;
             this.riskCheck = false;
             this.alertCheck = false;
@@ -452,11 +452,11 @@ export default {
             checkForm.classList.add('center');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
-        backKlacht: function() {
+        backComplaint: function() {
             this.complaintCheck = true;
         },
 
-        goSchade: function() {
+        goDamage: function() {
             let form = document.querySelector('#complaintCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
@@ -470,7 +470,7 @@ export default {
             }
             
         },
-        backSchade: function() {
+        backDamage: function() {
             this.damageCheck = true;
             this.errors = [];
         },
@@ -484,11 +484,11 @@ export default {
             }
         },
 
-        goHerken: function() {
+        goRecog: function() {
             this.damageCheck = false;
             this.recogCheck = true;
         },
-        backHerken: function() {
+        backRecog: function() {
             this.recogCheck = true;
         },
         enableTextCheckbox: function(e) {
@@ -572,8 +572,8 @@ export default {
             return false;
         },
 
-        documenten: function() {
-            location.href = "#documenten";
+        documents: function() {
+            location.href = "#documents";
         },
     }
 }
