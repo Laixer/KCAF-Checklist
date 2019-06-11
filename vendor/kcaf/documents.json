@@ -1,0 +1,60 @@
+{
+    "documents": [
+        {
+            "id": 1,
+            "image": "5jaarKCAF.png",
+            "altText": "5jaarKCAF",
+            "title": "5 jaar KCAF",
+            "url": "#"
+        },
+        {
+            "id": 2,
+            "image": "grondwateraanvulling.png",
+            "altText": "Grondwateraanvulling",
+            "title": "Grondwateraanvulling voor funderingsbehoud",
+            "url": "#"
+        },
+        {
+            "id": 3,
+            "image": "juridische_handleiding.png",
+            "altText": "juridische_handleiding",
+            "title": "Juridische handleiding",
+            "url": "#"
+        },
+        {
+            "id": 4,
+            "image": "handboek_funderingsherstel.png",
+            "altText": "handboek_funderingsherstel",
+            "title": "Handboek Funderingsherstel",
+            "url": "#"
+        },
+        {
+            "id": 5,
+            "image": "handleiding_gemeenten.png",
+            "altText": "handleiding_gemeenten",
+            "title": "Handleiding voor gemeenten",
+            "url": "#"
+        },
+        {
+            "id": 6,
+            "image": "stappenplan.png",
+            "altText": "stappenplan",
+            "title": "Stappenplan bij problemen houten funderingen",
+            "url": "#"
+        },
+        {
+            "id": 7,
+            "image": "funderingsherstel.png",
+            "altText": "funderingsherstel",
+            "title": "Funderingsherstel & Energiebesparing",
+            "url": "#"
+        },
+        {
+            "id": 8,
+            "image": "richtlijn_onderzoek.png",
+            "altText": "richtlijn_onderzoek",
+            "title": "Richtlijn voor onderzoek naar houten paalfundering",
+            "url": "#"
+        }
+    ]
+}

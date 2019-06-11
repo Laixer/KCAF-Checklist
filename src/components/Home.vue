@@ -100,6 +100,11 @@
                         </label>
                     </div>
                 </div>
+                <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
+                    <ul>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
+                    </ul>
+                </p>
                 <button class="btn-success" @click.prevent="goRecog">Ga verder </button>
                 <a @click.prevent="backComplaint">Stap terug</a>
             </fieldset>
@@ -485,8 +490,18 @@ export default {
         },
 
         goRecog: function() {
-            this.damageCheck = false;
-            this.recogCheck = true;
+            let form = document.querySelector('#damageCheck');
+            let radios = form.querySelectorAll('input');
+            this.errors = [];
+
+            if (!this.validateRadio(radios)) {
+                this.errors.push('Geen optie geselecteerd.');
+                document.querySelector('form').style.height = 'auto';
+            } else {
+                this.damageCheck = false;
+                this.recogCheck = true;
+            }
+            
         },
         backRecog: function() {
             this.recogCheck = true;
@@ -506,8 +521,9 @@ export default {
         },
 
         goUpload: function() {
-            this.recogCheck = false;
             this.uploadCheck = true;
+            this.recogCheck = false;
+            this.errors = [];
         },
         backUpload: function() {
             this.uploadCheck = true;

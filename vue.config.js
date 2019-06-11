@@ -1,10 +1,11 @@
 const path = require('path');
 const whitelabelConfig = require('./whitelabel.config');
-const brandVariablesPath = whitelabelConfig[process.env.VUE_APP_BRAND].scssVariables
+// const brandVariablesPath = whitelabelConfig[process.env.VUE_APP_BRAND].scssVariables
+const brand = process.env.VUE_APP_BRAND
+const brandVariablesPath = "vendor/"+ brand +"/sass";
 const webpack = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 
-console.log(brandVariablesPath)
 const gitRevisionPlugin = new GitRevisionPlugin();
 
 // vue.config.js

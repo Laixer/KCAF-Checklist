@@ -3,12 +3,13 @@
 </template>
 
 <script>
-const whitelabel = require('../../whitelabel.config')[process.env.VUE_APP_BRAND];
+const brand = process.env.VUE_APP_BRAND;
+const whitelabel = require('../../whitelabel.config')[brand];
 export default {
   name: 'Banner',
   data() {
       return {
-          backgroundImage: whitelabel.bannerImage,
+          backgroundImage: require('../../vendor/'+ brand +'/img/' + whitelabel.bannerImage),
       }
   }
 }
@@ -16,7 +17,6 @@ export default {
 
 <style lang="scss">
     .banner {
-        background: url('../../static/img/bg-rdam.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
