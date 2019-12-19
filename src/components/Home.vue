@@ -1,8 +1,9 @@
 <template>
     <section id="home">
         <form action="" class="check" id="checkForm" method="POST">
+
             <fieldset v-if="check" id="check">
-                <legend><span></span> Doe de check</legend>
+                <legend><span></span> Melding maken voor adres: </legend>
                 <label for="postcode">Postcode </label>
                 <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
                 <label for="huisnummer">Huisnummer </label>
@@ -14,8 +15,9 @@
                 </p>
                 <button class="btn-success" @click.prevent="goFoundation">Ga verder </button>
             </fieldset>
+
             <fieldset v-if="!check && foundationCheck" v-cloak id="foundationCheck">
-                <h2>Op welke type fundering staat uw woning gebouwt?</h2>
+                <h2>Op welke type fundering is de woning gebouwd?</h2>
                 <div v-for="found in foundationOption" :key="found.id">
                     <label :for="found.id" class="radiolabel"> {{ found.labelText }}
                         <input type="radio" name="funderingoptie" :id="found.id">
@@ -27,10 +29,11 @@
                         <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </p>
-                <button class="btn-success" @click.prevent="goZipcode">Ga verder </button>
+                <button class="btn-success" @click.prevent="goComplaint">Ga verder </button>
                 <a @click.prevent="backCheck">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!foundationCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
+
+            <!-- <fieldset v-if="!foundationCheck && zipcodeCheck" v-cloak id="zipcodeCheck">
                 <div>
                     <img src="../../static/img/postcodemap.png" id="mapImage" alt="postcodemap">
                     <button class="btn-expand" @click.prevent="resizeMap"><i class="fas fa-expand"></i></button>
@@ -39,17 +42,19 @@
                 <p class="img-description">Dit postcodegebied bevat 41 panden (BAG). Van deze panden is 100% gebouwd voor 1970. Panden gebouwd voor 1970 hebben meermaal een houten of ondiepe fundering. Deze kunnen kwetsbaar zijn, vooral waar de draagkracht van de bodem beperkt is. Dat is in dit gebied zo. Aandacht voor de aard en staat van de fundering is hier van belang, zeker in geval van concrete aanwijzingen.</p>
                 <button class="btn-success" @click.prevent="goRisk">Ga verder </button>
                 <a @click.prevent="backFoundation">Stap terug</a>
-            </fieldset>
-            <fieldset v-if="!zipcodeCheck && riskCheck" v-cloak id="riskCheck">
+            </fieldset> -->
+
+            <!-- <fieldset v-if="!foundationCheck && riskCheck" v-cloak id="riskCheck">
                 <h2>U loopt mogelijk een risico</h2>
                 <img src="../../static/img/warning.png" alt="warning">
                 <p>Wilt u een klacht indienen over uw woning?</p>
                 <button class="btn-white" @click.prevent="goComplaint">Ja </button>
                 <button class="btn-grey" @click.prevent="goAlert">Nee </button>
                 <a @click.prevent="backZipcode">Stap terug</a>
-            </fieldset>
-            <fieldset v-if="!riskCheck && !alertCheck && complaintCheck" v-cloak id="complaintCheck">
-                <h2>Klacht indienen over uw woning?</h2>
+            </fieldset> -->
+
+            <fieldset v-if="!foundationCheck && complaintCheck" v-cloak id="complaintCheck">
+                <h2>Melding maken voor {{zipcode}} - {{housenumber}}</h2>
                 <h3>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h3>
                 <div>
                     <label for="detached" class="radiolabel"> Vrijstaand pand
@@ -63,7 +68,7 @@
                         <span class="radiomark"></span>
                     </label>
                 </div>
-                <h3 class="mt-5">Bent u de eigenaar of de huurder van uw woning?</h3>
+                <h3 class="mt-2">Bent u de eigenaar of de huurder van uw woning?</h3>
                 <div>
                     <label for="owner" class="radiolabel"> Eigenaar
                         <input type="radio" name="eigenaar_huurder" id="owner">
@@ -76,19 +81,34 @@
                         <span class="radiomark"></span>
                     </label>
                 </div>
+                <h3 class="mt-2">Is bij een van uw directe buren funderingsherstel uitgevoerd?</h3>
+                <div>
+                    <label for="repairYes" class="radiolabel"> Ja
+                        <input type="radio" name="funderingsherstel" id="repairYes">
+                        <span class="radiomark"></span>
+                    </label>
+                </div>
+                <div>
+                    <label for="repairNo" class="radiolabel"> Nee
+                        <input type="radio" name="funderingsherstel" id="repairNo">
+                        <span class="radiomark"></span>
+                    </label>
+                </div>
                 <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
                     <ul>
                         <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </p>
                 <button class="btn-success" @click.prevent="goDamage">Ga verder </button>
-                <a @click.prevent="backRist">Stap terug</a>
+                <a @click.prevent="backFoundation">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!riskCheck && !complaintCheck && !damageCheck && alertCheck" v-cloak id="alertCheck">
+
+            <!-- <fieldset v-if="!riskCheck && !complaintCheck && !damageCheck && alertCheck" v-cloak id="alertCheck">
                 <p><b>Blijf alert.</b> Neem situaties die kunnen wijzen op funderingsproblemen altijd serieus. Want alle soorten funderingen kunnen in de loop der jaren door verschillende factoren te maken krijgen met problemen. </p><p class="newline"> Neem een kijk in onze documents om verdere funderingsproblemen te voorkomen.</p>
                 <button class="btn-success" @click.prevent="documents"> Bekijk documents</button>
-                <a @click.prevent="backRist">Stap terug</a>
-            </fieldset>
+                <a @click.prevent="backRisk">Stap terug</a>
+            </fieldset> -->
+
             <fieldset v-if="!complaintCheck && damageCheck" v-cloak id="damageCheck">
                 <h2>Wat veroorzaakt de schade in uw woning?</h2>
                 <div v-for="damage in damages" :key="damage.id">
@@ -108,7 +128,8 @@
                 <button class="btn-success" @click.prevent="goRecog">Ga verder </button>
                 <a @click.prevent="backComplaint">Stap terug</a>
             </fieldset>
-            <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck">
+            
+            <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck" @change="adviseText">
                 <h2>Herken je éen van de volgende punten in uw woning?</h2>
                 <p>Meerdere opties mogelijk</p>
                 <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
@@ -123,19 +144,36 @@
                 <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
                 <a @click.prevent="backDamage">Stap terug</a>
             </fieldset>
+
+            <fieldset v-if="!damageCheck && surroundingCheck" v-cloak id="surroundingCheck" @change="adviseText">
+                <h2>Klachten ten aanzien van de omgeving?</h2>
+                <p>Meerdere opties mogelijk</p>
+                <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
+                    <div>
+                        <label :for="last.id" class="radiolabel"> {{ last.labelText }}
+                            <input type="checkbox" name="lasten" :id="last.id">
+                            <input type="text" id="inputLast" v-if="last.inputField" disabled>
+                            <span class="radiomark"></span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
+                <a @click.prevent="backDamage">Stap terug</a>
+            </fieldset>
+
             <fieldset v-if="!recogCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h2>Heeft u een onderzoeksrapport beschikbaar?</h2>
                 <div class="mt-3">
                     <label for="researchYes" class="radiolabel"> Ja
-                        <input type="radio" name="onderzoeksrapport" id="researchYes">
+                        <input type="radio" name="onderzoeksrapport" id="researchYes" checked>
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <div class="upload-container" @drop.prevent="dropHandler" @dragover.prevent="dragOverHandler">
-                    <input type="file" name="uploadrapport" id="uploadReport" disabled>
+                    <input type="file" name="uploadrapport" id="uploadReport">
                     <p class="filetext">Sleep het bestand hier</p>
                     <img src="../../static/img/upload-button.png" alt="upload-button">
-                    <label class="btn-secondary btn-disabled" for="uploadReport">Of selecteer een bestand</label>
+                    <label class="btn-secondary btn-toggle" for="uploadReport">Of selecteer een bestand</label>
                 </div>
                 <div class="mt-5">
                     <label for="researchNo" class="radiolabel"> Nee
@@ -146,19 +184,17 @@
                 <button class="btn-success" @click.prevent="goAdvise">Ga verder </button>
                 <a @click.prevent="backRecog">Stap terug</a>
             </fieldset>
+
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h2>Advies</h2>
                 <h3>Funderingsonderzoek</h3>
-                <article class="advies-container">
-                    <div v-for="adv in adviseText" :key="adv.id">
-                        <h3>{{ adv.title }}</h3>
-                        <p>{{ adv.text }}</p>
-                    </div>
-                </article>
+                <p v-if="recogCheckNothing == false">Wij adviseren u in het (laten) uitvoeren van aanvullend onderzoek. In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is.</p>
+                <p v-else>U heeft vermoedelijk geen funderingsprobleem. Indien u toch twijfelt raden wij u aan ons stappenplan voor het achterhalen van Funderingsproblematiek te bekijken.</p>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
                 <button class="btn-success" @click.prevent="goCheck">Terug naar het begin </button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
+
         </form>
         <article>
             <h1>Wie zijn wij?</h1>
@@ -217,12 +253,13 @@ export default {
             housenumber: null,
             check: true,
             foundationCheck: true,
-            zipcodeCheck: true,
-            riskCheck: true,
+            // zipcodeCheck: true,
+            // riskCheck: true,
+            // alertCheck: true,
             complaintCheck: true,
-            alertCheck: true,
             damageCheck: true,
             recogCheck: true,
+            recogCheckNothing: false,
             uploadCheck: true,
             advise: true,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
@@ -233,7 +270,7 @@ export default {
                 },
                 {
                     'id': 'shallow',
-                    'labelText': 'Ondiepe fundering'
+                    'labelText': 'Ondiepe fundering (op staal)'
                 },
                 {
                     'id': 'concrete',
@@ -271,7 +308,19 @@ export default {
                 },
                 {
                     'id': 'plantRoots',
-                    'labelText': 'Beschadiging fundering door (planten)wortels '
+                    'labelText': 'Beschadiging fundering door (planten)wortels'
+                },
+                {
+                    'id': 'gasExtraction',
+                    'labelText': 'Gaswinning'
+                },
+                {
+                    'id': 'traffic',
+                    'labelText': 'Verkeer nabij het pand'
+                },
+                {
+                    'id': 'repairNeighbour',
+                    'labelText': 'Funderingsherstel bij de buren'
                 },
                 {
                     'id': 'other',
@@ -302,11 +351,11 @@ export default {
                 },
                 {
                     'id': 'entrance',
-                    'labelText': 'De drempel van de entree ligt hoger dan het trottoir/weg'
+                    'labelText': 'De drempel van de woning ligt hoger dan het trottoir/weg'
                 },
                 {
                     'id': 'myHome',
-                    'labelText': 'De drempel van mijn woning ligt lager dan het trottoir/weg'
+                    'labelText': 'De drempel van de woning ligt lager dan het trottoir/weg'
                 },
                 {
                     'id': 'floorsWalls',
@@ -319,25 +368,62 @@ export default {
                 },
                 {
                     'id': 'nothing',
-                    'labelText': 'Ik herken niets'
+                    'labelText': 'Ik herken niets',
                 }
             ],
-            adviseText: [
+            surrounding: [
                 {
-                    'title': '4.1 Soms is funderingsonderzoek overbodig.',
-                    'text': 'Als scheefstand en/of forse scheurvorming aanwezig is zal funderingsonderzoek niet altijd nodig zijn of beperkt kunnen blijven tot een zogeheten quickscan, waarbij alleen bovengrondse zaken worden ingemeten. Dit beperkte onderzoek kan noodzakelijk zijn om mede eigenaren van de bouwkundige eenheid te overtuigen. Ga verder naar stap 6',
+                    'id': 'subsidenceGarden',
+                    'labelText': 'Is er sprake van bodemdaling tuin/erf?'
                 },
                 {
-                    'title': '4.2 Funderingsonderzoek',
-                    'text': 'Het loont de moeite om bij meerdere funderingsonderzoeksbedrijven een offerte op te vragen voor de hele bouwkundige eenheid. Het uitgangspunt hierbij is dat het onderzoek wordt uitgevoerd volgens de laatst vastgestelde F3O-richtlijn voor funderingsonderzoek. Samen met de andere eigenaren (en eventueel een deskundige) kan vervolgens een keuze worden gemaakt uit de ontvangen offertes. Het is verstandig om vooraf met de andere eigenaren een verdeelsleutel af te spreken over de te maken kosten. Dat kan bijvoorbeeld op basis van het woningoppervlak of volgens de splitsingsakte van de VVE. Enkele gemeenten geven subsidie of laten funderingsonderzoek voor hun rekening uitvoeren. Dit is op te vragen bij de eigen gemeente. Als de betreffende gemeente geen regeling voor funderingsonderzoek heeft, dan kan een van de eigenaren een rekening openen zodat iedereen daarop zijn/haar bijdrage kan storten voor het funderingsonderzoek. De mede-eigenaren geven schriftelijk toestemming voor het onderzoek en vervolgens kan daarna opdracht worden verstrekt voor het funderingsonderzoek.',
+                    'id': 'sewerConnection',
+                    'labelText': 'Heeft u last van verzakkende rioolaansluitingen?'
                 },
                 {
-                    'title': '4.3 Uitvoering funderingsonderzoek',
-                    'text': 'Zowel de lintvoeg in het metselwerk als enkele vloervelden zullen worden nagemeten met behulp van een waterpas. Dit om zettingen en verzakkingen sinds de oorspronkelijke bouw in beeld te krijgen. Op een aantal plaatsen wordt daarna de fundering ontgraven, ingemeten en in kaart gebracht. Bij houten funderingen worden volgens de richtlijn zo nodig houtmonsters genomen. Zie de vigerende F3O-richtlijn.',
+                    'id': 'cables',
+                    'labelText': 'Heeft u last van verzakkende kabels/leidingen'
                 },
                 {
-                    'title': '4.4 Het rapport beschikbaar',
-                    'text': 'Na het onderzoek stuurt het onderzoeksbureau een rapport per post of digitaal. Het is belangrijk om, ook bij een gunstige uitkomst, het rapport goed te bewaren. Indien gewenst kunnen de eigenaren het funderingsonderzoeks-bureau vragen om een toelichting te komen geven op haar bevindingen, waarbij zo mogelijk alle mede-eigenaren van de bouwkundige eenheid aanwezig zijn. Bij twijfel over de rapportage kan eventueel een externe onafhankelijke deskundige in de arm worden genomen. Als het rapport niet voldoet aan de vigerende F3O-richtlijn dan hoeven de eigenaren het niet te accepteren. Het onderzoeksbureau zal het funderingsonderzoek dan alsnog volgens de richtlijn dienen uit te voeren. De conclusie van het onderzoeksrapport kan zijn: De fundering is goed Verdere actie is niet nodig. Het is aan te raden om wel het rapport te bewaren. Overwogen kan worden om, indien niet in de nabijheid aanwezig, enkele peilbuizen bij de voorgevel aan te brengen en de grondwaterstand te meten en te registreren. In ieder geval in de zomerperiode. De fundering is goed mits de grondwaterstand minstens 20 cm boven het hoogste funderingshout blijft staan. Om de voortgang te monitoren kunnen peilbuizen worden aangebracht, indien deze niet in de nabijheid aanwezig zijn. Dit gebeurt zo dicht mogelijk bij de voor- en achtergevel om de andere woning. De peilbuizen worden iedere maand gemeten. Hierbij is het belangrijk dat de gegevens worden genoteerd. De fundering is nog goed maar het grondwater staat periodiek te laag.',
+                    'id': 'flooding',
+                    'labelText': 'Heeft u wateroverlast?'
+                },
+                {
+                    'id': 'underload',
+                    'labelText': 'Heeft u wateronderlast / droge bodem?'
+                },
+                {
+                    'id': 'leakingSewage',
+                    'labelText': 'Is er sprake van lekkende riolering in de straat?'
+                },
+                {
+                    'id': 'blockSignals',
+                    'labelText': 'Zijn er woningen in uw bouwblok met signalen van funderingsproblemen?'
+                },
+                {
+                    'id': 'neighbourSignals',
+                    'labelText': 'Zijn er woningen in uw buurt c.q. wijk met signalen van funderingsproblemen?'
+                },
+                {
+                    'id': 'elevatedStreet',
+                    'labelText': 'Is de straat waarin de woning ligt onlangs opgehoogd?'
+                },
+                {
+                    'id': 'increasingTraffic',
+                    'labelText': 'Is er sprake van toenemend verkeer in uw straat?'
+                },
+                {
+                    'id': 'constActivities',
+                    'labelText': 'Vinden er in de directe omgeving bouwactiviteiten plaats?'
+                },
+                {
+                    'id': 'largeTrees',
+                    'labelText': 'Staan er grote bomen nabij de woning?'
+                },
+                {
+                    'id': 'surroundingOther',
+                    'labelText': 'Iets anders, namelijk:',
+                    'inputField': true
                 },
             ]
         }
@@ -346,6 +432,11 @@ export default {
         goCheck: function() {
             this.check = true;
             this.advise = false;
+            
+            let checkForm = document.querySelector('#checkForm');
+            checkForm.classList.remove('center');
+            document.querySelector('#app').classList.remove('darken');
+            checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
         backCheck: function() {
             this.check = true;
@@ -356,6 +447,10 @@ export default {
             let zipField = document.querySelector('#postcode');
             let hnrField = document.querySelector('#huisnummer')
             this.errors = [];
+
+/*          let checkForm = document.querySelector('#checkForm');
+            checkForm.classList.add('center');
+            checkForm.scrollIntoView({behavior: "smooth", block: "end"}); */
 
             if (!this.zipcode) {
                 this.errors.push('Postcode is verplicht.');
@@ -405,9 +500,14 @@ export default {
         },
         backFoundation: function() {
             this.foundationCheck = true;
+
+            let checkForm = document.querySelector('#checkForm');
+            checkForm.classList.remove('center');
+            document.querySelector('#app').classList.remove('darken');
+            checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
 
-        goZipcode: function() {
+    /*  goZipcode: function() {
             let form = document.querySelector('#foundationCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
@@ -437,24 +537,26 @@ export default {
                 resizeBtn.innerHTML = '<i class="fas fa-expand"></i>'
             }
             resizeBtn.classList.toggle('btn-position');
-        },
+        }, */
 
-        goRisk: function() {
-            this.zipcodeCheck = false;
+        /* goRisk: function() {
+            this.foundationCheck = false;
         },
         backRist: function() {
             this.riskCheck = true;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.remove('center');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
-        },
+        }, */
 
         goComplaint: function() {
             this.complaintCheck = true;
-            this.riskCheck = false;
-            this.alertCheck = false;
+            this.foundationCheck = false;
+            // this.riskCheck = false;
+            // this.alertCheck = false;
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.add('center');
+            document.querySelector('#app').classList.add('darken');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
         backComplaint: function() {
@@ -506,6 +608,17 @@ export default {
         backRecog: function() {
             this.recogCheck = true;
         },
+
+        adviseText: function(e) {
+            let checkboxNothing = document.querySelector('#nothing')
+            
+            if (checkboxNothing.checked === true) {
+                this.recogCheckNothing = true;
+            } else {
+                this.recogCheckNothing = false;
+            }
+        },
+
         enableTextCheckbox: function(e) {
             let inputLast = document.querySelector('#inputLast');
             let otherCheckbox = document.querySelector('#otherCheckbox');
@@ -531,18 +644,18 @@ export default {
         enableFileUpload: function(e) {
             let uploadContainer = document.querySelector('.upload-container');
             let uploadReport = document.querySelector('#uploadReport');
-            let fileButton = document.querySelector('.btn-disabled');
+            let fileButton = document.querySelector('.btn-toggle');
             let dragText = document.querySelector('.filetext');
-            if (e.target.id === "researchYes") {
-                uploadContainer.style.border = "2px dashed #39434E";
-                uploadReport.disabled = false;
-                fileButton.classList.add("button-enabled");
-                dragText.style.color = '#39434E';
-            } else {
+            if (e.target.id === "researchNo") {
                 uploadContainer.style.border = "2px dashed #bfbdbd";
                 uploadReport.disabled = true;
-                fileButton.classList.remove("button-enabled");
+                fileButton.classList.add("button-disabled");
                 dragText.style.color = '#bfbdbd';
+            } else {
+                uploadContainer.style.border = "2px dashed #39434E";
+                uploadReport.disabled = false;
+                fileButton.classList.remove("button-disabled");
+                dragText.style.color = '#39434E';
             }
         },
         dropHandler: function(e) {
@@ -570,8 +683,8 @@ export default {
         },
 
         goAlert: function() {
-            this.alertCheck = true;
-            this.riskCheck = false;
+            // this.alertCheck = true;
+            // this.riskCheck = false;
             this.recogCheck = false;
             this.complaintCheck = false;
             this.damageCheck = false;
@@ -598,4 +711,13 @@ export default {
 <style lang="scss">
     @import '../assets/sass/extends.scss';
     @import '../assets/sass/home.scss';
+
+    .darken {
+        background: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
 </style>

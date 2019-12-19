@@ -3,17 +3,17 @@
         position: absolute;
         top: 25rem; right: 13rem;
         width: 29rem; height: 25.5rem;
-        background-color: #FFF;
+        background-color: #ffffff;
         padding: 1.6rem 1.5rem;
         box-shadow: 0px 0px 50px rgba(0,0,0, .35);
     }
     .center {
         width: 45.5rem; height: 40rem;
-        top: 15rem; right: 29rem;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -40%);
+        #app {position: fixed; overflow: hidden;}
     }
-    fieldset { 
-        border: none; 
-    }
+    fieldset { border: none; }
     #foundationCheck {
         h2 { 
             font-weight: 500;
@@ -105,7 +105,7 @@
         h2 { 
             @extend %h2;
             font-size: 1.8rem;
-            margin-bottom: 3.5rem;
+            margin-bottom: 1.5rem;
             margin-top: 0.5rem;
             text-align: center;
         }
@@ -125,23 +125,24 @@
             .radiolabel .radiomark:after { @extend %inputtype };
             .radiomark { @extend %inputmark };
         }
-        button { margin-bottom: 1rem; margin-top: 2.95rem; }
+        button { margin-bottom: 1rem; margin-top: 1.65rem; }
     }
     #damageCheck {
         min-width: 42rem;
         h2 { 
             @extend %h2;
-            margin-bottom: 1rem;
-            margin-top: 0.5rem;
+            margin-bottom: .6rem;
+            margin-top: .5rem;
         }
         div { 
             @extend %checkDiv; 
+            margin: .15rem 0rem;
             input[type="radio"] { display: none; }
             @extend %radiobutton;
             .radiolabel .radiomark:after { @extend %inputtype };
             .radiomark { @extend %inputmark };
         }
-        button { margin-bottom: 1rem; margin-top: 1.35rem; }
+        button { margin-bottom: 1rem; margin-top: 1.05rem; }
         #inputDamage { width: auto; margin: 0 .5rem; }
     }
     #recogCheck {
@@ -173,7 +174,7 @@
         button { margin-bottom: 1rem; margin-top: 1.95rem; }
         .upload-container {
             height: 19.5rem;
-            border: 2px dashed #bfbdbd;
+            border: 2px dashed #39434E;
             display: grid;
             align-items: flex-start;
             justify-items: center;
@@ -182,20 +183,20 @@
                 align-self: flex-start;
                 font-size: 1.4rem; font-weight: 500;
                 letter-spacing: 1.1px;
-                color: #bfbdbd;
+                color: #39434E;
             }
             img { width: 5rem; }
             .btn-secondary { 
                 @extend %btn; 
                 width: 80%;
-                opacity: 0.53;
-                cursor: default;
+                opacity: 1.0;
+                cursor: pointer;
                 text-align: center;
                 align-items: center;
             }
-            .button-enabled {
-                opacity: 1.0;
-                cursor: pointer;
+            .button-disabled {
+                opacity: 0.53;
+                cursor: default;
             }
         }
         .file-adding {
@@ -267,3 +268,8 @@
         p { font-size: 1.2rem; }
     }
 }
+
+// TODO: checklist in het midden - Achtergrond blurren na overstap grote velden & Scroll blokkeren
+// Knop 'ga verder' op zelfde positite
+// Herken stap checkboxes alignen aan labels - Meer witruimte tussen titel en inputs
+// Optioneel: Font aanpassen naar iets vriendelijker
