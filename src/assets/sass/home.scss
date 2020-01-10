@@ -1,4 +1,9 @@
 #home {
+    #page-mask.active {
+        position: fixed;
+        left: 0; right: 0; bottom: 0; top: 0;
+        background-color: rgba(0,0,0,0.3);
+    }
     form {
         position: absolute;
         top: 25rem; right: 13rem;
@@ -14,6 +19,27 @@
         #app {position: fixed; overflow: hidden;}
     }
     fieldset { border: none; }
+    #check {
+        .form-group { 
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 1.4rem; 
+        }
+        input { width: 100%; }
+        .address-box {
+            min-height: 6rem;
+            background-color: #e3f6ff;
+            padding: 1rem;
+            border-radius: 2px;
+            h3 {
+                font-size: 16px;
+                margin: 0; padding: 0;
+            }
+            p {
+                margin: .3rem 0;
+            }
+        }
+    }
     #foundationCheck {
         h2 { 
             font-weight: 500;
@@ -159,6 +185,29 @@
         button { margin-bottom: 1rem; margin-top: 1rem; }
         #inputLast { width: auto; margin: 0 .5rem; }
     }
+    #surroundingCheck {
+        min-width: 42rem;
+        h2 {  @extend %h2; }
+        p { margin: 0; font-size: .8rem;}
+        div { 
+            @extend %checkDiv; 
+            @extend %radiobutton;
+            margin: .15rem 0;
+            input[type="checkbox"] { display: none; }
+            .radiolabel .radiomark:after { @extend %inputtype; border-radius: 0; };
+            .radiomark { 
+                @extend %inputmark; 
+                border-radius: 0;
+            };
+            .radiolabel {
+                font-size: 1.3rem;
+                margin-bottom: 1.7px;
+                line-height: 1.6rem;
+            }
+        }
+        button { margin-bottom: 1rem; margin-top: 1rem; }
+        #inputLast { width: auto; margin: 0 .5rem; }
+    }
     #uploadCheck {
         min-width: 42rem;
         h2 { @extend %h2; }
@@ -220,6 +269,13 @@
         }
         .stappenplan {
             font-weight: 800;
+        }
+        section {
+            margin-top: 1.5rem;
+            h2 {  @extend %h2; }
+            p { margin: 0 0 1rem 0; font-size: .8rem; }
+            label { margin-bottom: .3rem; font-size: 12pt; }
+            input { margin-bottom: 1.2rem; width: 50%; }
         }
         button { margin-bottom: 1rem; margin-top: .8rem; }
     }

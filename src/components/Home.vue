@@ -1,13 +1,25 @@
 <template>
     <section id="home">
+        <div id="page-mask"></div>
         <form action="" class="check" id="checkForm" method="POST">
 
             <fieldset v-if="check" id="check">
                 <legend><span></span> Melding maken voor adres: </legend>
-                <label for="postcode">Postcode </label>
-                <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
-                <label for="huisnummer">Huisnummer </label>
-                <input type="text" v-model="housenumber" id="huisnummer" placeholder="1A">
+                <div class="form-group">
+                    <div class="form-input">
+                        <label for="postcode">Postcode </label>
+                        <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
+                    </div>
+                    <div class="form-input">
+                        <label for="huisnummer">Huisnummer </label>
+                        <input type="text" v-model="housenumber" id="huisnummer" placeholder="1A">
+                    </div> 
+                </div>
+                <div class="address-box">
+                    <h3>Adres</h3>
+                    <p>Hudsonstraat 15-1</p>
+                    <p>1057RW Amsterdam</p>
+                </div>
                 <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
                     <ul>
                         <li v-for="error in errors" :key="error">{{ error }}</li>
@@ -141,27 +153,27 @@
                         </label>
                     </div>
                 </div>
-                <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
+                <button class="btn-success" @click.prevent="goSurrounding">Ga verder </button>
                 <a @click.prevent="backDamage">Stap terug</a>
             </fieldset>
 
-            <fieldset v-if="!damageCheck && surroundingCheck" v-cloak id="surroundingCheck" @change="adviseText">
+            <fieldset v-if="!recogCheck && surroundingCheck" v-cloak id="surroundingCheck">
                 <h2>Klachten ten aanzien van de omgeving?</h2>
                 <p>Meerdere opties mogelijk</p>
-                <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
+                <div v-for="surround in surrounding" :key="surround.id" @change="enableTextCheckbox">
                     <div>
-                        <label :for="last.id" class="radiolabel"> {{ last.labelText }}
-                            <input type="checkbox" name="lasten" :id="last.id">
-                            <input type="text" id="inputLast" v-if="last.inputField" disabled>
+                        <label :for="surround.id" class="radiolabel"> {{ surround.labelText }}
+                            <input type="checkbox" name="surrounding" :id="surround.id">
+                            <input type="text" id="inputLast" v-if="surround.inputField" disabled>
                             <span class="radiomark"></span>
                         </label>
                     </div>
                 </div>
                 <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
-                <a @click.prevent="backDamage">Stap terug</a>
+                <a @click.prevent="backRecog">Stap terug</a>
             </fieldset>
 
-            <fieldset v-if="!recogCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
+            <fieldset v-if="!surroundingCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h2>Heeft u een onderzoeksrapport beschikbaar?</h2>
                 <div class="mt-3">
                     <label for="researchYes" class="radiolabel"> Ja
@@ -182,7 +194,7 @@
                     </label>
                 </div>
                 <button class="btn-success" @click.prevent="goAdvise">Ga verder </button>
-                <a @click.prevent="backRecog">Stap terug</a>
+                <a @click.prevent="backSurrounding">Stap terug</a>
             </fieldset>
 
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
@@ -191,6 +203,22 @@
                 <p v-if="recogCheckNothing == false">Wij adviseren u in het (laten) uitvoeren van aanvullend onderzoek. In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is.</p>
                 <p v-else>U heeft vermoedelijk geen funderingsprobleem. Indien u toch twijfelt raden wij u aan ons stappenplan voor het achterhalen van Funderingsproblematiek te bekijken.</p>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
+                <section class="user_data">
+                    <h2>Laat uw gegevens bij ons achter</h2>
+                    <p>Dit is niet verplicht</p>
+                    <div class="form-group">
+                        <label for="user_name">Naam</label>
+                        <input type="text" name="user_name" id="user_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_email">Email</label>
+                        <input type="text" name="user_email" id="user_email">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_phonenumber">Telefoonnummer</label>
+                        <input type="text" name="user_phonenumber" id="user_phonenumber">
+                    </div>
+                </section>
                 <button class="btn-success" @click.prevent="goCheck">Terug naar het begin </button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
@@ -260,6 +288,7 @@ export default {
             damageCheck: true,
             recogCheck: true,
             recogCheckNothing: false,
+            surroundingCheck: true,
             uploadCheck: true,
             advise: true,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
@@ -398,11 +427,7 @@ export default {
                 },
                 {
                     'id': 'blockSignals',
-                    'labelText': 'Zijn er woningen in uw bouwblok met signalen van funderingsproblemen?'
-                },
-                {
-                    'id': 'neighbourSignals',
-                    'labelText': 'Zijn er woningen in uw buurt c.q. wijk met signalen van funderingsproblemen?'
+                    'labelText': 'Zijn er woningen in uw bouwblok / buurt met signalen van funderingsproblemen?'
                 },
                 {
                     'id': 'elevatedStreet',
@@ -421,7 +446,7 @@ export default {
                     'labelText': 'Staan er grote bomen nabij de woning?'
                 },
                 {
-                    'id': 'surroundingOther',
+                    'id': 'otherCheckbox',
                     'labelText': 'Iets anders, namelijk:',
                     'inputField': true
                 },
@@ -557,6 +582,7 @@ export default {
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.add('center');
             document.querySelector('#app').classList.add('darken');
+            document.querySelector('#page-mask').classList.add('active');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
         backComplaint: function() {
@@ -609,6 +635,24 @@ export default {
             this.recogCheck = true;
         },
 
+        goSurrounding: function() {
+            let form = document.querySelector('#recogCheck');
+            let radios = form.querySelectorAll('input');
+            this.errors = [];
+
+            if (!this.validateRadio(radios)) {
+                this.errors.push('Geen optie geselecteerd.');
+                document.querySelector('form').style.height = 'auto';
+            } else {
+                this.recogCheck = false;
+                this.surroundingCheck = true;
+            }
+            
+        },
+        backSurrounding: function() {
+            this.surroundingCheck = true;
+        },
+
         adviseText: function(e) {
             let checkboxNothing = document.querySelector('#nothing')
             
@@ -635,7 +679,7 @@ export default {
 
         goUpload: function() {
             this.uploadCheck = true;
-            this.recogCheck = false;
+            this.surroundingCheck = false;
             this.errors = [];
         },
         backUpload: function() {
@@ -713,11 +757,7 @@ export default {
     @import '../assets/sass/home.scss';
 
     .darken {
-        background: rgba(0, 0, 0, 0.5);
         position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        top: 0; right: 0; bottom: 0; left: 0;
     }
 </style>
