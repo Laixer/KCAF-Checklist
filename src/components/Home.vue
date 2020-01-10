@@ -208,15 +208,15 @@
                     <p>Dit is niet verplicht</p>
                     <div class="form-group">
                         <label for="user_name">Naam</label>
-                        <input type="text" name="user_name" id="user_name">
+                        <input type="text" name="user_name" id="user_name" v-model="userName">
                     </div>
                     <div class="form-group">
                         <label for="user_email">Email</label>
-                        <input type="text" name="user_email" id="user_email">
+                        <input type="text" name="user_email" id="user_email" v-model="userEmail">
                     </div>
                     <div class="form-group">
                         <label for="user_phonenumber">Telefoonnummer</label>
-                        <input type="text" name="user_phonenumber" id="user_phonenumber">
+                        <input type="text" name="user_phonenumber" id="user_phonenumber" v-model="userPhonenumber">
                     </div>
                 </section>
                 <button class="btn-success" @click.prevent="goCheck">Terug naar het begin </button>
@@ -279,6 +279,9 @@ export default {
             errors: [],
             zipcode: null,
             housenumber: null,
+            userName: null,
+            userEmail: null,
+            userPhonenumber: null,
             check: true,
             foundationCheck: true,
             // zipcodeCheck: true,
@@ -461,6 +464,7 @@ export default {
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.remove('center');
             document.querySelector('#app').classList.remove('darken');
+            document.querySelector('#page-mask').classList.remove('active');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
         backCheck: function() {
@@ -529,6 +533,7 @@ export default {
             let checkForm = document.querySelector('#checkForm');
             checkForm.classList.remove('center');
             document.querySelector('#app').classList.remove('darken');
+            document.querySelector('#page-mask').classList.remove('active');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
 
