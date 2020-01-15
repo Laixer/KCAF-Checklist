@@ -8,17 +8,16 @@
                 <div class="form-group">
                     <div class="form-input">
                         <label for="postcode">Postcode </label>
-                        <input type="text" id="postcode" v-model="zipcode" placeholder="1000XX">
+                        <input type="text" id="postcode" v-model="zipcode" @blur="suggestAdresses" placeholder="1000XX">
                     </div>
                     <div class="form-input">
                         <label for="huisnummer">Huisnummer </label>
-                        <input type="text" v-model="housenumber" id="huisnummer" placeholder="1A">
+                        <input type="text" v-model="housenumber" id="huisnummer" @blur="suggestAdresses" placeholder="1A">
                     </div> 
                 </div>
                 <div class="address-box">
                     <h3>Adres</h3>
-                    <p>Hudsonstraat 15-1</p>
-                    <p>1057RW Amsterdam</p>
+                    <p v-if="selectedAddress">{{ selectedAddress.weergavenaam }}</p>
                 </div>
                 <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
                     <ul>
@@ -457,6 +456,21 @@ export default {
         }
     },
     methods: {
+        async suggestAdresses(query) {
+             if (this.zipcode && this.housenumber) {
+                 // TODO: This should be handled via a store
+                 let response = await fetch(
+                     `https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?q=${this.zipcode} ${this.housenumber}&fq=type:adres&rows=1`
+                 );
+                 if (response.status === 200) {
+                     let data = await response.json()
+                     if (data.response.numFound > 0) {
+                         this.selectedAddress = data.response.docs[0]
+                     }
+                 }
+             }
+        },
+
         goCheck: function() {
             this.check = true;
             this.advise = false;
