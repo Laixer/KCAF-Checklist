@@ -1,7 +1,7 @@
 <template>
     <section id="home">
         <div id="page-mask"></div>
-        <form action="" class="check" id="checkForm" method="POST">
+        <form class="check" id="checkForm">
 
             <fieldset v-if="check" id="check">
                 <legend><span></span> Melding maken voor adres: </legend>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="address-box">
                     <h3>Adres</h3>
-                    <p v-if="selectedAddress">{{ selectedAddress.weergavenaam }}</p>
+                    <p v-if="form.selectedAddress">{{ form.selectedAddress.weergavenaam }}</p>
                 </div>
                 <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
                     <ul>
@@ -29,9 +29,9 @@
 
             <fieldset v-if="!check && foundationCheck" v-cloak id="foundationCheck">
                 <h2>Op welke type fundering is de woning gebouwd?</h2>
-                <div v-for="found in foundationOption" :key="found.id">
+                <div v-for="found in foundationType" :key="found.id">
                     <label :for="found.id" class="radiolabel"> {{ found.labelText }}
-                        <input type="radio" name="funderingoptie" :id="found.id">
+                        <input type="radio" v-model="form.foundationType" :value="found.id" :id="found.id">
                         <span class="radiomark"></span>
                     </label>
                 </div>
@@ -65,43 +65,43 @@
             </fieldset> -->
 
             <fieldset v-if="!foundationCheck && complaintCheck" v-cloak id="complaintCheck">
-                <h2>Melding maken voor {{zipcode}} - {{housenumber}}</h2>
+                <h2>Melding maken voor {{ zipcode }} - {{ housenumber }}</h2>
                 <h3>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h3>
                 <div>
-                    <label for="detached" class="radiolabel"> Vrijstaand pand
-                        <input type="radio" name="vrijstaand_bouwblok" id="detached">
+                    <label for="chainedBuilding0" class="radiolabel"> Vrijstaand pand
+                        <input type="radio" v-model="form.chainedBuilding" value="0" id="chainedBuilding0">
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <div>
-                    <label for="buildingBlock" class="radiolabel"> Onderdeel van een (bouw)blok
-                        <input type="radio" name="vrijstaand_bouwblok" id="buildingBlock">
+                    <label for="chainedBuilding1" class="radiolabel"> Onderdeel van een (bouw)blok
+                        <input type="radio" v-model="form.chainedBuilding" value="1" id="chainedBuilding1">
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <h3 class="mt-2">Bent u de eigenaar of de huurder van uw woning?</h3>
                 <div>
-                    <label for="owner" class="radiolabel"> Eigenaar
-                        <input type="radio" name="eigenaar_huurder" id="owner">
+                    <label for="owner1" class="radiolabel"> Eigenaar
+                        <input type="radio" v-model="form.owner" name="owner" value="1" id="owner1">
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <div>
-                    <label for="tenant" class="radiolabel"> Huurder
-                        <input type="radio" name="eigenaar_huurder" id="tenant">
+                    <label for="owner0" class="radiolabel"> Huurder
+                        <input type="radio" v-model="form.owner" name="owner" value="0" id="owner0">
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <h3 class="mt-2">Is bij een van uw directe buren funderingsherstel uitgevoerd?</h3>
                 <div>
-                    <label for="repairYes" class="radiolabel"> Ja
-                        <input type="radio" name="funderingsherstel" id="repairYes">
+                    <label for="foundationRecovery1" class="radiolabel"> Ja
+                        <input type="radio" v-model="form.foundationRecovery" value="1" id="foundationRecovery1">
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <div>
-                    <label for="repairNo" class="radiolabel"> Nee
-                        <input type="radio" name="funderingsherstel" id="repairNo">
+                    <label for="foundationRecovery0" class="radiolabel"> Nee
+                        <input type="radio" v-model="form.foundationRecovery" value="0" id="foundationRecovery0">
                         <span class="radiomark"></span>
                     </label>
                 </div>
@@ -122,11 +122,10 @@
 
             <fieldset v-if="!complaintCheck && damageCheck" v-cloak id="damageCheck">
                 <h2>Wat veroorzaakt de schade in uw woning?</h2>
-                <div v-for="damage in damages" :key="damage.id">
+                <div v-for="damage in foundationDamageCause" :key="damage.id">
                     <div>
                         <label :for="damage.id" class="radiolabel"> {{ damage.labelText }}
-                            <input type="radio" name="schadeveroorzaking" :id="damage.id" @change="enableText">
-                            <input type="text" id="inputDamage" v-if="damage.inputField" disabled>
+                            <input type="radio" v-model="form.foundationDamageCause" :value="damage.id" :id="damage.id">
                             <span class="radiomark"></span>
                         </label>
                     </div>
@@ -140,14 +139,13 @@
                 <a @click.prevent="backComplaint">Stap terug</a>
             </fieldset>
             
-            <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck" @change="adviseText">
+            <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck">
                 <h2>Herken je éen van de volgende punten in uw woning?</h2>
                 <p>Meerdere opties mogelijk</p>
-                <div v-for="last in lasten" :key="last.id" @change="enableTextCheckbox">
+                <div v-for="last in foundationDamageCharacteristics" :key="last.id">
                     <div>
                         <label :for="last.id" class="radiolabel"> {{ last.labelText }}
-                            <input type="checkbox" name="lasten" :id="last.id">
-                            <input type="text" id="inputLast" v-if="last.inputField" disabled>
+                            <input type="checkbox" v-model="form.foundationDamageCharacteristics" :value="last.id" :id="last.id">
                             <span class="radiomark"></span>
                         </label>
                     </div>
@@ -159,11 +157,10 @@
             <fieldset v-if="!recogCheck && surroundingCheck" v-cloak id="surroundingCheck">
                 <h2>Klachten ten aanzien van de omgeving?</h2>
                 <p>Meerdere opties mogelijk</p>
-                <div v-for="surround in surrounding" :key="surround.id" @change="enableTextCheckbox">
+                <div v-for="surround in environmentDamageCharacteristics" :key="surround.id">
                     <div>
                         <label :for="surround.id" class="radiolabel"> {{ surround.labelText }}
-                            <input type="checkbox" name="surrounding" :id="surround.id">
-                            <input type="text" id="inputLast" v-if="surround.inputField" disabled>
+                            <input type="checkbox" v-model="form.environmentDamageCharacteristics" :value="surround.id" :id="surround.id">
                             <span class="radiomark"></span>
                         </label>
                     </div>
@@ -175,20 +172,20 @@
             <fieldset v-if="!surroundingCheck && uploadCheck" v-cloak id="uploadCheck" @change="enableFileUpload">
                 <h2>Heeft u een onderzoeksrapport beschikbaar?</h2>
                 <div class="mt-3">
-                    <label for="researchYes" class="radiolabel"> Ja
-                        <input type="radio" name="onderzoeksrapport" id="researchYes" checked>
+                    <label for="onderzoeksrapport1" class="radiolabel"> Ja
+                        <input type="radio" name="onderzoeksrapport" id="onderzoeksrapport1" checked>
                         <span class="radiomark"></span>
                     </label>
                 </div>
                 <div class="upload-container" @drop.prevent="dropHandler" @dragover.prevent="dragOverHandler">
-                    <input type="file" name="uploadrapport" id="uploadReport">
+                    <input type="file" name="uploadReport" id="uploadReport">
                     <p class="filetext">Sleep het bestand hier</p>
                     <img src="../../static/img/upload-button.png" alt="upload-button">
                     <label class="btn-secondary btn-toggle" for="uploadReport">Of selecteer een bestand</label>
                 </div>
                 <div class="mt-5">
-                    <label for="researchNo" class="radiolabel"> Nee
-                        <input type="radio" name="onderzoeksrapport" id="researchNo">
+                    <label for="onderzoeksrapport0" class="radiolabel"> Nee
+                        <input type="radio" name="onderzoeksrapport" id="onderzoeksrapport0">
                         <span class="radiomark"></span>
                     </label>
                 </div>
@@ -199,26 +196,26 @@
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h2>Advies</h2>
                 <h3>Funderingsonderzoek</h3>
-                <p v-if="recogCheckNothing == false">Wij adviseren u in het (laten) uitvoeren van aanvullend onderzoek. In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is.</p>
+                <p v-if="!recogCheckNothing">Wij adviseren u in het (laten) uitvoeren van aanvullend onderzoek. In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is.</p>
                 <p v-else>U heeft vermoedelijk geen funderingsprobleem. Indien u toch twijfelt raden wij u aan ons stappenplan voor het achterhalen van Funderingsproblematiek te bekijken.</p>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
                 <section class="user_data">
                     <h2>Laat uw gegevens bij ons achter</h2>
                     <p>Dit is niet verplicht</p>
                     <div class="form-group">
-                        <label for="user_name">Naam</label>
-                        <input type="text" name="user_name" id="user_name" v-model="userName">
+                        <label for="name">Naam</label>
+                        <input type="text" v-model="form.name" id="name">
                     </div>
                     <div class="form-group">
-                        <label for="user_email">Email</label>
-                        <input type="text" name="user_email" id="user_email" v-model="userEmail">
+                        <label for="email">Email</label>
+                        <input type="text" v-model="form.email" id="email">
                     </div>
                     <div class="form-group">
-                        <label for="user_phonenumber">Telefoonnummer</label>
-                        <input type="text" name="user_phonenumber" id="user_phonenumber" v-model="userPhonenumber">
+                        <label for="phonenumber">Telefoonnummer</label>
+                        <input type="text" v-model="form.phonenumber" id="phonenumber">
                     </div>
                 </section>
-                <button class="btn-success" @click.prevent="goCheck">Terug naar het begin </button>
+                <button class="btn-success" @click.prevent="goCheck">Verzenden</button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
 
@@ -239,31 +236,33 @@ const text = require('../../vendor/'+[process.env.VUE_APP_BRAND]+'/text.json');
 
 const $ = require("jquery");
 
-$( document ).ready(function() { 
-		$(window).scroll(function() { 
-		    let Scroll = $(window).scrollTop() + 1,
-                SectionOneOffset = $('#pageTop').offset().top,
-                SectionTwoOffset = $('#documents').offset().top,
-                SectionThreeOffset = $('#newsletter').offset().top;
+$(document).ready(function() { 
+  $(window).scroll(function() { 
+    let scroll = $(window).scrollTop() + 1,
+            SectionOneOffset = $('#pageTop').offset().top,
+            SectionTwoOffset = $('#documents').offset().top,
+            SectionThreeOffset = $('#newsletter').offset().top;
 
-		    if (Scroll >= SectionOneOffset) {
-		        $(".menu-item-1").addClass("active");
-		    } else {
-		        $(".menu-item-1").removeClass("active");
-		    }
-			if (Scroll >= SectionTwoOffset) {
-		        $(".menu-item-2").addClass("active");
-				$(".menu-item-1").removeClass("active");
-		    } else {
-		        $(".menu-item-2").removeClass("active");
-		    }
-			if (Scroll >= SectionThreeOffset) {
-		        $(".menu-item-3").addClass("active");
-				$(".menu-item-2").removeClass("active");
-		    } else {
-		        $(".menu-item-3").removeClass("active");
-		    }
-		});
+    if (scroll >= SectionOneOffset) {
+      $(".menu-item-1").addClass("active");
+    } else {
+      $(".menu-item-1").removeClass("active");
+    }
+    
+    if (scroll >= SectionTwoOffset) {
+      $(".menu-item-2").addClass("active");
+      $(".menu-item-1").removeClass("active");
+    } else {
+      $(".menu-item-2").removeClass("active");
+    }
+    
+    if (scroll >= SectionThreeOffset) {
+      $(".menu-item-3").addClass("active");
+      $(".menu-item-2").removeClass("active");
+    } else {
+      $(".menu-item-3").removeClass("active");
+    }
+  });
 });
 
 export default {
@@ -278,9 +277,6 @@ export default {
             errors: [],
             zipcode: null,
             housenumber: null,
-            userName: null,
-            userEmail: null,
-            userPhonenumber: null,
             check: true,
             foundationCheck: true,
             // zipcodeCheck: true,
@@ -294,13 +290,13 @@ export default {
             uploadCheck: true,
             advise: true,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
-            foundationOption: [
+            foundationType: [
                 {
                     'id': 'wood',
                     'labelText': 'Houten palen'
                 },
                 {
-                    'id': 'shallow',
+                    'id': 'noPile',
                     'labelText': 'Ondiepe fundering (op staal)'
                 },
                 {
@@ -312,21 +308,21 @@ export default {
                     'labelText': 'Weet ik niet'
                 },
             ],
-            damages: [
+            foundationDamageCause: [
                 {
-                    'id': 'wrongFunding',
+                    'id': 'foundationFlaw',
                     'labelText': 'Verkeerd gefundeerd bij bouw van de woning'
                 },
                 {
-                    'id': 'fungiBacteria',
+                    'id': 'fungusInfection',
                     'labelText': 'Aantasting van houten palen door schimmels of bacteriën'
                 },
                 {
-                    'id': 'pushedUp',
+                    'id': 'constructionHeave',
                     'labelText': 'Woning wordt van de funderingspalen omhoog gedrukt'
                 },
                 {
-                    'id': 'pulledDown',
+                    'id': 'overchargeNegativeCling',
                     'labelText': 'Funderingspalen worden naar beneden getrokken'
                 },
                 {
@@ -334,15 +330,15 @@ export default {
                     'labelText': 'Bodemdaling'
                 },
                 {
-                    'id': 'weight',
+                    'id': 'overcharge',
                     'labelText': 'Fundering niet meer berekend op huidige gewicht'
                 },
                 {
-                    'id': 'plantRoots',
+                    'id': 'vegetation',
                     'labelText': 'Beschadiging fundering door (planten)wortels'
                 },
                 {
-                    'id': 'gasExtraction',
+                    'id': 'gas',
                     'labelText': 'Gaswinning'
                 },
                 {
@@ -354,65 +350,55 @@ export default {
                     'labelText': 'Funderingsherstel bij de buren'
                 },
                 {
-                    'id': 'other',
-                    'labelText': 'Iets anders, namelijk:',
-                    'inputField': true
-                },
-                {
                     'id': 'unknown',
                     'labelText': 'Weet ik niet'
                 },
             ],
-            lasten: [
+            foundationDamageCharacteristics: [
                 {
-                    'id': 'clamping',
+                    'id': 'jammingDoorWindow',
                     'labelText': 'Ik heb last van klemmende deuren en/of ramen'
                 },
                 {
-                    'id': 'rip',
+                    'id': 'crack',
                     'labelText': 'Er zit een scheur in mijn muur/gevel'
                 },
                 {
-                    'id': 'crooked',
+                    'id': 'skewed',
                     'labelText': 'Mijn woning staat wat scheef'
                 },
                 {
-                    'id': 'highWater',
+                    'id': 'crawlspaceFlooding',
                     'labelText': 'Er is sprake van hoog water in de kruipruimte'
                 },
                 {
-                    'id': 'entrance',
+                    'id': 'thresholdAboveSubsurface',
                     'labelText': 'De drempel van de woning ligt hoger dan het trottoir/weg'
                 },
                 {
-                    'id': 'myHome',
+                    'id': 'thresholdBelowSubsurface',
                     'labelText': 'De drempel van de woning ligt lager dan het trottoir/weg'
                 },
                 {
-                    'id': 'floorsWalls',
+                    'id': 'crookedFloorWall',
                     'labelText': 'Er is sprake van scheve vloeren/muren in mijn woning'
                 },
                 {
-                    'id': 'otherCheckbox',
-                    'labelText': 'Iets anders, namelijk:',
-                    'inputField': true
-                },
-                {
-                    'id': 'nothing',
+                    'id': 'unknown',
                     'labelText': 'Ik herken niets',
                 }
             ],
-            surrounding: [
+            environmentDamageCharacteristics: [
                 {
-                    'id': 'subsidenceGarden',
+                    'id': 'subsidence',
                     'labelText': 'Is er sprake van bodemdaling tuin/erf?'
                 },
                 {
-                    'id': 'sewerConnection',
+                    'id': 'saggingSewerConnection',
                     'labelText': 'Heeft u last van verzakkende rioolaansluitingen?'
                 },
                 {
-                    'id': 'cables',
+                    'id': 'saggingCablesPipes',
                     'labelText': 'Heeft u last van verzakkende kabels/leidingen'
                 },
                 {
@@ -420,19 +406,19 @@ export default {
                     'labelText': 'Heeft u wateroverlast?'
                 },
                 {
-                    'id': 'underload',
+                    'id': 'low_ground_water',
                     'labelText': 'Heeft u wateronderlast / droge bodem?'
                 },
                 {
-                    'id': 'leakingSewage',
+                    'id': 'sewageLeakage',
                     'labelText': 'Is er sprake van lekkende riolering in de straat?'
                 },
                 {
-                    'id': 'blockSignals',
+                    'id': 'foundationDamageNearby',
                     'labelText': 'Zijn er woningen in uw bouwblok / buurt met signalen van funderingsproblemen?'
                 },
                 {
-                    'id': 'elevatedStreet',
+                    'id': 'elavation',
                     'labelText': 'Is de straat waarin de woning ligt onlangs opgehoogd?'
                 },
                 {
@@ -440,53 +426,74 @@ export default {
                     'labelText': 'Is er sprake van toenemend verkeer in uw straat?'
                 },
                 {
-                    'id': 'constActivities',
+                    'id': 'constructionNearby',
                     'labelText': 'Vinden er in de directe omgeving bouwactiviteiten plaats?'
                 },
                 {
-                    'id': 'largeTrees',
+                    'id': 'vegetationNearby',
                     'labelText': 'Staan er grote bomen nabij de woning?'
-                },
-                {
-                    'id': 'otherCheckbox',
-                    'labelText': 'Iets anders, namelijk:',
-                    'inputField': true
-                },
-            ]
+                }
+            ],
+            form: {
+              selectedAddress: null,
+              foundationType: null,
+              chainedBuilding: null,
+              owner: null,
+              foundationRecovery: null,
+              foundationDamageCause: null,
+              foundationDamageCharacteristics: [],
+              environmentDamageCharacteristics: [],
+              name: null,
+              email: null,
+              phonenumber: null,
+            }
         }
     },
     methods: {
         async suggestAdresses(query) {
-             if (this.zipcode && this.housenumber) {
-                 // TODO: This should be handled via a store
-                 let response = await fetch(
-                     `https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?q=${this.zipcode} ${this.housenumber}&fq=type:adres&rows=1`
-                 );
-                 if (response.status === 200) {
-                     let data = await response.json()
-                     if (data.response.numFound > 0) {
-                         this.selectedAddress = data.response.docs[0]
-                     }
-                 }
-             }
+          if (this.zipcode && this.housenumber) {
+            // TODO: This should be handled via a store
+            let response = await fetch(
+                `https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?q=${this.zipcode} ${this.housenumber}&fq=type:adres&rows=1`
+            );
+            if (response.status === 200) {
+              let data = await response.json()
+              if (data.response.numFound > 0) {
+                this.form.selectedAddress = data.response.docs[0]
+              }
+            }
+          }
         },
 
-        goCheck: function() {
-            this.check = true;
-            this.advise = false;
+        goCheck() {
+            // this.check = true;
+            // this.advise = false;
             
-            let checkForm = document.querySelector('#checkForm');
-            checkForm.classList.remove('center');
-            document.querySelector('#app').classList.remove('darken');
-            document.querySelector('#page-mask').classList.remove('active');
-            checkForm.scrollIntoView({behavior: "smooth", block: "end"});
+            this.form.chainedBuilding = Number(this.form.chainedBuilding)
+            this.form.owner = Number(this.form.owner)
+            this.form.foundationRecovery = Number(this.form.foundationRecovery)
+
+            fetch('https://localhost:44345/api/incident', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(this.form)
+            });
+
+            // let checkForm = document.querySelector('#checkForm');
+            // checkForm.classList.remove('center');
+            // document.querySelector('#app').classList.remove('darken');
+            // document.querySelector('#page-mask').classList.remove('active');
+            // checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
-        backCheck: function() {
+        backCheck() {
             this.check = true;
             this.errors = [];
         },
 
-        goFoundation: function() {
+        goFoundation() {
             let zipField = document.querySelector('#postcode');
             let hnrField = document.querySelector('#huisnummer')
             this.errors = [];
@@ -533,15 +540,15 @@ export default {
                 this.foundationCheck = true;
             }
         },
-        validZipcode: function(zipcode) {
+        validZipcode(zipcode) {
             let regex = /^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i;
             return regex.test(zipcode);
         },
-        validHousenumber: function(housenumber) {
+        validHousenumber(housenumber) {
             let regex = /^([0-9]){1,}([A-Za-z]){0,3}$/;
             return regex.test(housenumber);
         },
-        backFoundation: function() {
+        backFoundation() {
             this.foundationCheck = true;
 
             let checkForm = document.querySelector('#checkForm');
@@ -593,7 +600,7 @@ export default {
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         }, */
 
-        goComplaint: function() {
+        goComplaint() {
             this.complaintCheck = true;
             this.foundationCheck = false;
             // this.riskCheck = false;
@@ -604,11 +611,11 @@ export default {
             document.querySelector('#page-mask').classList.add('active');
             checkForm.scrollIntoView({behavior: "smooth", block: "end"});
         },
-        backComplaint: function() {
+        backComplaint() {
             this.complaintCheck = true;
         },
 
-        goDamage: function() {
+        goDamage() {
             let form = document.querySelector('#complaintCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
@@ -622,11 +629,11 @@ export default {
             }
             
         },
-        backDamage: function() {
+        backDamage() {
             this.damageCheck = true;
             this.errors = [];
         },
-        enableText: function(e) {
+        enableText(e) {
             let inputDamage = document.querySelector('#inputDamage');
             if (e.target.id === "other") {
                 inputDamage.disabled = false;
@@ -636,7 +643,7 @@ export default {
             }
         },
 
-        goRecog: function() {
+        goRecog() {
             let form = document.querySelector('#damageCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
@@ -650,11 +657,11 @@ export default {
             }
             
         },
-        backRecog: function() {
+        backRecog() {
             this.recogCheck = true;
         },
 
-        goSurrounding: function() {
+        goSurrounding() {
             let form = document.querySelector('#recogCheck');
             let radios = form.querySelectorAll('input');
             this.errors = [];
@@ -668,11 +675,11 @@ export default {
             }
             
         },
-        backSurrounding: function() {
+        backSurrounding() {
             this.surroundingCheck = true;
         },
 
-        adviseText: function(e) {
+        adviseText(e) {
             let checkboxNothing = document.querySelector('#nothing')
             
             if (checkboxNothing.checked === true) {
@@ -682,7 +689,7 @@ export default {
             }
         },
 
-        enableTextCheckbox: function(e) {
+        enableTextCheckbox(e) {
             let inputLast = document.querySelector('#inputLast');
             let otherCheckbox = document.querySelector('#otherCheckbox');
             if (e.target.id === "otherCheckbox") {
@@ -696,15 +703,15 @@ export default {
             }
         },
 
-        goUpload: function() {
+        goUpload() {
             this.uploadCheck = true;
             this.surroundingCheck = false;
             this.errors = [];
         },
-        backUpload: function() {
+        backUpload() {
             this.uploadCheck = true;
         },
-        enableFileUpload: function(e) {
+        enableFileUpload(e) {
             let uploadContainer = document.querySelector('.upload-container');
             let uploadReport = document.querySelector('#uploadReport');
             let fileButton = document.querySelector('.btn-toggle');
@@ -721,7 +728,7 @@ export default {
                 dragText.style.color = '#39434E';
             }
         },
-        dropHandler: function(e) {
+        dropHandler(e) {
             if (e.dataTransfer.items) {
                 for (let i = 0; i < e.dataTransfer.items.length; i++) {
                     if (e.dataTransfer.items[i].kind === 'file') {
@@ -733,19 +740,19 @@ export default {
                 }
             }
         },
-        dragOverHandler: function(e) {
+        dragOverHandler(e) {
             if (e) {
                 document.querySelector('.filetext').innerHTML = "Afbeelding uploaden...";
                 document.querySelector('.upload-container').classList.add('file-adding');
             }
         },
 
-        goAdvise: function() {
+        goAdvise() {
             this.uploadCheck = false;
             this.advise = true;
         },
 
-        goAlert: function() {
+        goAlert() {
             // this.alertCheck = true;
             // this.riskCheck = false;
             this.recogCheck = false;
@@ -755,7 +762,7 @@ export default {
             this.advise = false;
         },
 
-        validateRadio: function(radio) {
+        validateRadio(radio) {
             for (let i = 0; i < radio.length; i++) {
                 if (radio[i].checked) {
                     return true;
@@ -764,7 +771,7 @@ export default {
             return false;
         },
 
-        documents: function() {
+        documents() {
             location.href = "#documents";
         },
     }
