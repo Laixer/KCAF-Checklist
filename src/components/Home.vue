@@ -485,7 +485,7 @@ export default {
             this.form.owner = Number(this.form.owner)
             this.form.foundationRecovery = Number(this.form.foundationRecovery)
 
-            fetch('https://localhost:44345/api/incident', {
+            fetch('https://staging.fundermaps.com/api/incident', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
