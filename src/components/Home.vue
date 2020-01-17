@@ -17,7 +17,7 @@
                 </div>
                 <div class="address-box">
                     <h3>Adres</h3>
-                    <p v-if="form.selectedAddress">{{ form.selectedAddress.weergavenaam }}</p>
+                    <p v-if="form.address">{{ form.address.streetName }}</p>
                 </div>
                 <p v-if="errors.length"><b>Een of meer fouten zijn voorgekomen:</b>
                     <ul>
@@ -342,11 +342,11 @@ export default {
                     'labelText': 'Gaswinning'
                 },
                 {
-                    'id': 'traffic',
+                    'id': 'vibrations',
                     'labelText': 'Verkeer nabij het pand'
                 },
                 {
-                    'id': 'repairNeighbour',
+                    'id': 'partialFoundationRecovery',
                     'labelText': 'Funderingsherstel bij de buren'
                 },
                 {
@@ -382,10 +382,6 @@ export default {
                 {
                     'id': 'crookedFloorWall',
                     'labelText': 'Er is sprake van scheve vloeren/muren in mijn woning'
-                },
-                {
-                    'id': 'unknown',
-                    'labelText': 'Ik herken niets',
                 }
             ],
             environmentDamageCharacteristics: [
@@ -406,7 +402,7 @@ export default {
                     'labelText': 'Heeft u wateroverlast?'
                 },
                 {
-                    'id': 'low_ground_water',
+                    'id': 'lowGroundWater',
                     'labelText': 'Heeft u wateronderlast / droge bodem?'
                 },
                 {
@@ -435,9 +431,10 @@ export default {
                 }
             ],
             form: {
-              selectedAddress: null,
+              address: null,
               foundationType: null,
               chainedBuilding: null,
+              documentName: null,
               owner: null,
               foundationRecovery: null,
               foundationDamageCause: null,
@@ -459,7 +456,22 @@ export default {
             if (response.status === 200) {
               let data = await response.json()
               if (data.response.numFound > 0) {
-                this.form.selectedAddress = data.response.docs[0]
+                // this.form.selectedAddress = data.response.docs[0]
+                let id = data.response.docs[0].id;
+
+                let response2 = await fetch(
+                    `https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?id=${id}`
+                );
+                if (response2.status === 200) {
+                    let data2 = await response2.json()
+                    let doc = data2.response.docs[0];
+                    this.form.address = {
+                        streetName: doc.weergavenaam, // NOTE: For now, just so we get back the entire name
+                        building_number: doc.huisnummer,
+                        bag: doc.nummeraanduiding_id,
+                        additional: doc
+                    };
+                }
               }
             }
           }
@@ -662,17 +674,8 @@ export default {
         },
 
         goSurrounding() {
-            let form = document.querySelector('#recogCheck');
-            let radios = form.querySelectorAll('input');
-            this.errors = [];
-
-            if (!this.validateRadio(radios)) {
-                this.errors.push('Geen optie geselecteerd.');
-                document.querySelector('form').style.height = 'auto';
-            } else {
-                this.recogCheck = false;
-                this.surroundingCheck = true;
-            }
+            this.recogCheck = false;
+            this.surroundingCheck = true;
             
         },
         backSurrounding() {
