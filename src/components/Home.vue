@@ -165,7 +165,7 @@
                         </label>
                     </div>
                 </div>
-                <button class="btn-success" @click.prevent="goUpload">Ga verder </button>
+                <button class="btn-success" @click.prevent="goAdvise">Ga verder </button>
                 <a @click.prevent="backRecog">Stap terug</a>
             </fieldset>
 
@@ -217,6 +217,11 @@
                 </section>
                 <button class="btn-success" @click.prevent="goCheck">Verzenden</button>
                 <a @click.prevent="backUpload">Stap terug</a>
+            </fieldset>
+
+            <fieldset v-if="!advise && thanks" v-cloak id="thanks">
+                <h2>Gegevens verzonden</h2>
+                <p>Bedankt voor het invullen van het formulier, er wordt so snel mogelijk contact met u opgenomen.</p>
             </fieldset>
 
         </form>
@@ -289,6 +294,7 @@ export default {
             surroundingCheck: true,
             uploadCheck: true,
             advise: true,
+            thanks: false,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
             foundationType: [
                 {
@@ -493,6 +499,9 @@ export default {
               },
               body: JSON.stringify(this.form)
             });
+
+            this.advise = false;
+            this.thanks = true;
 
             // let checkForm = document.querySelector('#checkForm');
             // checkForm.classList.remove('center');
@@ -751,6 +760,8 @@ export default {
         },
 
         goAdvise() {
+            this.surroundingCheck = false;
+
             this.uploadCheck = false;
             this.advise = true;
         },
