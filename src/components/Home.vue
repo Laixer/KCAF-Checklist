@@ -215,6 +215,9 @@
                         <input type="text" v-model="form.phonenumber" id="phonenumber">
                     </div>
                 </section>
+                <div v-if="loader" style="text-align:center;padding-top:20px">
+                    <img height="32" src="https://forge.codesys.com/forge/support/_discuss/thread/6f37666443/dbe4/attachment/ajax-loader.gif" />
+                </div>
                 <button class="btn-success" @click.prevent="goCheck">Verzenden</button>
                 <a @click.prevent="backUpload">Stap terug</a>
             </fieldset>
@@ -222,6 +225,7 @@
             <fieldset v-if="!advise && thanks" v-cloak id="thanks">
                 <h2>Gegevens verzonden</h2>
                 <p>Bedankt voor het invullen van het formulier, er wordt so snel mogelijk contact met u opgenomen.</p>
+                <button class="btn-success" @click.prevent="goCloseThanks">Sluiten</button>
             </fieldset>
 
         </form>
@@ -244,9 +248,9 @@ const $ = require("jquery");
 $(document).ready(function() { 
   $(window).scroll(function() { 
     let scroll = $(window).scrollTop() + 1,
-            SectionOneOffset = $('#pageTop').offset().top,
-            SectionTwoOffset = $('#documents').offset().top,
-            SectionThreeOffset = $('#newsletter').offset().top;
+            SectionOneOffset = $('#pageTop').offset().top;
+            // SectionTwoOffset = $('#documents').offset().top,
+            // SectionThreeOffset = $('#newsletter').offset().top;
 
     if (scroll >= SectionOneOffset) {
       $(".menu-item-1").addClass("active");
@@ -254,19 +258,19 @@ $(document).ready(function() {
       $(".menu-item-1").removeClass("active");
     }
     
-    if (scroll >= SectionTwoOffset) {
-      $(".menu-item-2").addClass("active");
-      $(".menu-item-1").removeClass("active");
-    } else {
-      $(".menu-item-2").removeClass("active");
-    }
+    // if (scroll >= SectionTwoOffset) {
+    //   $(".menu-item-2").addClass("active");
+    //   $(".menu-item-1").removeClass("active");
+    // } else {
+    //   $(".menu-item-2").removeClass("active");
+    // }
     
-    if (scroll >= SectionThreeOffset) {
-      $(".menu-item-3").addClass("active");
-      $(".menu-item-2").removeClass("active");
-    } else {
-      $(".menu-item-3").removeClass("active");
-    }
+    // if (scroll >= SectionThreeOffset) {
+    //   $(".menu-item-3").addClass("active");
+    //   $(".menu-item-2").removeClass("active");
+    // } else {
+    //   $(".menu-item-3").removeClass("active");
+    // }
   });
 });
 
@@ -295,6 +299,7 @@ export default {
             uploadCheck: true,
             advise: true,
             thanks: false,
+            loader: false,
             introduction: 'Stichting Kennis Centrum Aanpak Funderingsproblematiek (KCAF) is een stichting met als doelstelling het verzamelen, ontwikkelen en ontsluiten van kennis rond de aanpak en preventie van funderingsproblemen. KCAF fungeert als nationaal funderingsloket voor alle vragen rond deze problematiek. Van funderingsonderzoek tot funderingsherstel, van aanpak tot financiering, van preventie tot innovatie. Deze doelstelling willen we samen met vakmensen en eigen medewerkers bereiken. KCAF is een stichting zonder winstoogmerk.',
             foundationType: [
                 {
@@ -483,7 +488,7 @@ export default {
           }
         },
 
-        goCheck() {
+        async goCheck() {
             // this.check = true;
             // this.advise = false;
             
@@ -491,7 +496,8 @@ export default {
             this.form.owner = Number(this.form.owner)
             this.form.foundationRecovery = Number(this.form.foundationRecovery)
 
-            fetch('https://staging.fundermaps.com/api/incident', {
+            this.loader = true;
+            await fetch('https://staging.fundermaps.com/api/incident', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -500,6 +506,7 @@ export default {
               body: JSON.stringify(this.form)
             });
 
+            this.loader = false;
             this.advise = false;
             this.thanks = true;
 
@@ -512,6 +519,15 @@ export default {
         backCheck() {
             this.check = true;
             this.errors = [];
+        },
+        goCloseThanks() {
+            this.thanks = false;
+            this.check = true;
+
+            let checkForm = document.querySelector('#checkForm');
+            checkForm.classList.remove('center');
+            document.querySelector('#app').classList.remove('darken');
+            document.querySelector('#page-mask').classList.remove('active');
         },
 
         goFoundation() {
