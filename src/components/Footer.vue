@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <p>ⓒ Gemaakt door <a href="https://zanhos.com/" target="_blank">ZanHos</a>. Versie {{version}}</p>
+        <p>ⓒ Gemaakt door <a href="https://laixer.com/" target="_blank">Laixer</a>. Versie {{version}}</p>
     </footer>
 </template>
 
