@@ -195,9 +195,9 @@
 
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h2>Advies</h2>
-                <h3>Funderingsonderzoek</h3>
-                <p v-if="!recogCheckNothing">Wij adviseren u in het (laten) uitvoeren van aanvullend onderzoek. In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is.</p>
-                <p v-else>U heeft vermoedelijk geen funderingsprobleem. Indien u toch twijfelt raden wij u aan ons stappenplan voor het achterhalen van Funderingsproblematiek te bekijken.</p>
+                <p>Bedankt voor het doorgeven van uw melding.
+Indien u uw gegevens achter laat nemen wij contact met u op om u persoonlijk van advies te voorzien. Uw gegevens blijven strikt vertrouwelijk en worden niet buiten het KCAF gedeeld.
+In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is om grip te krijgen op funderingsproblemen.</p>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
                 <section class="user_data">
                     <h2>Laat uw gegevens bij ons achter</h2>

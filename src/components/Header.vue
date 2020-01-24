@@ -2,10 +2,10 @@
     <header>
         <nav id="menu-center">
             <ul>
-                <li><img :src="logo" alt="logo"></li>
-                <li><a href="#" class="active menu-item-1">Home </a></li>
+                <li><a href="https://kcaf.nl"><img :src="logo" alt="logo"></a></li>
+                <!-- <li><a href="#" class="active menu-item-1">Home </a></li>
                 <li><a href="#documents" class="menu-item-2">Documenten </a></li>
-                <li><a href="#newsletter" class="menu-item-3">Nieuwsbrief </a></li>
+                <li><a href="#newsletter" class="menu-item-3">Nieuwsbrief </a></li> -->
             </ul>
         </nav>
     </header>
