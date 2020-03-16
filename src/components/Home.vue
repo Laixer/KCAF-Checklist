@@ -497,7 +497,7 @@ export default {
             this.form.foundationRecovery = Number(this.form.foundationRecovery)
 
             this.loader = true;
-            await fetch('https://app.fundermaps.com/api/incident', {
+            await fetch('https://staging.fundermaps.com/api/incident', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
