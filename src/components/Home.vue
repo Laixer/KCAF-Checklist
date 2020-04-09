@@ -66,7 +66,7 @@
 
             <fieldset v-if="!foundationCheck && complaintCheck" v-cloak id="complaintCheck">
                 <h2>Melding maken voor {{ zipcode }} - {{ housenumber }}</h2>
-                <h3>Heeft u een vrijstaand pand of is uw woning onderdeel van een (bouw)blok?</h3>
+                <h3>Betreft het een vrijstaand pand of is de woning onderdeel van een (bouw)blok?</h3>
                 <div>
                     <label for="chainedBuilding0" class="radiolabel"> Vrijstaand pand
                         <input type="radio" v-model="form.chainedBuilding" value="0" id="chainedBuilding0">
@@ -121,7 +121,7 @@
             </fieldset> -->
 
             <fieldset v-if="!complaintCheck && damageCheck" v-cloak id="damageCheck">
-                <h2>Wat veroorzaakt de schade in uw woning?</h2>
+                <h2>Wat veroorzaakt de schade aan de woning?</h2>
                 <div v-for="damage in foundationDamageCause" :key="damage.id">
                     <div>
                         <label :for="damage.id" class="radiolabel"> {{ damage.labelText }}
@@ -140,7 +140,7 @@
             </fieldset>
             
             <fieldset v-if="!damageCheck && recogCheck" v-cloak id="recogCheck">
-                <h2>Herken je éen van de volgende punten in uw woning?</h2>
+                <h2>Herkent uw éen van de volgende punten aan de woning?</h2>
                 <p>Meerdere opties mogelijk</p>
                 <div v-for="last in foundationDamageCharacteristics" :key="last.id">
                     <div>
@@ -155,7 +155,7 @@
             </fieldset>
 
             <fieldset v-if="!recogCheck && surroundingCheck" v-cloak id="surroundingCheck">
-                <h2>Klachten ten aanzien van de omgeving?</h2>
+                <h2>Herkent u éen van de volgende punten in de omgeving van de woning?</h2>
                 <p>Meerdere opties mogelijk</p>
                 <div v-for="surround in environmentDamageCharacteristics" :key="surround.id">
                     <div>
@@ -196,8 +196,8 @@
             <fieldset v-if="!uploadCheck && advise" v-cloak id="advise">
                 <h2>Advies</h2>
                 <p>Bedankt voor het doorgeven van uw melding.
-Indien u uw gegevens achter laat nemen wij contact met u op om u persoonlijk van advies te voorzien. Uw gegevens blijven strikt vertrouwelijk en worden niet buiten het KCAF gedeeld.
-In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor welke stappen professionele hulp noodzakelijk is om grip te krijgen op funderingsproblemen.</p>
+Bedankt voor het doorgeven van uw melding. Indien u uw gegevens achter laat nemen wij contact met u op om u persoonlijk van advies te voorzien. Uw gegevens blijven strikt vertrouwelijk en worden niet buiten het KCAF gedeeld.
+In ons stappenplan voor funderingsherstel leggen wij duidelijk uit welke stappen u alvast kunt nemen en voor welke stappen professionele hulp noodzakelijk is om grip te krijgen op funderingsproblemen.</p>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
                 <section class="user_data">
                     <h2>Laat uw gegevens bij ons achter</h2>
@@ -230,7 +230,7 @@ In ons stappenplan leggen wij duidelijk uit welke stappen u kunt nemen en voor w
 
         </form>
         <article>
-            <h1>Wie zijn wij?</h1>
+            <h1>Over het KCAF en Funderingsloket</h1>
             <p v-cloak> {{ introText }} </p>
         </article>
     </section>
@@ -350,7 +350,7 @@ export default {
                 },
                 {
                     'id': 'gas',
-                    'labelText': 'Gaswinning'
+                    'labelText': 'Gaswinning of mijnbouw'
                 },
                 {
                     'id': 'vibrations',
@@ -368,77 +368,77 @@ export default {
             foundationDamageCharacteristics: [
                 {
                     'id': 'jammingDoorWindow',
-                    'labelText': 'Ik heb last van klemmende deuren en/of ramen'
+                    'labelText': 'Klemmende ramen en/of deuren'
                 },
                 {
                     'id': 'crack',
-                    'labelText': 'Er zit een scheur in mijn muur/gevel'
+                    'labelText': 'Scheur(en) in muur(en) en/of gevel(s)'
                 },
                 {
                     'id': 'skewed',
-                    'labelText': 'Mijn woning staat wat scheef'
+                    'labelText': 'Woning staat wat scheef'
                 },
                 {
                     'id': 'crawlspaceFlooding',
-                    'labelText': 'Er is sprake van hoog water in de kruipruimte'
+                    'labelText': 'Hoog water in de kruipruimte'
                 },
                 {
                     'id': 'thresholdAboveSubsurface',
-                    'labelText': 'De drempel van de woning ligt hoger dan het trottoir/weg'
+                    'labelText': 'De woning ligt hoger dan het trottoir/weg'
                 },
                 {
                     'id': 'thresholdBelowSubsurface',
-                    'labelText': 'De drempel van de woning ligt lager dan het trottoir/weg'
+                    'labelText': 'De woning ligt lager dan het trottoir/weg'
                 },
                 {
                     'id': 'crookedFloorWall',
-                    'labelText': 'Er is sprake van scheve vloeren/muren in mijn woning'
+                    'labelText': 'Scheve vloeren/muren in de woning'
                 }
             ],
             environmentDamageCharacteristics: [
                 {
                     'id': 'subsidence',
-                    'labelText': 'Is er sprake van bodemdaling tuin/erf?'
+                    'labelText': 'Er sprake van bodemdaling tuin/erf'
                 },
                 {
                     'id': 'saggingSewerConnection',
-                    'labelText': 'Heeft u last van verzakkende rioolaansluitingen?'
+                    'labelText': 'Verzakkende rioolaansluitingen'
                 },
                 {
                     'id': 'saggingCablesPipes',
-                    'labelText': 'Heeft u last van verzakkende kabels/leidingen'
+                    'labelText': 'Verzakkende kabels en leidingen'
                 },
                 {
                     'id': 'flooding',
-                    'labelText': 'Heeft u wateroverlast?'
+                    'labelText': 'Wateroverlast (water op straat)'
                 },
                 {
                     'id': 'lowGroundWater',
-                    'labelText': 'Heeft u wateronderlast / droge bodem?'
+                    'labelText': 'Water onderlast (droge bodem)'
                 },
                 {
                     'id': 'sewageLeakage',
-                    'labelText': 'Is er sprake van lekkende riolering in de straat?'
+                    'labelText': 'Lekke riolering'
                 },
                 {
                     'id': 'foundationDamageNearby',
-                    'labelText': 'Zijn er woningen in uw bouwblok / buurt met signalen van funderingsproblemen?'
+                    'labelText': 'Andere woningen, bouwblokken in de buurt met funderingsproblemen'
                 },
                 {
                     'id': 'elavation',
-                    'labelText': 'Is de straat waarin de woning ligt onlangs opgehoogd?'
+                    'labelText': 'De straat is onlangs opgehoogd'
                 },
                 {
                     'id': 'increasingTraffic',
-                    'labelText': 'Is er sprake van toenemend verkeer in uw straat?'
+                    'labelText': 'Toenemende verkeersdrukte in de straat'
                 },
                 {
                     'id': 'constructionNearby',
-                    'labelText': 'Vinden er in de directe omgeving bouwactiviteiten plaats?'
+                    'labelText': 'Er zijn bouwactiviteiten in de omgeving gaande (geweest)'
                 },
                 {
                     'id': 'vegetationNearby',
-                    'labelText': 'Staan er grote bomen nabij de woning?'
+                    'labelText': 'Er staan grote bomen dicht (<10,0 m) bij mijn woning'
                 }
             ],
             form: {
