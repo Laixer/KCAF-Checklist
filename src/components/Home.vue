@@ -200,7 +200,7 @@ Bedankt voor het doorgeven van uw melding. Indien u uw gegevens achter laat neme
 In ons stappenplan voor funderingsherstel leggen wij duidelijk uit welke stappen u alvast kunt nemen en voor welke stappen professionele hulp noodzakelijk is om grip te krijgen op funderingsproblemen.</p>
                 <a class="stappenplan" href="https://www.kcaf.nl/stappenplan-funderingsherstel/" target="_blank">Bekijk het hele stappenplan <i class="fas fa-external-link-alt"></i></a>
                 <section class="user_data">
-                    <h2>Laat uw gegevens bij ons achter</h2>
+                    <h2>Uw gegevens</h2>
                     <p>Dit is niet verplicht</p>
                     <div class="form-group">
                         <label for="name">Naam</label>

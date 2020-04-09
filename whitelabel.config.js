@@ -3,7 +3,7 @@ const whitelabelConfig = {
         'brand': 'KCAF Checklist',
         'homeURL': '#',
         'logo': 'logo.png',
-        'bannerImage': 'bg-rdam.jpg',
+        'bannerImage': '78829607-ef277180-79e6-11ea-9394-7ed9d1a1d5ce.jpg',
         'contactEmail':  'info@kcaf.nl',
     },
     'kaan': {
