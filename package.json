@@ -3,38 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "app": "npm run app-kcaf",
-    "app-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service serve",
-    "app-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service serve",
+    "serve": "npm run serve-kcaf",
+    "serve-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service serve",
+    "serve-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service serve",
     "build": "npm run build-kcaf && npm run build-kaan",
     "build-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service build --dest dist/light",
     "build-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service build --dest dist/dark",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "aws-sdk": "^2.655.0",
-    "core-js": "^2.6.11",
-    "jquery": "^3.4.1",
-    "module": "^1.2.5",
-    "node-sass": "^4.13.1",
-    "path": "^0.12.7",
-    "sass-loader": "^7.3.1",
+    "jquery": "^3.5.1",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
-    "vue-router": "^3.1.6",
-    "webpack": "^4.42.1"
+    "vue-router": "^3.3.4"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
-    "@vue/cli-plugin-babel": "^3.12.1",
-    "@vue/cli-plugin-eslint": "^3.12.1",
-    "@vue/cli-service": "^3.12.1",
+    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-eslint": "^4.4.6",
+    "@vue/cli-service": "^4.4.6",
     "babel-eslint": "^10.1.0",
     "cross-env": "^5.2.1",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.2.3",
-    "git-revision-webpack-plugin": "^3.0.4",
-    "tar": "^5.0.5",
-    "vue-template-compiler": "^2.6.11"
+    "eslint-plugin-vue": "^6.2.2",
+    "git-revision-webpack-plugin": "^3.0.6",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "latest"
   },
   "eslintConfig": {
     "root": true,
