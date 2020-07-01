@@ -6,8 +6,8 @@
     "serve": "npm run serve-kcaf",
     "serve-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service serve",
     "serve-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service serve",
-    "build": "npm run build-kcaf && npm run build-kaan",
-    "build-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service build --dest dist/light",
+    "build": "npm run build-kcaf",
+    "build-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service build --dest dist",
     "build-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service build --dest dist/dark",
     "lint": "vue-cli-service lint"
   },
