@@ -26,9 +26,7 @@
     "cross-env": "^5.2.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^6.2.2",
-    "git-revision-webpack-plugin": "^3.0.6",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "latest"
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,

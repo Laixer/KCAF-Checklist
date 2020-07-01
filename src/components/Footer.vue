@@ -1,21 +1,13 @@
 <template>
     <footer>
-        <p>ⓒ Gemaakt door <a href="https://laixer.com/" target="_blank">Laixer</a>. Versie {{version}}</p>
+        <p>ⓒ Gemaakt door <a href="https://laixer.com/" target="_blank">Laixer</a>.</p>
     </footer>
 </template>
 
 <script>
 /* eslint-disable */
 export default {
-    name: 'Footer',
-    components: {
-        VERSION
-    },
-    data () {
-        return {
-            version: VERSION,
-        }
-    }
+    name: 'Footer'
 }
 </script>
 
