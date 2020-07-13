@@ -496,18 +496,22 @@ export default {
             this.form.owner = Number(this.form.owner)
             this.form.foundationRecovery = Number(this.form.foundationRecovery)
 
-            if (this.form.email === null) {
-                this.form.email = "fake@fundermaps.com"
+            this.loader = true;
+            let form = this.form
+            if (form.name === null) {
+                form.name = "anonymous"
+            }
+            if (form.email === null) {
+                form.email = "anonymous@fundermaps.com"
             }
 
-            this.loader = true;
             await fetch('https://staging.fundermaps.com/api/incident', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify(this.form)
+              body: JSON.stringify(form)
             });
 
             this.loader = false;
