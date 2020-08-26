@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "serve": "npm run serve-kcaf",
     "serve-kcaf": "cross-env process.env.VUE_APP_BRAND='kcaf' vue-cli-service serve",
     "serve-kaan": "cross-env process.env.VUE_APP_BRAND='kaan' vue-cli-service serve",
@@ -46,6 +47,9 @@
     "plugins": {
       "autoprefixer": {}
     }
+  },
+  "resolutions": {
+    "serialize-javascript": "4.0.0"
   },
   "browserslist": [
     "> 1%",
