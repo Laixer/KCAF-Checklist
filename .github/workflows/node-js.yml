@@ -12,6 +12,7 @@ on:
 env:
   NODEJS_VERSION: '14.x'
   WEBROOT: /var/www/portal-kcaf
+  ARCHIVE: archive.HPGLsoPJu6.tar.gz
 
 jobs:
   build:
@@ -27,6 +28,7 @@ jobs:
         node-version: ${{ env.NODEJS_VERSION }}
     - run: npm install
     - run: npm run-script build
+    - run: echo ${{ env.GITHUB_ACTION }}
 
   deploy:
     name: Deploy
@@ -44,7 +46,7 @@ jobs:
     - run: npm run build
 
     - name: Create archive
-      run: tar -czf archive.tar.gz -C dist .
+      run: tar -czf ${{ env.ARCHIVE }} -C dist .
 
     - name: Copy archive via scp
       uses: appleboy/scp-action@master
@@ -53,8 +55,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}        
         port: 22
-        source: "archive.tar.gz"
-        target: "/tmp/"
+        source: ${{ env.ARCHIVE }}
+        target: '/tmp/'
    
     - name: Extract archive on remote server
       uses: appleboy/ssh-action@master
@@ -65,5 +67,5 @@ jobs:
         port: 22
         script: |
             rm -rf ${{ env.WEBROOT }}/*
-            tar -xzvf /tmp/archive.tar.gz -C '${{ env.WEBROOT }}'
-            rm /tmp/archive.tar.gz 
+            tar -xzvf /tmp/${{ env.ARCHIVE }} -C ${{ env.WEBROOT }}
+            rm /tmp/${{ env.ARCHIVE }}
