@@ -28,7 +28,7 @@ jobs:
         node-version: ${{ env.NODEJS_VERSION }}
     - run: npm install
     - run: npm run-script build
-    - run: echo ${{ env.GITHUB_ACTION }}
+    - run: echo $GITHUB_ACTION
 
   deploy:
     name: Deploy
