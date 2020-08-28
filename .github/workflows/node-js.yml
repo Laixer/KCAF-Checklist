@@ -12,7 +12,7 @@ on:
 env:
   NODEJS_VERSION: '14.x'
   WEBROOT: /var/www/portal-kcaf
-  ARCHIVE: archive.HPGLsoPJu6.tar.gz
+  ARCHIVE: archive.$GITHUB_SHA.tar.gz
 
 jobs:
   build:
@@ -28,7 +28,6 @@ jobs:
         node-version: ${{ env.NODEJS_VERSION }}
     - run: npm install
     - run: npm run-script build
-    - run: echo $GITHUB_SHA
 
   deploy:
     name: Deploy
