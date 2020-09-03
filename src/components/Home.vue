@@ -505,10 +505,9 @@ export default {
                 form.email = "anonymous@fundermaps.com"
             }
 
-            await fetch('https://staging.fundermaps.com/api/incident', {
+            await fetch('https://staging.fundermaps.com/loket-dump', {
               method: 'POST',
               headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify(form)
