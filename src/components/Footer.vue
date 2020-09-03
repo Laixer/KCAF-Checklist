@@ -1,17 +1,18 @@
 <template>
-    <footer>
-        <p>ⓒ Gemaakt door <a href="https://laixer.com/" target="_blank">Laixer</a>.</p>
-    </footer>
+  <div></div>
+  <!-- <footer> -->
+  <!-- <p>ⓒ Gemaakt door <a href="https://laixer.com/" target="_blank">Laixer</a>.</p> -->
+  <!-- </footer> -->
 </template>
 
 <script>
 /* eslint-disable */
 export default {
-    name: 'Footer'
+  name: 'Footer'
 }
 </script>
 
 <style lang="scss">
-@import '../assets/sass/extends.scss';
-@import '../assets/sass/footer.scss';
+@import "../assets/sass/extends.scss";
+@import "../assets/sass/footer.scss";
 </style>
