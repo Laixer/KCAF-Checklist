@@ -32,7 +32,7 @@ jobs:
     env:
       DEPLOY_NAME: portal-kcaf-dist
       DEPLOY_DIRECTORY: portal-kcaf
-      ARCHIVE: ${{ DEPLOY_NAME }}.${{ github.sha }}.tar.gz
+      ARCHIVE: ${{ env.DEPLOY_NAME }}.${{ github.sha }}.tar.gz
 
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
@@ -69,6 +69,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
-          rm -rf /var/cache/deployment/current/${{ DEPLOY_NAME }}.*.tar.gz
+          rm -rf /var/cache/deployment/current/${{ env.DEPLOY_NAME }}.*.tar.gz
           mv /var/cache/deployment/tmp/${{ env.ARCHIVE }} /var/cache/deployment/current/
-          /var/cache/deployment/deploy.sh ${{ DEPLOY_DIRECTORY }} ${{ DEPLOY_NAME }}
+          /var/cache/deployment/deploy.sh ${{ env.DEPLOY_DIRECTORY }} ${{ env.DEPLOY_NAME }}
