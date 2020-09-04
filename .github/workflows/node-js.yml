@@ -11,8 +11,6 @@ on:
 
 env:
   NODEJS_VERSION: '14.x'
-  WEBROOT: /var/www/portal-kcaf
-  ARCHIVE: portal-kcaf-dist.${{ github.sha }}.tar.gz
 
 jobs:
   build:
@@ -31,6 +29,11 @@ jobs:
 
   deploy:
     name: Deploy
+    env:
+      DEPLOY_NAME: portal-kcaf-dist
+      DEPLOY_DIRECTORY: portal-kcaf
+      ARCHIVE: ${{ DEPLOY_NAME }}.${{ github.sha }}.tar.gz
+
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     needs: [build]
@@ -55,7 +58,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         port: 22
-        source: '*.tar.gz'
+        source: ${{ env.ARCHIVE }}
         target: '/var/cache/deployment/tmp'
    
     - name: Extract archive on remote server
@@ -66,6 +69,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
-          rm -rf /var/cache/deployment/current/portal-kcaf-dist.*.tar.gz
-          mv /var/cache/deployment/tmp/portal-kcaf-dist.*.tar.gz /var/cache/deployment/current/
-          /var/cache/deployment/deploy.sh portal-kcaf portal-kcaf-dist
+          rm -rf /var/cache/deployment/current/${{ DEPLOY_NAME }}.*.tar.gz
+          mv /var/cache/deployment/tmp/${{ env.ARCHIVE }} /var/cache/deployment/current/
+          /var/cache/deployment/deploy.sh ${{ DEPLOY_DIRECTORY }} ${{ DEPLOY_NAME }}
