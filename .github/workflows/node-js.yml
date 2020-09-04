@@ -41,6 +41,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODEJS_VERSION }}
+
     - run: npm install
     - run: npm run build
 
@@ -65,6 +66,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}        
         port: 22
         script: |
-            rm -rf ${{ env.WEBROOT }}/*
-            tar -xzvf /tmp/${{ env.ARCHIVE }} -C ${{ env.WEBROOT }}
-            rm /tmp/${{ env.ARCHIVE }}
+          rm -rf ${{ env.WEBROOT }}/*
+          tar -xzvf /tmp/${{ env.ARCHIVE }} -C ${{ env.WEBROOT }}
+          rm /tmp/${{ env.ARCHIVE }}
