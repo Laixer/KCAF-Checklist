@@ -53,7 +53,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}        
+        key: ${{ secrets.SSH_KEY }}
         port: 22
         source: 'dist.*.tar.gz'
         target: '/tmp/'
@@ -63,7 +63,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}        
+        key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
           rm -rf ${{ env.WEBROOT }}/*
