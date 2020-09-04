@@ -32,7 +32,7 @@ jobs:
     env:
       DEPLOY_NAME: portal-kcaf-dist
       DEPLOY_DIRECTORY: portal-kcaf
-      ARCHIVE: ${{ env.DEPLOY_NAME }}.${{ github.sha }}.tar.gz
+      ARCHIVE: portal-kcaf-dist.${{ github.sha }}.tar.gz
 
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
