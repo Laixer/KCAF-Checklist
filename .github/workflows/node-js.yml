@@ -12,7 +12,7 @@ on:
 env:
   NODEJS_VERSION: '14.x'
   WEBROOT: /var/www/portal-kcaf
-  ARCHIVE: archive.${{ github.sha }}.tar.gz
+  ARCHIVE: dist.${{ github.sha }}.tar.gz
 
 jobs:
   build:
