@@ -12,7 +12,7 @@ on:
 env:
   NODEJS_VERSION: '14.x'
   WEBROOT: /var/www/portal-kcaf
-  ARCHIVE: dist.${{ github.sha }}.tar.gz
+  ARCHIVE: portal-kcaf-dist.${{ github.sha }}.tar.gz
 
 jobs:
   build:
@@ -66,6 +66,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
-          rm /var/cache/deployment/current/*.tar.gz
-          mv /var/cache/deployment/tmp/*.tar.gz /var/cache/deployment/current/
-          /var/cache/deployment/deploy.sh
+          rm -rf /var/cache/deployment/current/portal-kcaf-dist.*.tar.gz
+          mv /var/cache/deployment/tmp/portal-kcaf-dist.*.tar.gz /var/cache/deployment/current/
+          /var/cache/deployment/deploy.sh portal-kcaf portal-kcaf-dist
