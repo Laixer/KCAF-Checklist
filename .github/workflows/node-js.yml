@@ -55,7 +55,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}        
         port: 22
-        source: ${{ env.ARCHIVE }}
+        source: 'dist.*.tar.gz'
         target: '/tmp/'
    
     - name: Extract archive on remote server
