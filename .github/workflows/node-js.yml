@@ -30,9 +30,8 @@ jobs:
   deploy:
     name: Deploy
     env:
-      DEPLOY_NAME: portal-kcaf-dist
-      DEPLOY_DIRECTORY: portal-kcaf
-      ARCHIVE: portal-kcaf-dist.${{ github.sha }}.tar.gz
+      DEPLOY_NAME: portal-kcaf
+      ARCHIVE: portal-kcaf.${{ github.sha }}.tar.gz
 
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
@@ -61,7 +60,7 @@ jobs:
         source: ${{ env.ARCHIVE }}
         target: '/var/cache/deployment/tmp'
    
-    - name: Extract archive on remote server
+    - name: Running deploy script
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -71,4 +70,4 @@ jobs:
         script: |
           rm -rf /var/cache/deployment/current/${{ env.DEPLOY_NAME }}.*.tar.gz
           mv /var/cache/deployment/tmp/${{ env.ARCHIVE }} /var/cache/deployment/current/
-          /var/cache/deployment/deploy.sh ${{ env.DEPLOY_DIRECTORY }} ${{ env.DEPLOY_NAME }}
+          /var/cache/deployment/deploy.sh ${{ env.DEPLOY_NAME }}
