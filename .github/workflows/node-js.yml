@@ -68,6 +68,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
-          rm -rf /var/cache/deployment/current/${{ env.DEPLOY_NAME }}.*.tar.gz
+          mv /var/cache/deployment/current/${{ env.DEPLOY_NAME }}.*.tar.gz /var/cache/deployment/previous/
           mv /var/cache/deployment/tmp/${{ env.ARCHIVE }} /var/cache/deployment/current/
           /var/cache/deployment/deploy.sh ${{ env.DEPLOY_NAME }}
+          rm -f $(ls -1t /var/cache/deployment/previous/${{ env.DEPLOY_NAME }}.*.tar.gz | tail -n +5)
