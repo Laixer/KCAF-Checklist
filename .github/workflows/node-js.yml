@@ -47,6 +47,11 @@ jobs:
     - run: npm install
     - run: npm run build
 
+    - name: Package version
+      run: |
+        git describe --long --always > dist/VERSION
+        git rev-parse HEAD > dist/COMMIT
+
     - name: Create archive
       run: tar -czf ${{ env.ARCHIVE }} -C dist .
 
